@@ -4,7 +4,7 @@
 			<a href="<?= base_url() ?>"><img src="<?= base_url() ?>resources/img/icon.png" alt="MSF"></a>
 		</div>
 		<div class="right menu">
-<?
+<?php
 	if ( $this->authentication->is_signed_in() ) {
 		$picture = ( isset( $account_details->picture ) && trim( $account_details->picture ) ? base_url().RES_DIR.$account_details->picture : base_url( ) .'resources/img/user.png' );
 ?>
@@ -14,7 +14,7 @@
 			<div class="ui item sign-out">
 				<a href="<?= base_url() ?>account/sign_out">Cerrar Sesión</a>
 			</div>
-<?
+<?php
 	}
 	/*
 ?>
@@ -91,7 +91,7 @@
 					</div>
 				</div>
 			</div>
-	<?
+	<?php
 	*/
 	?>
 		</div>

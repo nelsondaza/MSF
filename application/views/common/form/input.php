@@ -22,13 +22,13 @@
 	if( $attributes['type'] != 'hidden' || ( isset( $field ) && !$field ) ) {
 ?>
 <div class="field <?= ( isset( $error ) && $error ? 'error' : '' ) ?>">
-<?
+<?php
 	}
 
 	if(  isset( $label ) && $label ) {
 ?>
 		<label class="control-label" for="<?= ( isset( $attributes['id'] ) && $attributes['id'] ? $attributes['id'] : '' ) ?>"><?= $label ?></label>
-<?
+<?php
 	}
 
 	switch( $attributes['type'] ) {
@@ -42,7 +42,7 @@
 			<div class="ui small form segment">
 				<?= $attributes['value'] ?>
 			</div>
-<?
+<?php
 			}
 			else
 				echo form_textarea( $attributes['name'], $attributes['value'] );
@@ -54,15 +54,15 @@
 			$options = ( isset( $options ) ? $options : array() );
 ?>
 			<div class="grouped fields">
-<?
+<?php
 				foreach( $options as $option ) {
 ?>
 				<div class="field">
-<?
+<?php
 					if ( $readonly ) {
 ?>
 					<span class="ui teal mini label"><?= $option['label'] ?></span>
-<?
+<?php
 					}
 					else {
 ?>
@@ -70,15 +70,15 @@
 						<input type="checkbox" name="<?= $option['name'] ?>" value="<?= $option['value'] ?>" <?= ( isset( $option['checked'] ) && $option['checked'] ? 'checked="checked"' : '' ) ?>>
 						<label><?= $option['label'] ?></label>
 					</div>
-<?
+<?php
 					}
 ?>
 				</div>
-<?
+<?php
 				}
 ?>
 			</div>
-<?
+<?php
 			break;
 		case 'dropdown':
 			echo form_dropdown( $attributes['name'], ( isset( $options ) ? $options : array() ),  ( isset( $selected ) ? $selected : array() ),' id="' . $attributes['id'] . '" class="chosen-select"' );
@@ -102,15 +102,15 @@
 				<div class="item">
 					<div class="ui tiny image"><?= $image ?></div>
 					<div class="content">
-<?
+<?php
 			if ( isset( $header ) && $header ) {
 ?>
 						<div class="header"><?= $header ?></div>
-<?
+<?php
 			}
 ?>
 						<div class="description field">
-<?
+<?php
 			if ( !isset( $image ) || !$image )
 				echo form_upload( $attributes );
 			else
@@ -120,7 +120,7 @@
 					</div>
 				</div>
 			</div>
-<?
+<?php
 			break;
 		case 'datetime':
 			if( $readonly ) {
@@ -129,7 +129,7 @@
 			<div class="ui small form segment">
 				<?= $attributes['value'] ?>
 			</div>
-<?
+<?php
 			}
 			else {
 				$attributes['type'] = 'text';
@@ -147,7 +147,7 @@
 						// '9999/19/39 29:59' - digit is the maximum possible for a cell
 					});
 				</script>
-<?
+<?php
 			}
 			break;
 		default:
@@ -157,7 +157,7 @@
 			<div class="ui small form segment">
 				<?= $attributes['value'] ?>
 			</div>
-<?
+<?php
 			}
 			else
 				echo form_input( $attributes );
@@ -166,10 +166,10 @@
 	if( $attributes['type'] != 'hidden' || ( isset( $field ) && !$field ) ) {
 ?>
 </div>
-<?
+<?php
 	}
 	if( !isset( $divider ) || $divider ) {
 ?>
 <div class="ui fitted divider"></div>
-<?
+<?php
 	}

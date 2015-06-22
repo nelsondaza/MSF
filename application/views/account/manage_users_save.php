@@ -12,7 +12,7 @@
 	<?= $this->load->view('common/menu', array('current' => 'manage_users') ) ?>
 	<div class="sub-header"><i class="icon users"></i> <?= lang("users_{$action}_page_name") ?></div>
 	<div class="section">
-<?
+<?php
     echo $this->load->view( 'common/breadcrumb', array(
         'path' => array(
             lang( 'users_page_name' )           => 'account/manage_users',
@@ -50,7 +50,7 @@
 	}
 ?>
 		<div class="ui tertiary segment container-form">
-<?
+<?php
 	echo form_open(uri_string(), 'class="ui form ' . ( !empty($errors) ? 'error' : '' ) . '"');
 
 	$this->load->view('common/form/input', array(
@@ -174,17 +174,17 @@
 	);
 ?>
 			<div class="field">
-<?
+<?php
 	if( $this->authorization->is_permitted('ban_users') && $action == 'update' ) {
 		if ( isset( $update_account->suspendedon ) ) {
 ?>
 			<?= form_button(array('name' => 'manage_user_unban', 'value' => lang('users_unban'), 'type' => 'submit', 'class' => 'ui submit positive button small left floated', 'content' => '<i class="ban icon"></i> ' . lang('users_unban'))); ?>
-<?
+<?php
 		}
 		else {
 ?>
 			<?= form_button(array('name' => 'manage_user_ban', 'value' => lang('users_ban'), 'type' => 'submit', 'class' => 'ui submit negative button small left floated', 'content' => '<i class="ban icon"></i> ' . lang('users_ban'))); ?>
-<?
+<?php
 		}
 	}
 ?>

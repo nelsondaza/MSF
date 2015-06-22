@@ -12,7 +12,7 @@
 	<?= $this->load->view('common/menu', array('current' => 'manage_' . $class) ) ?>
 	<div class="sub-header"><i class="flag icon"></i> <?= lang($class . "_{$action}_page_name") ?></div>
 	<div class="section">
-<?
+<?php
     echo $this->load->view( 'common/breadcrumb', array(
         'path' => array(
             lang( $class . '_page_name' ) => $scope . '/' . $class,
@@ -41,18 +41,18 @@
 ?>
 		<div class="ui pointing primary inverted menu">
 			<a class="active item" data-tab="gral"><?= lang('projects_tab_title') ?></a>
-<?
+<?php
 		foreach( $sources as $source )  {
 			if( isset( $source['dataSource'] ) ) {
 ?>
 				<a class="item" data-tab="<?= 'source_' . $source['id'] ?>"><?= $source['name'] ?></a>
-<?
+<?php
 			}
 		}
 ?>
 		</div>
 		<div class="ui tertiary active tab segment" data-tab="gral">
-<?
+<?php
 
     $this->load->view('common/form/input', array(
 			'error' => form_error('projects_field_name') || isset($field_name_error),
@@ -128,12 +128,12 @@
 
 ?>
 		</div>
-<?
+<?php
 		foreach( $sources as $source )  {
 			if( isset( $source['dataSource'] ) ) {
 ?>
 				<div class="ui tertiary tab segment" data-tab="<?= 'source_' . $source['id'] ?>">
-<?
+<?php
 				$this->load->view( $source['dataSource']->getManageProjectView( ), array(
 					'source' => $source,
 					'dataSource' => $source['dataSource'],
@@ -143,22 +143,22 @@
 				) );
 ?>
 				</div>
-<?
+<?php
 			}
 	}
 ?>
 		<div class="field">
-<?
+<?php
 	if( $this->authorization->is_permitted('delete_projects') && $action == 'update' ) {
 		if ( !$project['active'] ) {
 ?>
 			<?= form_button(array('name' => 'activate', 'value' => lang('activate'), 'type' => 'submit', 'class' => 'ui submit positive button small left floated', 'content' => '<i class="ban icon"></i> ' . lang('activate'))); ?>
-<?
+<?php
 		}
 		else {
 ?>
 			<?= form_button(array('name' => 'deactivate', 'value' => lang('deactivate'), 'type' => 'submit', 'class' => 'ui submit negative button small left floated', 'content' => '<i class="ban icon"></i> ' . lang('deactivate'))); ?>
-<?
+<?php
 		}
 	}
 ?>

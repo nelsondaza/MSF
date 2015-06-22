@@ -1,4 +1,4 @@
-<?
+<?php
 /**
  * Created by PhpStorm.
  * User: nelson.daza
@@ -19,7 +19,7 @@
 	</div>
 	<br>
 	<div class="ui vertical text menu accordion inverted dash sticky">
-<?
+<?php
 	echo anchor( '', '<i class="home icon"></i>' . lang( 'website_home' ), array( 'class' => 'item' . ( $current == 'home' ? ' active' : '' ) ) );
 
 	$active = ( in_array( $current, array( 'account_profile', 'account_settings', 'account_password' ) ) );
@@ -32,7 +32,7 @@
 				<?= anchor( 'account/account_password', lang( 'website_password' ), array( 'class' => 'item' . ( $current == 'account_password' ? ' active' : '' ) ) ) ?>
 			</div>
 		</div>
-<?
+<?php
 	/*
 	<?= anchor( 'account/account_linked', '<i class="user icon"></i> ' . lang( 'website_linked' ), array( 'class' => 'item' ) ) ?>
 	<i class="user icon"></i>
@@ -46,7 +46,7 @@
 		<div class="item <?= ( $active ? 'active' : '' ) ?>">
 			<a class="title <?= ( $active ? 'active' : '' ) ?>"><i class="users icon"></i><i class="dropdown icon"></i> Control de Acceso</a>
 			<div class="menu content <?= ( $active ? 'active' : '' ) ?>">
-<?
+<?php
 
 		if ( $this->authorization->is_permitted( 'retrieve_users' ) )
 			echo anchor( 'account/manage_users', '<i class="users icon"></i> ' . lang( 'website_manage_users' ), array( 'class' => 'item' . ( $current == 'manage_users' ? ' active' : '' ) ) );
@@ -60,7 +60,7 @@
 ?>
 			</div>
 		</div>
-<?
+<?php
 	}
 
 
@@ -72,7 +72,7 @@
 		<div class="item <?= ( $active ? 'active' : '' ) ?>">
 			<a class="title <?= ( $active ? 'active' : '' ) ?>"><i class="cloud icon"></i><i class="dropdown icon"></i> Cuentas</a>
 			<div class="menu content <?= ( $active ? 'active' : '' ) ?>">
-<?
+<?php
 		if ( $this->authorization->is_permitted( 'retrieve_clients' ) )
 			echo anchor( 'manage/clients', '<i class="world icon"></i> Clientes', array( 'class' => 'item' . ( $current == 'manage_clients' ? ' active' : '' ) ) );
 
@@ -88,7 +88,7 @@
 ?>
 			</div>
 		</div>
-<?
+<?php
 	}
 
 	if ( $this->authorization->is_permitted( array( 'retrieve_sources', 'retrieve_measures' ) ) ) {
@@ -98,7 +98,7 @@
 		<div class="item <?= ( $active ? 'active' : '' ) ?>">
 			<a class="title <?= ( $active ? 'active' : '' ) ?>"><i class="settings icon"></i><i class="dropdown icon"></i> Sistema</a>
 			<div class="menu content <?= ( $active ? 'active' : '' ) ?>">
-<?
+<?php
 		if ( $this->authorization->is_permitted( 'retrieve_sources' ) )
 			echo anchor( 'manage/sources', '<i class="crosshairs icon"></i> Fuentes', array( 'class' => 'item' . ( $current == 'manage_sources' ? ' active' : '' ) ) );
 
@@ -114,7 +114,7 @@
 ?>
 			</div>
 		</div>
-<?
+<?php
 	}
 ?>
 	</div>

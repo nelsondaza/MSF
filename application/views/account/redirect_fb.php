@@ -10,7 +10,7 @@
 <div id="fb-root"></div>
 <div class="container">
 	<div class="container-login">
-<?
+<?php
 	$this->load->view('common/message', array('class' => 'warning sign','content' => lang('linked_page_satement')) );
 ?>
 		<div class="ui tertiary segment container-form">

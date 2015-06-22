@@ -17,7 +17,7 @@
 				<div class="content">
 					<div class="header">Error de ingreso</div>
 					<p>
-<?
+<?php
 	$errors = array( );
 	if( isset( $sign_in_error ) )
 		$errors[] = $sign_in_error;

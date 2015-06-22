@@ -12,7 +12,7 @@
 	<?= $this->load->view('common/menu', array('current' => 'manage_' . $class) ) ?>
 	<div class="sub-header"><i class="bullseye icon"></i> <?= lang($class . "_{$action}_page_name") ?></div>
 	<div class="section">
-<?
+<?php
     echo $this->load->view( 'common/breadcrumb', array(
         'path' => array(
             lang( $class . '_page_name' ) => $scope . '/' . $class,
@@ -45,16 +45,16 @@
 ?>
 		<div class="ui pointing primary inverted menu">
 			<a class="active item" data-tab="gral"><?= lang('measures_tab_title') ?></a>
-<?
+<?php
 		if( isset( $measure['source_measure'] ) && $measure['source_measure'] ) {
 ?>
 			<a class="item" data-tab="measure"><?= lang( 'measures_config_tab_title' ) ?></a>
-<?
+<?php
 		}
 ?>
 		</div>
 		<div class="ui tertiary active tab segment" data-tab="gral">
-<?
+<?php
 
 	$this->load->view('common/form/input', array(
 			'error' => form_error('measures_field_name') || isset($field_name_error),
@@ -140,23 +140,23 @@
 			</script>
 		</div>
 		<div class="ui tertiary tab segment" data-tab="measure">
-<?
+<?php
 		if( isset( $measure['source_measure'] ) && $measure['source_measure'] )
 			$this->load->view( $scope . '/' . $class . '/' . $measure['source_measure'], $_ci_vars );
 ?>
 		</div>
 		<div class="field">
-<?
+<?php
 	if( $this->authorization->is_permitted('delete_measures') && $action == 'update' ) {
 		if ( !$measure['active'] ) {
 ?>
 			<?= form_button(array('name' => 'activate', 'value' => lang('activate'), 'type' => 'submit', 'class' => 'ui submit positive button small left floated', 'content' => '<i class="ban icon"></i> ' . lang('activate'))); ?>
-<?
+<?php
 		}
 		else {
 ?>
 			<?= form_button(array('name' => 'deactivate', 'value' => lang('deactivate'), 'type' => 'submit', 'class' => 'ui submit negative button small left floated', 'content' => '<i class="ban icon"></i> ' . lang('deactivate'))); ?>
-<?
+<?php
 		}
 	}
 ?>

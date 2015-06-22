@@ -10,7 +10,7 @@
 <?= $this->load->view('common/header') ?>
 	<div class="container">
 		<div class="container-login ">
-<?
+<?php
 	$errors = array( );
 	if( isset( $connect_create_error ) )
 		$errors[] = $connect_create_error;
@@ -34,7 +34,7 @@
 	}
 ?>
 			<div class="ui tertiary segment container-form">
-<?
+<?php
 	echo form_open_multipart(uri_string(), 'class="ui form ' . ( !empty($errors) ? 'error' : '' ) . '"');
 
 	$this->load->view('common/form/input', array(

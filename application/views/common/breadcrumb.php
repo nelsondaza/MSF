@@ -25,25 +25,25 @@
 	<div class="ui small breadcrumb">
 		<div class="divider"> / </div>
 		<a class="section" href="<?= base_url( ) ?>">Home</a>
-<?
+<?php
 	foreach( $path as $key => $value ) {
 ?>
 		<div class="divider"> / </div>
-<?
+<?php
 		if( $value ) {
 ?>
 		<a class="section" href="<?= base_url() . htmlentities( $value ) ?>"><?= htmlentities( $key ) ?></a>
-<?
+<?php
 		}
 		else {
 ?>
 		<span class="section active"><?= htmlentities( $key ) ?></span>
-<?
+<?php
 		}
 	}
 ?>
 	</div>
-<?
+<?php
 	if( isset( $attach ) )
 		echo $attach;
 ?>

@@ -12,7 +12,7 @@
 	<?= $this->load->view('common/menu', array('current' => 'manage_permissions') ) ?>
 	<div class="sub-header"><i class="privacy icon"></i> <?= lang('permissions_page_name') ?></div>
 	<div class="section">
-<?
+<?php
       $errors = array( );
       if( form_error('password_new_password') )
         $errors[] = form_error('password_new_password');

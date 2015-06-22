@@ -12,7 +12,7 @@
 	<?= $this->load->view('common/menu', array('current' => 'account_linked') ) ?>
 	<div class="sub-header"><i class="icon lock"></i> <?= lang('linked_page_name') ?></div>
 	<div class="section">
-<?
+<?php
 	$errors = array( );
 	if( $this->session->flashdata('linked_error') )
 		$errors[] = $this->session->flashdata('linked_error');
@@ -28,7 +28,7 @@
 	}
 ?>
             <h3><?php echo lang('linked_currently_linked_accounts'); ?></h3>
-<?
+<?php
 	if( $num_of_linked_accounts == 0 ) {
 		$this->load->view( 'common/message', array( 'type' => 'warning', 'class'   => 'warning sign', 'content' => lang( 'linked_no_linked_accounts' ) ) );
 	}
@@ -87,13 +87,13 @@
                     </div>
 					<?php endforeach; ?>
 				<?php endif; ?>
-<?
+<?php
 	}
 ?>
 
             <h3><?php echo lang('linked_link_with_your_account_from'); ?></h3>
 			<div class="ui raised segment">
-<?
+<?php
 				foreach ($this->config->item('third_party_auth_providers') as $provider) {
 					$class = strtolower( lang('connect_'.$provider) );
 					echo anchor( 'account/connect_' . $provider, '<i class="' . $class . ' icon"></i> ' . lang( 'connect_' . $provider ), array( 'class' => 'circular ui icon mini button ' . $class ) );

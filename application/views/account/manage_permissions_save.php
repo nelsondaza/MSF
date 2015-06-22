@@ -12,7 +12,7 @@
 	<?= $this->load->view('common/menu', array('current' => 'manage_permissions') ) ?>
 	<div class="sub-header"><i class="privacy icon"></i> <?= lang("permissions_{$action}_page_name") ?></div>
 	<div class="section">
-<?
+<?php
     echo $this->load->view( 'common/breadcrumb', array(
         'path' => array(
             lang( 'permissions_page_name' ) => 'account/manage_permissions',
@@ -39,7 +39,7 @@
 	}
 ?>
 		<div class="ui tertiary segment container-form">
-<?
+<?php
 	echo form_open(uri_string(), 'class="ui form ' . ( !empty($errors) ? 'error' : '' ) . '"');
 
       $this->load->view('common/form/input', array(
@@ -101,17 +101,17 @@
 
 ?>
 			<div class="field">
-<?
+<?php
 	if( $this->authorization->is_permitted('delete_permissions') && $action == 'update' && !$is_system ) {
 		if ( isset( $permission->suspendedon ) ) {
 ?>
 			<?= form_button(array('name' => 'manage_permission_unban', 'value' => lang('permissions_unban'), 'type' => 'submit', 'class' => 'ui submit positive button small left floated', 'content' => '<i class="ban icon"></i> ' . lang('permissions_unban'))); ?>
-<?
+<?php
 		}
 		else {
 ?>
 			<?= form_button(array('name' => 'manage_permission_ban', 'value' => lang('permissions_ban'), 'type' => 'submit', 'class' => 'ui submit negative button small left floated', 'content' => '<i class="ban icon"></i> ' . lang('permissions_ban'))); ?>
-<?
+<?php
 		}
 	}
 ?>

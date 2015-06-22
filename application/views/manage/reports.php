@@ -12,7 +12,7 @@
 	<?= $this->load->view('common/menu', array('current' => 'manage_' . $class ) ) ?>
 	<div class="sub-header"><i class="book icon"></i> <?= lang($class . '_page_name') ?></div>
 	<div class="section">
-<?
+<?php
     $this->load->view( 'common/message', array( 'content' => lang( $class . '_page_description' ) ) );
 
     $table = array( );

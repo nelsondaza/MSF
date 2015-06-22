@@ -12,7 +12,7 @@
 	<div class="container-login">
 		<?= form_open(uri_string(), 'class="ui inverted form' . ( form_error('forgot_password_username_email') || isset($forgot_password_username_email_error) ? ' error' : '' ) . '"') ?>
 
-		<? if (form_error('forgot_password_username_email') || isset($forgot_password_username_email_error)) { ?>
+		<?php if (form_error('forgot_password_username_email') || isset($forgot_password_username_email_error)) { ?>
 			<div class="ui icon error message">
 				<i class="attention circle icon"></i>
 				<div class="content">
@@ -20,14 +20,14 @@
 					<p><?= isset( $forgot_password_username_email_error ) ? $forgot_password_username_email_error : form_error('forgot_password_username_email') ?></p>
 				</div>
 			</div>
-		<? } ?>
+		<?php } ?>
 
 		<h3 class="inverted"><?= lang('forgot_password_page_name') ?></h3>
 		<div class="title-sep"><?= lang('forgot_password_instructions') ?></div>
 
 		<div class="field <?= (form_error('forgot_password_username_email') || isset($forgot_password_username_email_error)) ? 'error' : ''; ?>">
 			<label class="control-label" for="forgot_password_username_email"><?= lang('forgot_password_username_email'); ?></label>
-			<?
+			<?php
 				$value = set_value('forgot_password_username_email') ? set_value('forgot_password_username_email') : (isset($account) ? $account->username : '');
 				$value = str_replace(array('\'', '"'), ' ', $value);
 			?>

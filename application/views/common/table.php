@@ -32,18 +32,18 @@
 <table class="ui celled striped table small filters" style="width: auto">
 <thead>
 <tr>
-<?
+<?php
 			foreach( $fheads as $name => $index ) {
 ?>
 	<th><?= $name ?></th>
-<?
+<?php
 			}
 ?>
 </tr>
 </thead>
 <tbody>
 <tr class="ui form">
-<?
+<?php
 			foreach( $fheads as $name => $index ) {
 ?>
 	<td class="field">
@@ -51,43 +51,43 @@
 			<option value=""> - Todos - </option>
 		</select>
 	</td>
-<?
+<?php
 			}
 ?>
 </tr>
 </tbody>
 </table>
-<?
+<?php
 		}
 	}
 ?>
 <a class="ui black button mini" style="float: right" href="<?= base_url() ?>services/export/excel"><i class="file excel outline icon"></i> Excel</a>
 <table class="ui celled striped table small sortable ">
-<?
+<?php
 	if( !empty( $headers ) ) {
 ?>
 	<thead>
 	<tr>
-<?
+<?php
 		if( !empty( $rows_options ) )
 			echo '<th></th>';
 		foreach( $headers as $header ) {
 ?>
 			<th><?= $header ?></th>
-<?
+<?php
 		}
 ?>
 	</tr>
 	</thead>
-<?
+<?php
 	}
 ?>
 	<tbody>
-<?
+<?php
 		foreach( $rows as $index => $row ) {
 ?>
 	<tr>
-<?
+<?php
 			if( isset( $rows_options[$index] ) && $rows_options[$index] )
 				if( is_array( $rows_options[$index] ) )
 					echo '<td>' . implode(' ', $rows_options[$index] ) . '</td>';
@@ -97,17 +97,17 @@
 			foreach( $row as $cell ) {
 ?>
 		<td><?= $cell ?></td>
-<?
+<?php
 			}
 ?>
 	</tr>
-<?
+<?php
 		}
 ?>
 	</tbody>
 </table>
 <a class="ui black button mini" style="float: right" href="<?= base_url() ?>services/export/excel"><i class="file excel outline icon"></i> Excel</a>
-<?
+<?php
 	if( isset( $options ) )
 		echo $options;
 ?>

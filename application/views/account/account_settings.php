@@ -12,7 +12,7 @@
 	<?= $this->load->view('common/menu', array('current' => 'account_settings') ) ?>
 	<div class="sub-header"><i class="icon user"></i> <?= lang('settings_page_name') ?></div>
 	<div class="section">
-<?
+<?php
 	$errors = array( );
 	if( isset( $settings_email_error ) )
 		$errors[] = $settings_email_error;
@@ -42,7 +42,7 @@
 	}
 ?>
 		<div class="ui tertiary segment container-form">
-<?
+<?php
 	echo form_open_multipart(uri_string(), 'class="ui form ' . ( !empty($errors) ? 'error' : '' ) . '"');
 
 	$this->load->view('common/form/input', array(

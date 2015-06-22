@@ -12,7 +12,7 @@
 	<?= $this->load->view('common/menu', array('current' => 'manage_roles') ) ?>
 	<div class="sub-header"><i class="student icon"></i> <?= lang("roles_{$action}_page_name") ?></div>
 	<div class="section">
-<?
+<?php
     echo $this->load->view( 'common/breadcrumb', array(
         'path' => array(
             lang( 'roles_page_name' ) => 'account/manage_roles',
@@ -37,7 +37,7 @@
 	}
 ?>
 		<div class="ui tertiary segment container-form">
-<?
+<?php
 	echo form_open(uri_string(), 'class="ui form ' . ( !empty($errors) ? 'error' : '' ) . '"');
 
       $this->load->view('common/form/input', array(
@@ -99,17 +99,17 @@
 
 ?>
 			<div class="field">
-<?
+<?php
 	if( $this->authorization->is_permitted('delete_roles') && $action == 'update' && !$is_system ) {
 		if ( isset( $role->suspendedon ) ) {
 ?>
 			<?= form_button(array('name' => 'manage_role_unban', 'value' => lang('roles_unban'), 'type' => 'submit', 'class' => 'ui submit positive button small left floated', 'content' => '<i class="ban icon"></i> ' . lang('roles_unban'))); ?>
-<?
+<?php
 		}
 		else {
 ?>
 			<?= form_button(array('name' => 'manage_role_ban', 'value' => lang('roles_ban'), 'type' => 'submit', 'class' => 'ui submit negative button small left floated', 'content' => '<i class="ban icon"></i> ' . lang('roles_ban'))); ?>
-<?
+<?php
 		}
 	}
 ?>

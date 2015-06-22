@@ -16,6 +16,7 @@
         <div class="section">
             ...
         </div>
+        <div class="clearfix"></div>
     </div>
     <?= $this->load->view('common/footer') ?>
 </body>

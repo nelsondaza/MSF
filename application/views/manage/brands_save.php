@@ -12,7 +12,7 @@
 	<?= $this->load->view('common/menu', array('current' => 'manage_' . $class) ) ?>
 	<div class="sub-header"><i class="rocket icon"></i> <?= lang($class . "_{$action}_page_name") ?></div>
 	<div class="section">
-<?
+<?php
     echo $this->load->view( 'common/breadcrumb', array(
         'path' => array(
             lang( $class . '_page_name' ) => $scope . '/' . $class,
@@ -39,7 +39,7 @@
 
 ?>
 		<div class="ui tertiary segment container-form">
-<?
+<?php
 	echo form_open_multipart(uri_string(), 'class="ui form ' . ( !empty($errors) ? 'error' : '' ) . '"');
 
       $this->load->view('common/form/input', array(
@@ -112,17 +112,17 @@
 
 ?>
 			<div class="field">
-<?
+<?php
 	if( $this->authorization->is_permitted('delete_brands') && $action == 'update' ) {
 		if ( !$brand['active'] ) {
 ?>
 			<?= form_button(array('name' => 'activate', 'value' => lang('activate'), 'type' => 'submit', 'class' => 'ui submit positive button small left floated', 'content' => '<i class="ban icon"></i> ' . lang('activate'))); ?>
-<?
+<?php
 		}
 		else {
 ?>
 			<?= form_button(array('name' => 'deactivate', 'value' => lang('deactivate'), 'type' => 'submit', 'class' => 'ui submit negative button small left floated', 'content' => '<i class="ban icon"></i> ' . lang('deactivate'))); ?>
-<?
+<?php
 		}
 	}
 ?>

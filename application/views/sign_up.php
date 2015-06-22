@@ -10,7 +10,7 @@
 <?= $this->load->view('common/header') ?>
 	<div class="container">
 		<div class="container-login ">
-<?
+<?php
 	if ( !( $this->config->item("sign_up_enabled" ) ) ) {
 ?>
 			<h3 class="inverted"><?= lang( 'sign_up_heading' ); ?></h3>
@@ -23,7 +23,7 @@
 				<br/>
 				<?= lang('sign_up_already_have_account'); ?> <?= anchor( '', '<i class="sign in icon"></i> ' . lang( 'sign_up_sign_in_now' ), array( 'class' => 'ui submit button small right floated' ) ); ?>
 			</p>
-<?
+<?php
 	}
 	else {
 ?>
@@ -96,14 +96,14 @@
 
 			<h3><?php echo lang('sign_up_third_party_heading'); ?></h3>
 			<div class="ui inverted segment">
-<?
+<?php
 		foreach ($this->config->item('third_party_auth_providers') as $provider) {
 			$class = strtolower( lang('connect_'.$provider) );
 			echo anchor( 'account/connect_' . $provider, '<i class="' . $class . ' icon"></i> ' . lang( 'connect_' . $provider ), array( 'class' => 'circular ui icon mini button ' . $class ) );
 		}
 ?>
 			</div>
-<?
+<?php
 	}
 ?>
 			<div class="clearfix"></div>

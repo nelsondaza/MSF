@@ -12,7 +12,7 @@
 	<?= $this->load->view('common/menu', array('current' => 'account_profile') ) ?>
 	<div class="sub-header"><i class="icon user"></i> <?= lang('profile_page_name') ?></div>
 	<div class="section">
-<?
+<?php
 	$errors = array( );
 	if( isset( $profile_username_error ) )
 		$errors[] = $profile_username_error;
@@ -34,7 +34,7 @@
 	}
 ?>
 		<div class="ui tertiary segment container-form">
-<?
+<?php
 	echo form_open_multipart(uri_string(), 'class="ui form ' . ( !empty($errors) ? 'error' : '' ) . '"');
 
 	$this->load->view('common/form/input', array(

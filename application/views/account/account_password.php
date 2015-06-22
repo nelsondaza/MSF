@@ -12,7 +12,7 @@
 	<?= $this->load->view('common/menu', array('current' => 'account_password') ) ?>
 	<div class="sub-header"><i class="icon lock"></i> <?= lang('password_page_name') ?></div>
 	<div class="section">
-<?
+<?php
 	$errors = array( );
 	if( form_error('password_new_password') )
 		$errors[] = form_error('password_new_password');
@@ -30,7 +30,7 @@
 	}
 ?>
 		<div class="ui tertiary segment container-form">
-<?
+<?php
 	echo form_open(uri_string(), 'class="ui form ' . ( !empty($errors) ? 'error' : '' ) . '"');
 
 	$this->load->view('common/form/input', array(

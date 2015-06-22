@@ -6,7 +6,7 @@
 <title><?= isset($title) ? $title.' - '.lang('website_title') : lang('website_title') ?></title>
 <meta name="description" content="">
 <meta name="keywords" content="" />
-<?
+<?php
 	/*
 	<base href="<?= base_url() ?>"/>
 	*/
@@ -20,7 +20,7 @@
 <link rel="stylesheet" href="<?= base_url() ?>resources/css/main.css">
 <link rel="shortcut icon" href="<?= base_url() ?>favicon.ico"/>
 <script src="<?= base_url() ?>resources/js/vendor/modernizr-2.6.2.min.js"></script>
-<?
+<?php
 	/*
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script>window.jQuery || document.write('<script src="<?= base_url() ?>resources/js/vendor/jquery-1.10.2.min.js"><\/script>')</script>

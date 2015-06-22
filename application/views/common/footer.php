@@ -7,7 +7,7 @@
         </div>
     </div>
 </div>
-<?
+<?php
 /*
 <script>
     (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=

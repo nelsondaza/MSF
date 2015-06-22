@@ -12,7 +12,7 @@
 	<?= $this->load->view('common/menu', array('current' => 'manage_' . $class) ) ?>
 	<div class="sub-header"><i class="crosshairs icon"></i> <?= lang($class . "_{$action}_page_name") ?></div>
 	<div class="section">
-<?
+<?php
     echo $this->load->view( 'common/breadcrumb', array(
         'path' => array(
             lang( $class . '_page_name' ) => $scope . '/' . $class,
@@ -57,17 +57,17 @@
 ?>
 		<div class="ui pointing primary inverted menu">
 			<a class="active item" data-tab="gral"><?= lang('sources_tab_title') ?></a>
-<?
+<?php
 	foreach( $sourceTabViews as $vName => $vKey )  {
 ?>
 			<a class="item" data-tab="<?= preg_replace( '/([^a-z0-9]+)/i', '', $vKey ) ?>"><?= $vName ?></a>
-<?
+<?php
 
 	}
 ?>
 		</div>
 		<div class="ui tertiary active tab segment" data-tab="gral">
-<?
+<?php
 	$this->load->view('common/form/input', array(
 			'error' => form_error('sources_field_name') || isset($sources_field_name_error),
 	        'label' => lang('sources_field_name'),
@@ -132,30 +132,30 @@
 
 ?>
 		</div>
-<?
+<?php
 	foreach( $sourceTabViews as $vName => $vKey )  {
 ?>
 		<div class="ui tertiary tab segment" data-tab="<?= preg_replace( '/([^a-z0-9]+)/i', '', $vKey ) ?>">
-<?
+<?php
 		$this->load->view( $vKey, $_ci_vars );
 ?>
 		</div>
-<?
+<?php
 
 	}
 ?>
 		<div class="field">
-<?
+<?php
 	if( $this->authorization->is_permitted('delete_sources') && $action == 'update' ) {
 		if ( !$source['active'] ) {
 ?>
 			<?= form_button(array('name' => 'activate', 'value' => lang('activate'), 'type' => 'submit', 'class' => 'ui submit positive button small left floated', 'content' => '<i class="ban icon"></i> ' . lang('activate'))); ?>
-<?
+<?php
 		}
 		else {
 ?>
 			<?= form_button(array('name' => 'deactivate', 'value' => lang('deactivate'), 'type' => 'submit', 'class' => 'ui submit negative button small left floated', 'content' => '<i class="ban icon"></i> ' . lang('deactivate'))); ?>
-<?
+<?php
 		}
 	}
 ?>

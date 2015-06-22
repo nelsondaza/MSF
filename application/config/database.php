@@ -42,9 +42,9 @@ $active_group = 'default';
 $active_record = TRUE;
 
 $db['default']['hostname'] = 'localhost';
-$db['default']['username'] = 'root';
-$db['default']['password'] = 'mysql';
-$db['default']['database'] = 'msf';
+$db['default']['username'] = 'nelsonda_msf';
+$db['default']['password'] = 'msfmsf';
+$db['default']['database'] = 'nelsonda_msf';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = FALSE;
@@ -57,6 +57,14 @@ $db['default']['swap_pre'] = '';
 $db['default']['autoinit'] = TRUE;
 $db['default']['stricton'] = FALSE;
 
+	if( $_SERVER['SERVER_ADDR'] == '127.0.0.1' ) {
+		echo "JA";
 
-/* End of file database.php */
+		$db['default']['username'] = 'root';
+		$db['default']['password'] = 'mysql';
+		$db['default']['database'] = 'msf';
+	}
+
+
+	/* End of file database.php */
 /* Location: ./application/config/database.php */

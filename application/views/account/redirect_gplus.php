@@ -9,7 +9,7 @@
 <body class="clean">
 <div class="container">
 	<div class="container-login">
-<?
+<?php
 	$this->load->view('common/message', array('class' => 'warning sign','content' => lang('linked_page_satement')) );
 
 	$url = 'https://accounts.google.com/o/oauth2/auth?scope=' .
