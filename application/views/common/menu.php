@@ -13,19 +13,20 @@
 		$current = '';
 
 ?>
-<div class="main-menu">
-	<div class="sub-header">
-		<img src="<?= base_url() ?>resources/img/stats.jpg" alt="" height="25"> <?= lang( 'website_title' ) ?>
+<div class="ui vertical inverted sidebar menu" id="toc">
+	<div class="item">
+		<a class="ui logo icon image" href="<?= base_url() ?>">
+			<img src="<?= base_url() ?>resources/img/icon.png" alt="MSF">
+		</a>
+		<a href="<?= base_url() ?>"><b>Médicos Sin Fronteras</b></a>
 	</div>
-	<br>
-	<div class="ui vertical text menu accordion inverted dash sticky">
 <?php
-	echo anchor( '', '<i class="home icon"></i>' . lang( 'website_home' ), array( 'class' => 'item' . ( $current == 'home' ? ' active' : '' ) ) );
+	echo anchor( base_url(), '<i class="home icon"></i>' . lang( 'website_home' ), array( 'class' => 'item' . ( $current == 'home' ? ' active' : '' ) ) );
 
 	$active = ( in_array( $current, array( 'account_profile', 'account_settings', 'account_password' ) ) );
 ?>
 		<div class="item <?= ( $active ? 'active' : '' ) ?>">
-			<a class="title <?= ( $active ? 'active' : '' ) ?>"><i class="user icon"></i><i class="dropdown icon"></i> Mi Cuenta</a>
+			<a class="title <?= ( $active ? 'active' : '' ) ?>"><i class="user icon"></i> Mi Cuenta</a>
 			<div class="menu content <?= ( $active ? 'active' : '' ) ?>">
 				<?= anchor( 'account/account_profile', lang( 'website_profile' ), array( 'class' => 'item' . ( $current == 'account_profile' ? ' active' : '' ) ) ) ?>
 				<?= anchor( 'account/account_settings', lang( 'website_account' ), array( 'class' => 'item' . ( $current == 'account_settings' ? ' active' : '' ) ) ) ?>
@@ -33,18 +34,14 @@
 			</div>
 		</div>
 <?php
-	/*
-	<?= anchor( 'account/account_linked', '<i class="user icon"></i> ' . lang( 'website_linked' ), array( 'class' => 'item' ) ) ?>
-	<i class="user icon"></i>
-	<div class="header item">Administración</div>
-	*/
+
 	if ( $this->authorization->is_permitted( array( 'retrieve_users', 'retrieve_roles', 'retrieve_permissions' ) ) ) {
 
 		$active = ( in_array( $current, array( 'manage_users', 'manage_roles', 'manage_permissions' ) ) );
 
 ?>
 		<div class="item <?= ( $active ? 'active' : '' ) ?>">
-			<a class="title <?= ( $active ? 'active' : '' ) ?>"><i class="users icon"></i><i class="dropdown icon"></i> Control de Acceso</a>
+			<a class="title <?= ( $active ? 'active' : '' ) ?>"><i class="users icon"></i> Control de Acceso</a>
 			<div class="menu content <?= ( $active ? 'active' : '' ) ?>">
 <?php
 
@@ -63,59 +60,44 @@
 <?php
 	}
 
-
-	if ( $this->authorization->is_permitted( array( 'retrieve_clients', 'retrieve_brands', 'retrieve_projects', 'retrieve_reports' ) ) ) {
-
-		$active = ( in_array( $current, array( 'manage_clients', 'manage_brands', 'manage_projects', 'manage_reports' ) ) );
-
-?>
-		<div class="item <?= ( $active ? 'active' : '' ) ?>">
-			<a class="title <?= ( $active ? 'active' : '' ) ?>"><i class="cloud icon"></i><i class="dropdown icon"></i> Cuentas</a>
-			<div class="menu content <?= ( $active ? 'active' : '' ) ?>">
-<?php
-		if ( $this->authorization->is_permitted( 'retrieve_clients' ) )
-			echo anchor( 'manage/clients', '<i class="world icon"></i> Clientes', array( 'class' => 'item' . ( $current == 'manage_clients' ? ' active' : '' ) ) );
-
-		if ( $this->authorization->is_permitted( 'retrieve_brands' ) )
-			echo anchor( 'manage/brands', '<i class="rocket icon"></i> Marcas', array( 'class' => 'item' . ( $current == 'manage_brands' ? ' active' : '' ) ) );
-
-		if ( $this->authorization->is_permitted( 'retrieve_projects' ) )
-			echo anchor( 'manage/projects', '<i class="flag icon"></i> Proyectos', array( 'class' => 'item' . ( $current == 'manage_projects' ? ' active' : '' ) ) );
-
-		if ( $this->authorization->is_permitted( 'retrieve_reports' ) )
-			echo anchor( 'manage/reports', '<i class="book icon"></i> Reportes', array( 'class' => 'item' . ( $current == 'manage_reports' ? ' active' : '' ) ) );
-
-?>
-			</div>
-		</div>
-<?php
-	}
-
 	if ( $this->authorization->is_permitted( array( 'retrieve_sources', 'retrieve_measures' ) ) ) {
 		$active = ( in_array( $current, array( 'manage_sources', 'manage_measures' ) ) );
 
 ?>
 		<div class="item <?= ( $active ? 'active' : '' ) ?>">
-			<a class="title <?= ( $active ? 'active' : '' ) ?>"><i class="settings icon"></i><i class="dropdown icon"></i> Sistema</a>
+			<a class="title <?= ( $active ? 'active' : '' ) ?>"><i class="settings icon"></i> Sistema</a>
 			<div class="menu content <?= ( $active ? 'active' : '' ) ?>">
 <?php
-		if ( $this->authorization->is_permitted( 'retrieve_sources' ) )
-			echo anchor( 'manage/sources', '<i class="crosshairs icon"></i> Fuentes', array( 'class' => 'item' . ( $current == 'manage_sources' ? ' active' : '' ) ) );
+		echo anchor( 'manage/regions', '<i class="crosshairs icon"></i> Regiones', array( 'class' => 'item' . ( $current == 'manage_regions' ? ' active' : '' ) ) );
+		echo anchor( 'manage/cities', '<i class="crosshairs icon"></i> Ciudades', array( 'class' => 'item' . ( $current == 'manage_cities' ? ' active' : '' ) ) );
+		echo anchor( 'manage/villages', '<i class="crosshairs icon"></i> Comunas', array( 'class' => 'item' . ( $current == 'manage_villages' ? ' active' : '' ) ) );
+		echo anchor( 'manage/districts', '<i class="crosshairs icon"></i> Barrios', array( 'class' => 'item' . ( $current == 'manage_districts' ? ' active' : '' ) ) );
+		echo anchor( 'manage/interventions_places', '<i class="crosshairs icon"></i> Lugares de Interveción', array( 'class' => 'item' . ( $current == 'manage_interventions_places' ? ' active' : '' ) ) );
+		echo anchor( 'manage/experts', '<i class="crosshairs icon"></i> Especialistas', array( 'class' => 'item' . ( $current == 'manage_experts' ? ' active' : '' ) ) );
+		echo anchor( 'manage/origin_places', '<i class="crosshairs icon"></i> Lugares de Origen', array( 'class' => 'item' . ( $current == 'manage_origin_places' ? ' active' : '' ) ) );
+		echo anchor( 'manage/symptoms_categoriies', '<i class="crosshairs icon"></i> Síntomas - Categorías', array( 'class' => 'item' . ( $current == 'manage_symptoms_categoriies' ? ' active' : '' ) ) );
+		echo anchor( 'manage/symptoms', '<i class="crosshairs icon"></i> Síntomas', array( 'class' => 'item' . ( $current == 'manage_symptoms' ? ' active' : '' ) ) );
+		echo anchor( 'manage/risks_categories', '<i class="crosshairs icon"></i> Riesgos - Categorías', array( 'class' => 'item' . ( $current == 'manage_risks_categories' ? ' active' : '' ) ) );
+		echo anchor( 'manage/risks', '<i class="crosshairs icon"></i> Riesgos', array( 'class' => 'item' . ( $current == 'manage_risks' ? ' active' : '' ) ) );
+		echo anchor( 'manage/visits_types', '<i class="crosshairs icon"></i> Tipos de Consulta', array( 'class' => 'item' . ( $current == 'manage_visits_types' ? ' active' : '' ) ) );
+		echo anchor( 'manage/references_categories', '<i class="crosshairs icon"></i> Riesgos - Categorías', array( 'class' => 'item' . ( $current == 'manage_references_categories' ? ' active' : '' ) ) );
+		echo anchor( 'manage/references', '<i class="crosshairs icon"></i> Riesgos', array( 'class' => 'item' . ( $current == 'manage_references' ? ' active' : '' ) ) );
+		echo anchor( 'manage/closures', '<i class="crosshairs icon"></i> Cierres', array( 'class' => 'item' . ( $current == 'manage_closures' ? ' active' : '' ) ) );
+		echo anchor( 'manage/closures_conditions', '<i class="crosshairs icon"></i> Condición en Cierre', array( 'class' => 'item' . ( $current == 'closures_conditions' ? ' active' : '' ) ) );
+		echo anchor( 'manage/diagnostics', '<i class="crosshairs icon"></i> Diagnósticos Clínicos', array( 'class' => 'item' . ( $current == 'diagnostics' ? ' active' : '' ) ) );
+		echo anchor( 'manage/followups_types', '<i class="crosshairs icon"></i> Tipos de consultas de seguimiento', array( 'class' => 'item' . ( $current == 'followups_types' ? ' active' : '' ) ) );
+		echo anchor( 'manage/interventions_types', '<i class="crosshairs icon"></i> Tipo de Intervenciones SMPS', array( 'class' => 'item' . ( $current == 'manage_interventions_types' ? ' active' : '' ) ) );
+		echo anchor( 'manage/educations', '<i class="crosshairs icon"></i> Educación', array( 'class' => 'item' . ( $current == 'manage_educations' ? ' active' : '' ) ) );
+		echo anchor( 'manage/events_categories', '<i class="crosshairs icon"></i> Categoría de Eventos/Acontecimientos', array( 'class' => 'item' . ( $current == 'manage_events_categories' ? ' active' : '' ) ) );
 
-		if ( $this->authorization->is_permitted( 'retrieve_measures' ) )
-			echo anchor( 'manage/measures', '<i class="bullseye icon"></i> Mediciones', array( 'class' => 'item' . ( $current == 'manage_measures' ? ' active' : '' ) ) );
-/*
-		if ( $this->authorization->is_permitted( 'retrieve_projects' ) )
-			echo anchor( 'manage/projects', '<i class="flag icon"></i> Proyectos', array( 'class' => 'item' . ( $current == 'manage_projects' ? ' active' : '' ) ) );
-
-		if ( $this->authorization->is_permitted( 'retrieve_reports' ) )
-			echo anchor( 'manage/reports', '<i class="book icon"></i> Reportes', array( 'class' => 'item' . ( $current == 'manage_reports' ? ' active' : '' ) ) );
-*/
 ?>
 			</div>
 		</div>
 <?php
 	}
 ?>
-	</div>
+</div>
+<div class="ui black big launch right attached fixed button">
+	<i class="content icon"></i>
+	<span class="text">Menú</span>
 </div>

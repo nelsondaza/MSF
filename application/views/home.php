@@ -7,16 +7,14 @@
     <?= $this->load->view('common/head', array('title' => lang('website_home') ) ) ?>
 </head>
 <body>
-    <?= $this->load->view('common/header') ?>
+    <?= $this->load->view('common/header', array('current' => 'home')) ?>
     <div class="container content">
-        <?= $this->load->view('common/menu', array('current' => 'home') ) ?>
         <div class="sub-header">
             <i class="icon home"></i> <?= lang('website_home') ?>
         </div>
         <div class="section">
             ...
         </div>
-        <div class="clearfix"></div>
     </div>
     <?= $this->load->view('common/footer') ?>
 </body>

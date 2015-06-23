@@ -2,47 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2031ac1b-b093-4856-b7e7-32023e1522f0" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/css/10-body.less" afterPath="$PROJECT_DIR$/resources/css/10-body.less" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/account/account_linked.php" afterPath="$PROJECT_DIR$/application/views/account/account_linked.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/account/account_password.php" afterPath="$PROJECT_DIR$/application/views/account/account_password.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/account/account_profile.php" afterPath="$PROJECT_DIR$/application/views/account/account_profile.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/account/account_settings.php" afterPath="$PROJECT_DIR$/application/views/account/account_settings.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/manage/brands.php" afterPath="$PROJECT_DIR$/application/views/manage/brands.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/manage/brands_save.php" afterPath="$PROJECT_DIR$/application/views/manage/brands_save.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/common/breadcrumb.php" afterPath="$PROJECT_DIR$/application/views/common/breadcrumb.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/manage/clients.php" afterPath="$PROJECT_DIR$/application/views/manage/clients.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/manage/clients_save.php" afterPath="$PROJECT_DIR$/application/views/manage/clients_save.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/account/connect_create.php" afterPath="$PROJECT_DIR$/application/views/account/connect_create.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/account/connect_openid.php" afterPath="$PROJECT_DIR$/application/views/account/connect_openid.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/config/database.php" afterPath="$PROJECT_DIR$/application/config/database.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/common/footer.php" afterPath="$PROJECT_DIR$/application/views/common/footer.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/account/forgot_password.php" afterPath="$PROJECT_DIR$/application/views/account/forgot_password.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/common/head.php" afterPath="$PROJECT_DIR$/application/views/common/head.php" />
+      <change type="DELETED" beforePath="C:\web_apps\desarrollo\MSF\resources\css\vendor\themes\default\assets\fonts\icons.eot" afterPath="" />
+      <change type="DELETED" beforePath="C:\web_apps\desarrollo\MSF\resources\css\vendor\themes\default\assets\fonts\icons.otf" afterPath="" />
+      <change type="DELETED" beforePath="C:\web_apps\desarrollo\MSF\resources\css\vendor\themes\default\assets\fonts\icons.svg" afterPath="" />
+      <change type="DELETED" beforePath="C:\web_apps\desarrollo\MSF\resources\css\vendor\themes\default\assets\fonts\icons.ttf" afterPath="" />
+      <change type="DELETED" beforePath="C:\web_apps\desarrollo\MSF\resources\css\vendor\themes\default\assets\fonts\icons.woff" afterPath="" />
+      <change type="DELETED" beforePath="C:\web_apps\desarrollo\MSF\resources\css\vendor\themes\default\assets\images\flags.png" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/css/10-menu-vertical.less" afterPath="$PROJECT_DIR$/resources/css/10-menu-vertical.less" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/css/10-menu.less" afterPath="$PROJECT_DIR$/resources/css/10-menu.less" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/common/header.php" afterPath="$PROJECT_DIR$/application/views/common/header.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/home.php" afterPath="$PROJECT_DIR$/application/views/home.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/common/form/input.php" afterPath="$PROJECT_DIR$/application/views/common/form/input.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/css/vendor/themes/basic/assets/fonts/icons.svg" afterPath="$PROJECT_DIR$/resources/css/vendor/themes/basic/assets/fonts/icons.svg" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/css/main.css" afterPath="$PROJECT_DIR$/resources/css/main.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/css/main.less" afterPath="$PROJECT_DIR$/resources/css/main.less" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/account/manage_permissions.php" afterPath="$PROJECT_DIR$/application/views/account/manage_permissions.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/account/manage_permissions_save.php" afterPath="$PROJECT_DIR$/application/views/account/manage_permissions_save.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/account/manage_roles.php" afterPath="$PROJECT_DIR$/application/views/account/manage_roles.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/account/manage_roles_save.php" afterPath="$PROJECT_DIR$/application/views/account/manage_roles_save.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/account/manage_users.php" afterPath="$PROJECT_DIR$/application/views/account/manage_users.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/account/manage_users_save.php" afterPath="$PROJECT_DIR$/application/views/account/manage_users_save.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/manage/measures.php" afterPath="$PROJECT_DIR$/application/views/manage/measures.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/manage/measures_save.php" afterPath="$PROJECT_DIR$/application/views/manage/measures_save.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/js/main.js" afterPath="$PROJECT_DIR$/resources/js/main.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/common/menu.php" afterPath="$PROJECT_DIR$/application/views/common/menu.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/manage/projects.php" afterPath="$PROJECT_DIR$/application/views/manage/projects.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/manage/projects_save.php" afterPath="$PROJECT_DIR$/application/views/manage/projects_save.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/account/redirect_fb.php" afterPath="$PROJECT_DIR$/application/views/account/redirect_fb.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/account/redirect_gplus.php" afterPath="$PROJECT_DIR$/application/views/account/redirect_gplus.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/manage/reports.php" afterPath="$PROJECT_DIR$/application/views/manage/reports.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/manage/reports_save.php" afterPath="$PROJECT_DIR$/application/views/manage/reports_save.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/sign_in.php" afterPath="$PROJECT_DIR$/application/views/sign_in.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/sign_up.php" afterPath="$PROJECT_DIR$/application/views/sign_up.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/manage/sources.php" afterPath="$PROJECT_DIR$/application/views/manage/sources.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/manage/sources_save.php" afterPath="$PROJECT_DIR$/application/views/manage/sources_save.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/common/table.php" afterPath="$PROJECT_DIR$/application/views/common/table.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/css/vendor/semantic.min.css" afterPath="$PROJECT_DIR$/resources/css/vendor/semantic.min.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/js/vendor/semantic.min.js" afterPath="$PROJECT_DIR$/resources/js/vendor/semantic.min.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="MSF.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -64,21 +40,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="footer.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application/views/common/footer.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-6.5384617">
-              <caret line="19" column="2" selection-start-line="19" selection-start-column="2" selection-end-line="19" selection-end-column="2" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="home.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/application/views/home.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.056604">
-              <caret line="22" column="7" selection-start-line="22" selection-start-column="7" selection-end-line="22" selection-end-column="7" />
+            <state vertical-scroll-proportion="-5.773585">
+              <caret line="18" column="45" selection-start-line="18" selection-start-column="45" selection-end-line="18" selection-end-column="45" />
               <folding />
             </state>
           </provider>
@@ -88,22 +54,12 @@
         <entry file="file://$PROJECT_DIR$/resources/js/main.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="165" column="0" selection-start-line="165" selection-start-column="0" selection-end-line="165" selection-end-column="0" />
+              <caret line="21" column="43" selection-start-line="21" selection-start-column="43" selection-end-line="21" selection-end-column="43" />
               <folding>
-                <element signature="e#526#1998#0" expanded="false" />
-                <element signature="e#2084#3472#0" expanded="false" />
+                <element signature="e#855#2327#0" expanded="false" />
+                <element signature="e#2413#3801#0" expanded="false" />
                 <element signature="n#!!block;n#flow#0" expanded="false" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="10-boilerplate.less" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/css/10-boilerplate.less">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-8.5">
-              <caret line="52" column="51" selection-start-line="52" selection-start-column="51" selection-end-line="52" selection-end-column="51" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -118,12 +74,56 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="10-body.less" pinned="false" current-in-tab="true">
+      <file leaf-file-name="10-body.less" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/css/10-body.less">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.47145188">
-              <caret line="20" column="10" selection-start-line="20" selection-start-column="10" selection-end-line="20" selection-end-column="10" />
+            <state vertical-scroll-proportion="-9.807693">
+              <caret line="18" column="1" selection-start-line="18" selection-start-column="1" selection-end-line="18" selection-end-column="1" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="menu.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/application/views/common/menu.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.14611872">
+              <caret line="62" column="0" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
+              <folding>
+                <marker date="1435095840431" expanded="true" signature="6945:7014" placeholder="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="10-menu.less" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/css/10-menu.less">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-9.576923">
+              <caret line="46" column="23" selection-start-line="46" selection-start-column="23" selection-end-line="46" selection-end-column="23" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="10-menu-vertical.less" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/css/10-menu-vertical.less">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-5.230769">
+              <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="header.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/application/views/common/header.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-1.9615384">
+              <caret line="101" column="0" selection-start-line="101" selection-start-column="0" selection-end-line="101" selection-end-column="0" />
+              <folding>
+                <element signature="n#div#0;n#!!top" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -151,8 +151,6 @@
         <option value="$PROJECT_DIR$/application/views/common/breadcrumb.php" />
         <option value="$PROJECT_DIR$/application/views/common/footer.php" />
         <option value="$PROJECT_DIR$/application/views/common/head.php" />
-        <option value="$PROJECT_DIR$/application/views/common/header.php" />
-        <option value="$PROJECT_DIR$/application/views/common/menu.php" />
         <option value="$PROJECT_DIR$/application/views/common/table.php" />
         <option value="$PROJECT_DIR$/application/views/manage/brands.php" />
         <option value="$PROJECT_DIR$/application/views/manage/brands_save.php" />
@@ -183,9 +181,14 @@
         <option value="$PROJECT_DIR$/application/views/account/manage_users_save.php" />
         <option value="$PROJECT_DIR$/application/views/account/redirect_fb.php" />
         <option value="$PROJECT_DIR$/application/views/account/redirect_gplus.php" />
-        <option value="$PROJECT_DIR$/application/views/home.php" />
         <option value="$PROJECT_DIR$/resources/css/main.less" />
         <option value="$PROJECT_DIR$/resources/css/10-body.less" />
+        <option value="$PROJECT_DIR$/resources/css/10-menu-vertical.less" />
+        <option value="$PROJECT_DIR$/resources/js/main.js" />
+        <option value="$PROJECT_DIR$/application/views/home.php" />
+        <option value="$PROJECT_DIR$/application/views/common/header.php" />
+        <option value="$PROJECT_DIR$/resources/css/10-menu.less" />
+        <option value="$PROJECT_DIR$/application/views/common/menu.php" />
       </list>
     </option>
   </component>
@@ -195,6 +198,9 @@
   </component>
   <component name="NamedScopeManager">
     <order />
+  </component>
+  <component name="PhpServers">
+    <servers />
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
@@ -293,6 +299,46 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MSF" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MSF" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="resources" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="vendor" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MSF" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MSF" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="resources" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="css" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -315,8 +361,8 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="main.less" />
-              <option name="myItemType" value="com.intellij.plugins.watcher.projectView.NestingTreeNode" />
+              <option name="myItemId" value="vendor" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -382,6 +428,12 @@
     <property name="settings.editor.selected.configurable" value="watcher.settings" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
   </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\web_apps\desarrollo\MSF\resources\css\vendor" />
+      <recent name="C:\web_apps\desarrollo\MSF\resources\js\vendor" />
+    </key>
+  </component>
   <component name="ShelveChangesManager" show_recycled="false" />
   <component name="SvnConfiguration">
     <configuration />
@@ -410,7 +462,7 @@
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32992035" sideWeight="0.49755502" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24118316" sideWeight="0.502445" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19112629" sideWeight="0.502445" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -420,6 +472,14 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
     </layout>
   </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+      <collection />
+    </option>
+  </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
@@ -428,59 +488,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/application/views/common/message.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/views/common/table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-68.0">
-          <caret line="34" column="5" selection-start-line="34" selection-start-column="5" selection-end-line="34" selection-end-column="5" />
-          <caret line="38" column="5" selection-start-line="38" selection-start-column="5" selection-end-line="38" selection-end-column="5" />
-          <caret line="45" column="5" selection-start-line="45" selection-start-column="5" selection-end-line="45" selection-end-column="5" />
-          <caret line="53" column="5" selection-start-line="53" selection-start-column="5" selection-end-line="53" selection-end-column="5" />
-          <caret line="59" column="5" selection-start-line="59" selection-start-column="5" selection-end-line="59" selection-end-column="5" />
-          <caret line="65" column="5" selection-start-line="65" selection-start-column="5" selection-end-line="65" selection-end-column="5" />
-          <caret line="70" column="5" selection-start-line="70" selection-start-column="5" selection-end-line="70" selection-end-column="5" />
-          <caret line="76" column="5" selection-start-line="76" selection-start-column="5" selection-end-line="76" selection-end-column="5" />
-          <caret line="81" column="5" selection-start-line="81" selection-start-column="5" selection-end-line="81" selection-end-column="5" />
-          <caret line="85" column="5" selection-start-line="85" selection-start-column="5" selection-end-line="85" selection-end-column="5" />
-          <caret line="89" column="5" selection-start-line="89" selection-start-column="5" selection-end-line="89" selection-end-column="5" />
-          <caret line="99" column="5" selection-start-line="99" selection-start-column="5" selection-end-line="99" selection-end-column="5" />
-          <caret line="103" column="5" selection-start-line="103" selection-start-column="5" selection-end-line="103" selection-end-column="5" />
-          <caret line="109" column="5" selection-start-line="109" selection-start-column="5" selection-end-line="109" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/views/manage/brands.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.153846">
-          <caret line="14" column="5" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/views/manage/brands_save.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/views/manage/clients.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.153846">
-          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/application/views/manage/clients_save.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-21.615385">
@@ -847,26 +854,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/views/home.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.056604">
-          <caret line="22" column="7" selection-start-line="22" selection-start-column="7" selection-end-line="22" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/js/main.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="165" column="0" selection-start-line="165" selection-start-column="0" selection-end-line="165" selection-end-column="0" />
-          <folding>
-            <element signature="e#526#1998#0" expanded="false" />
-            <element signature="e#2084#3472#0" expanded="false" />
-            <element signature="n#!!block;n#flow#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/css/10-boilerplate.less">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-8.5">
@@ -883,14 +870,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/css/vendor/semantic.min.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.5833333">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/css/10-base.less">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -901,9 +880,81 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/css/10-body.less">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.47145188">
-          <caret line="20" column="10" selection-start-line="20" selection-start-column="10" selection-end-line="20" selection-end-column="10" />
+        <state vertical-scroll-proportion="-9.807693">
+          <caret line="18" column="1" selection-start-line="18" selection-start-column="1" selection-end-line="18" selection-end-column="1" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/css/10-menu-vertical.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.230769">
+          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/js/vendor/semantic.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/css/vendor/semantic.min.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/js/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="21" column="43" selection-start-line="21" selection-start-column="43" selection-end-line="21" selection-end-column="43" />
+          <folding>
+            <element signature="e#855#2327#0" expanded="false" />
+            <element signature="e#2413#3801#0" expanded="false" />
+            <element signature="n#!!block;n#flow#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/home.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.773585">
+          <caret line="18" column="45" selection-start-line="18" selection-start-column="45" selection-end-line="18" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/common/header.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.9615384">
+          <caret line="101" column="0" selection-start-line="101" selection-start-column="0" selection-end-line="101" selection-end-column="0" />
+          <folding>
+            <element signature="n#div#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/css/10-menu.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-9.576923">
+          <caret line="46" column="23" selection-start-line="46" selection-start-column="23" selection-end-line="46" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/common/menu.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.14611872">
+          <caret line="62" column="0" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
+          <folding>
+            <marker date="1435095840431" expanded="true" signature="6945:7014" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>

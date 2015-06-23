@@ -1,5 +1,24 @@
 $(function () {
 
+
+	var $menu                = $('#toc');
+	$menu
+		.sidebar({
+			transition       : 'uncover',
+			mobileTransition : 'uncover'
+		})
+	;
+	$('.launch.button, .view-ui, .launch.item')
+		.on('click', function(event) {
+			$menu.sidebar('toggle');
+			event.preventDefault();
+		})
+	;
+
+	$sidebarButton       = $('.fixed.launch.button'),
+
+
+
 	$('.ui.dropdown[data-content]').popup({
 		inline: true,
 		hoverable: $(this).hasClass('hoverable'),

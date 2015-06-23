@@ -97,4 +97,5 @@
 		</div>
 	</div>
 </div>
-<div class="main-content">
+<?= $this->load->view('common/menu', array('current' => ( isset( $current ) ? $current : '' ))) ?>
+<div class="pusher">
