@@ -55,6 +55,10 @@
 	class General_model extends CI_Model {
 		protected $tableName = null;
 
+		public function __construct() {
+			if( !$this->tableName )
+				$this->tableName = strtolower( str_replace( '_model', '', __CLASS__ ) );
+		}
 		/**
 		 * This function is for internal use only
 		 *

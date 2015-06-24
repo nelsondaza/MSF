@@ -7,9 +7,8 @@
 	<?= $this->load->view('common/head', array('title' => lang('linked_page_name')) ) ?>
 </head>
 <body>
-<?= $this->load->view('common/header') ?>
+<?= $this->load->view('common/header', array('current' => 'account_linked')) ?>
 <div class="container content">
-	<?= $this->load->view('common/menu', array('current' => 'account_linked') ) ?>
 	<div class="sub-header"><i class="icon lock"></i> <?= lang('linked_page_name') ?></div>
 	<div class="section">
 <?php

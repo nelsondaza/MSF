@@ -40,9 +40,8 @@
 	<script src="<?= base_url() ?>resources/js/flow.js"></script>
 </head>
 <body>
-<?= $this->load->view('common/header') ?>
+<?= $this->load->view('common/header', array('current' => 'manage_' . $class)) ?>
 <div class="container content" ng-app="flow">
-	<?= $this->load->view('common/menu', array('current' => 'manage_' . $class) ) ?>
 	<div class="sub-header"><i class="wizard icon"></i> <?= lang($class . "_page_name") ?></div>
 	<div class="section">
 <?

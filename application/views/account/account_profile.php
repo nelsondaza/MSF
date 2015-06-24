@@ -7,9 +7,8 @@
 	<?= $this->load->view('common/head', array('title' => lang('profile_page_name')) ) ?>
 </head>
 <body>
-<?= $this->load->view('common/header') ?>
+<?= $this->load->view('common/header', array('current' => 'account_profile')) ?>
 <div class="container content">
-	<?= $this->load->view('common/menu', array('current' => 'account_profile') ) ?>
 	<div class="sub-header"><i class="icon user"></i> <?= lang('profile_page_name') ?></div>
 	<div class="section">
 <?php

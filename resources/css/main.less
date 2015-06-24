@@ -8,3 +8,231 @@
 @import "20-breadcrumb";
 
 @import "30-login";
+
+/* FLOW */
+.flow {
+	position: relative;
+	min-height: 200px;
+}
+.flow .page {
+	background-color: #ECECEC;
+	border: 1px dashed #C1C1C1;
+	margin: 0 0 15px -1px;
+	position: relative;
+}
+/*
+ Tamaño carta (portrait)
+ cm: 21.59 x 27.94
+ px: 596 x 770
+
+ cm to px: (portrait)
+ x * 596 / 21.59
+ y * 770 / 27.94
+
+ margin: 3cm = 82.8px (82px)
+*/
+.flow_options {
+	position: absolute;
+	right: 5px;
+	top: 0;
+	font-size: 12px;
+}
+.flow .options {
+	position: absolute;
+	right: 5px;
+	top: -20px;
+}
+.flow .page .holder {
+	margin: 10px;
+	width: 970px;
+	height: 596px;
+	overflow: hidden;
+}
+.flow .page .holder .options {
+	top: 5px;
+}
+.flow .page .holder input.h1,
+.flow .page .holder h1 {
+	margin: 0;
+	font-weight: normal;
+	font-size: 1.9rem;
+	display: block;
+	height: 50px;
+	width: 100%;
+	overflow: hidden;
+	line-height: 50px;
+	padding: 0 15px;
+	background: none;
+	border: none;
+}
+.flow .page .holder .widgets {
+	height: 546px;
+	width: 970px;
+}
+.flow .ui.horizontal.divider {
+	margin: -10px 0;
+}
+
+.flow .page .holder .widgets .widget {
+	border: 1px solid #E7E7E7;
+	background-color: #F8F6F7;
+}
+.flow .page .holder .widgets .widget:hover {
+	border: 1px solid #CCC;
+}
+.flow .page .holder .widgets .widget .head {
+	padding: 15px;
+	color: #FFF;
+	font-size: 16px;
+	position: absolute;
+	left:0;
+	top: 0;
+	width: 100%;
+	height: 50px;
+	overflow: hidden;
+	text-transform: uppercase;
+	white-space: nowrap;
+	z-index: 100;
+}
+.flow .page .holder .widgets .widget.full .head {
+	padding: 10px 15px;
+	font-size: 12px;
+	position: absolute;
+	left:0;
+	top: 0;
+	width: 100%;
+	height: 30px;
+	overflow: hidden;
+	text-transform: uppercase;
+}
+.flow .page .holder .widgets .widget.full {
+	color: #FFF;
+}
+
+.flow .page .holder .widgets .widget .body {
+	padding: 65px 15px 15px 15px;
+	background-color: #F8F6F7;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+.flow .page .holder .widgets .full .body {
+	padding-top: 35px;
+}
+
+.flow .page .holder .widgets .widget .comments {
+	position: absolute;
+	width: 100%;
+	height: 100px;
+	bottom: 0;
+	left: 0;
+	padding: 15px;
+	background-color: inherit;
+}
+.flow .page .holder .widgets .widget .comments .title {
+	font-size: 10px;
+	font-weight: bold;
+}
+.flow .page .holder .widgets .widget .comments .text {
+	padding: 0 5px;
+	opacity: 0.9;
+}
+
+.flow .page .holder .widgets .blue .head,
+.flow .page .holder .widgets .blue.full .body {
+	background-color: #0165A3;
+}
+.flow .page .holder .widgets .purple .head,
+.flow .page .holder .widgets .purple.full .body {
+	background-color: #715F87;
+}
+.flow .page .holder .widgets .teal .head,
+.flow .page .holder .widgets .teal.full .body {
+	background-color: #01A6A0;
+}
+.flow .page .holder .widgets .pink .head,
+.flow .page .holder .widgets .pink.full .body {
+	background-color: #F55754;
+}
+.flow .page .holder .widgets .orange .head,
+.flow .page .holder .widgets .orange.full .body {
+	background-color: #e07b53;
+}
+.flow .page .holder .widgets .green .head,
+.flow .page .holder .widgets .green.full .body {
+	background-color: #5bbd72;
+}
+.flow .page .holder .widgets .black .head,
+.flow .page .holder .widgets .black.full .body {
+	background-color: #222;
+}
+.flow .page .holder .widgets .white .head,
+.flow .page .holder .widgets .white.full .body,
+.flow .page .holder .widgets .white.full .icon {
+	background-color: #F8F6F7;
+	color: #3F3F3F;
+}
+
+.flow .page .holder .widgets .empty {
+	background-color: #EEE;
+	opacity: 0.6;
+}
+.flow .page .holder .widgets .empty .icon {
+	color: #5F5F5F;
+}
+
+.flow_options .icon,
+.flow .icon {
+	line-height: inherit;
+	font-weight: normal;
+	opacity: 0.6;
+}
+.flow .icon.content.small {
+	font-size: 11px !important;
+}
+.flow a:hover .icon {
+	opacity: 1;
+}
+
+/* Gridster adjustments */
+.gridster .preview-holder {
+	background-color: #AAA !important;
+	border-color: #999 !important;
+}
+
+.flow .options>a{
+	padding: 3px;
+}
+.flow_options .ui.bottom.right.popup,
+.flow .options .ui.bottom.right.popup {
+	padding: 3px 3px 0 3px;
+}
+.flow_options .ui.vertical.menu,
+.flow .options .ui.vertical.menu {
+	width: auto;
+	white-space: nowrap;
+}
+.flow_options .ui.vertical.text.menu .item,
+.flow .options .ui.vertical.text.menu .item {
+	display: block;
+	width: 100%;
+	margin: 0;
+	padding: 4px 6px;
+	border-bottom: 1px solid #EEE;
+	line-height: inherit;
+	font-size: 12px;
+}
+.flow_options .ui.vertical.text.menu .item .icon,
+.flow .options .ui.vertical.text.menu .item .icon {
+	margin: 0 2px 0 0;
+	font-size: inherit;
+}
+.flow_options .ui.vertical.text.menu .item:last-child,
+.flow .options .ui.vertical.text.menu .item:last-child {
+	border-bottom: none;
+}
+.flow_options .ui.vertical.text.menu .item:hover,
+.flow .options .ui.vertical.text.menu .item:hover {
+	background-color: #f2f2f2;
+	color: #000;
+}

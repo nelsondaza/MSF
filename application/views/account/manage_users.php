@@ -7,9 +7,8 @@
 	<?= $this->load->view('common/head', array('title' => lang('users_page_name')) ) ?>
 </head>
 <body>
-<?= $this->load->view('common/header') ?>
+<?= $this->load->view('common/header', array('current' => 'manage_users')) ?>
 <div class="container content">
-	<?= $this->load->view('common/menu', array('current' => 'manage_users') ) ?>
 	<div class="sub-header"><i class="icon users"></i> <?= lang('users_page_name') ?></div>
 	<div class="section">
 <?php

@@ -7,9 +7,8 @@
 	<?= $this->load->view('common/head', array('title' => lang('permissions_page_name')) ) ?>
 </head>
 <body>
-<?= $this->load->view('common/header') ?>
+<?= $this->load->view('common/header', array('current' => 'manage_permissions')) ?>
 <div class="container content">
-	<?= $this->load->view('common/menu', array('current' => 'manage_permissions') ) ?>
 	<div class="sub-header"><i class="privacy icon"></i> <?= lang('permissions_page_name') ?></div>
 	<div class="section">
 <?php

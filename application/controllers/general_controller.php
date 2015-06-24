@@ -185,5 +185,21 @@
 
 			return null;
 		}
+
+
+		/**
+		 * Default List
+		 */
+		function index() {
+
+			$name = strtolower( __CLASS__ );
+			$data = $this->auth( $this->scope . '/' . $name, array(
+				//'retrieve_' . $name => 'account/account_profile'
+			) );
+
+			$data[$name] = $this->model->get_order_by_name();
+
+			$this->view( $data );
+		}
 	}
 

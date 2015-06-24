@@ -1,3 +1,4 @@
+<?= $this->load->view('common/menu', array('current' => ( isset( $current ) ? $current : '' ))) ?>
 <div class="ui fixed main menu">
 	<div class="container">
 		<div class="title item">
@@ -97,5 +98,4 @@
 		</div>
 	</div>
 </div>
-<?= $this->load->view('common/menu', array('current' => ( isset( $current ) ? $current : '' ))) ?>
 <div class="pusher">
