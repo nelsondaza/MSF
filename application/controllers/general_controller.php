@@ -180,6 +180,18 @@
 
 				return $this->load->view( $view, $arguments[0], $arguments[1] );
 			}
+			else if ( stripos( $action, 'view' ) === 0 ) {
+				$action = strtolower( trim( (string) substr( $action, 4 ), '_' ) );
+
+				$arguments[0]['class'] = strtolower( get_class( $this ) );
+				$arguments[0]['scope'] = (string)$this->scope;
+
+				$view = (string)$this->scope . '/' . strtolower( get_class( $this ) );
+				if( $action )
+					$view .= '_' . strtolower( $action );
+
+				return $this->load->view( $view, $arguments[0], $arguments[1] );
+			}
 
 			trigger_error( 'Function "' . $name . '" not defined for "' . get_class( $this ) . '".', E_USER_ERROR );
 
@@ -192,14 +204,79 @@
 		 */
 		function index() {
 
-			$name = strtolower( __CLASS__ );
+			$name = strtolower( get_class( $this ) );
 			$data = $this->auth( $this->scope . '/' . $name, array(
-				//'retrieve_' . $name => 'account/account_profile'
+				'retrieve_' . $name => 'account/account_profile'
 			) );
 
-			$data[$name] = $this->model->get_order_by_name();
+			$data['objects'] = $this->model->get_order_by_name();
 
 			$this->view( $data );
+		}
+
+
+		/**
+		 * Default Saev
+		 * @param null|int $id
+		 */
+		function save( $id = null ) {
+			// Keep track if this is a new object
+			$is_new = !$id;
+			$name = strtolower( get_class( $this ) );
+
+			$data = $this->auth( $this->scope . '/' . $name,
+				(
+				$is_new
+					? array( 'create_' . $name => $this->scope . '/' . $name )
+					: array( 'update_' . $name => $this->scope . '/' . $name )
+				)
+			);
+
+			// Set action type (create or update)
+			$data['action'] = 'create';
+			$data['object'] = array();
+
+			// Get the object
+			if ( ! $is_new ) {
+				$data['object'] = $this->model->get_one_by_id( $id );
+				$data['action'] = 'update';
+			}
+
+			// Setup form validation
+			$this->form_validation->set_rules(
+				array(
+					array(
+						'field' => 'object_field_name',
+						'label' => 'lang:object_field_name',
+						'rules' => 'trim|required|max_length[200]'
+					)
+				) );
+
+			// Run form validation
+			if ( $this->form_validation->run() ) {
+				// Create/Update
+				$attributes = array();
+
+				$attributes['name'] = $this->input->post( 'object_field_name', true ) ? $this->input->post( 'object_field_name', true ) : null;
+				if( $is_new )
+					$id = $this->model->insert( $attributes );
+				else
+					$this->model->update_by_id( $id, $attributes );
+
+				// Check if the permission should be disabled
+				if ( $this->authorization->is_permitted( 'delete_' . $name ) ) {
+					if ( $this->input->post( 'deactivate', true ) ) {
+						$this->model->update_by_id( $id, array( 'active' => 0 ) );
+						$data['object']['active'] = 0;
+					} elseif ( $this->input->post( 'activate', true ) ) {
+						$this->model->update_by_id( $id, array( 'active' => 1 ) );
+						$data['object']['active'] = 1;
+					}
+				}
+
+				$data['action_info'] = ( $is_new ? lang($name . '_created') : lang($name . '_updated') );
+			}
+			$this->viewSave( $data );
 		}
 	}
 

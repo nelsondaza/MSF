@@ -57,7 +57,7 @@
 
 		public function __construct() {
 			if( !$this->tableName )
-				$this->tableName = strtolower( str_replace( '_model', '', __CLASS__ ) );
+				$this->tableName = 'msf_'. strtolower( str_replace( '_model', '', get_class( $this ) ) );
 		}
 		/**
 		 * This function is for internal use only

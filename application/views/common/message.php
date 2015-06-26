@@ -12,8 +12,8 @@
 	if( !isset( $type ) )
 		$type = '';
 
-	if( !isset( $class ) )
-		$class = '';
+	if( !isset( $icon ) )
+		$icon = '';
 
 ?>
-<div class="ui icon <?= $type ?> small message"><?= ( $class ? '<i class="' . $class . ' icon"></i>' : '' ) ?> <div class="content"><?= ( is_array( $content ) ? implode( '<br>', $content ) : $content ) ?></div></div>
+<div class="ui icon <?= $type ?> small message"><?= ( $icon ? '<i class="' . $icon . ' icon"></i>' : '' ) ?> <div class="content"><?= ( is_array( $content ) ? implode( '<br>', $content ) : $content ) ?></div></div>

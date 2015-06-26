@@ -92,8 +92,8 @@
 		echo anchor( 'manage/events_categories', '<i class="crosshairs icon"></i> Categoría de Eventos/Acontecimientos', array( 'class' => 'item' . ( $current == 'manage_events_categories' ? ' active' : '' ) ) );
 	*/
 
-	echo anchor( 'manage/regions', '<i class="crosshairs icon"></i> Regiones', array( 'class' => 'item' . ( $current == 'manage_regions' ? ' active' : '' ) ) );
-	echo anchor( 'account/account_settings', '<i class="crosshairs icon"></i> Ciudades', array( 'class' => 'item' . ( $current == 'manage_cities' ? ' active' : '' ) ) );
+	echo anchor( 'manage/regions', '<i class="map icon"></i> Regiones', array( 'class' => 'item' . ( $current == 'manage_regions' ? ' active' : '' ) ) );
+	echo anchor( 'account/cities', '<i class="location arrow icon"></i> Ciudades', array( 'class' => 'item' . ( $current == 'manage_cities' ? ' active' : '' ) ) );
 	echo anchor( 'account/account_settings', '<i class="crosshairs icon"></i> Comunas', array( 'class' => 'item' . ( $current == 'manage_villages' ? ' active' : '' ) ) );
 	echo anchor( 'account/account_settings', '<i class="crosshairs icon"></i> Barrios', array( 'class' => 'item' . ( $current == 'manage_districts' ? ' active' : '' ) ) );
 	echo anchor( 'account/account_settings', '<i class="crosshairs icon"></i> Lugares de Interveción', array( 'class' => 'item' . ( $current == 'manage_interventions_places' ? ' active' : '' ) ) );
