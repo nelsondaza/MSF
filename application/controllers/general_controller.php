@@ -176,25 +176,34 @@
 
 				$view = (string)$this->scope . '/' . strtolower( get_class( $this ) );
 				if( $action )
-					$view .= '_' . strtolower( $action );
+					$view .= '_' . $action;
 
 				return $this->load->view( $view, $arguments[0], $arguments[1] );
 			}
-			else if ( stripos( $action, 'view' ) === 0 ) {
-				$action = strtolower( trim( (string) substr( $action, 4 ), '_' ) );
+			else if ( stripos( $action, 'render' ) === 0 ) {
+				$action = strtolower( trim( (string) substr( $action, 6 ), '_' ) );
+
+				$arguments[0]['class'] = strtolower( get_class( $this ) );
+				$arguments[0]['scope'] = (string)$this->scope;
+
+				$view = (string)$this->scope . '/' . $action;
+
+				return $this->load->view( $view, $arguments[0], $arguments[1] );
+			}
+			else if ( stripos( $action, 'exist' ) === 0 ) {
+				$action = strtolower( trim( (string) substr( $action, 5 ), '_' ) );
 
 				$arguments[0]['class'] = strtolower( get_class( $this ) );
 				$arguments[0]['scope'] = (string)$this->scope;
 
 				$view = (string)$this->scope . '/' . strtolower( get_class( $this ) );
 				if( $action )
-					$view .= '_' . strtolower( $action );
+					$view .= '_' . $action;
 
-				return $this->load->view( $view, $arguments[0], $arguments[1] );
+				return( file_exists( APPPATH . 'views/' . $view . '.php' ) );
 			}
 
 			trigger_error( 'Function "' . $name . '" not defined for "' . get_class( $this ) . '".', E_USER_ERROR );
-
 			return null;
 		}
 
@@ -206,12 +215,19 @@
 
 			$name = strtolower( get_class( $this ) );
 			$data = $this->auth( $this->scope . '/' . $name, array(
-				'retrieve_' . $name => 'account/account_profile'
+				//'retrieve_' . $name => 'account/account_profile'
 			) );
 
 			$data['objects'] = $this->model->get_order_by_name();
 
-			$this->view( $data );
+			if( $this->exist( ) )
+				$this->view( $data );
+			else {
+				global $langClass;
+				$langClass = strtolower( get_class( $this ) );
+				$this->load->language( array( $this->scope . '/objects' ) );
+				$this->renderObjects_list($data);
+			}
 		}
 
 
@@ -224,13 +240,15 @@
 			$is_new = !$id;
 			$name = strtolower( get_class( $this ) );
 
+
 			$data = $this->auth( $this->scope . '/' . $name,
-				(
+				null /*(
 				$is_new
 					? array( 'create_' . $name => $this->scope . '/' . $name )
 					: array( 'update_' . $name => $this->scope . '/' . $name )
-				)
+				)*/
 			);
+
 
 			// Set action type (create or update)
 			$data['action'] = 'create';
@@ -276,7 +294,15 @@
 
 				$data['action_info'] = ( $is_new ? lang($name . '_created') : lang($name . '_updated') );
 			}
-			$this->viewSave( $data );
+
+			if( $this->existSave( ) )
+				$this->viewSave( $data );
+			else {
+				global $langClass;
+				$langClass = strtolower( get_class( $this ) );
+				$this->load->language( array( $this->scope . '/objects' ) );
+				$this->renderObjects_save($data);
+			}
 		}
 	}
 

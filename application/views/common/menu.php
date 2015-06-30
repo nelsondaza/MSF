@@ -21,7 +21,8 @@
 		<a href="<?= base_url() ?>"><b>Médicos Sin Fronteras</b></a>
 	</div>
 <?php
-	echo anchor( base_url(), '<i class="home icon"></i>' . lang( 'website_home' ), array( 'class' => 'item' . ( $current == 'home' ? ' active' : '' ) ) );
+	echo anchor( base_url(), '<i class="home icon"></i> ' . lang( 'website_home' ), array( 'class' => 'item' . ( $current == 'home' ? ' active' : '' ) ) );
+	echo anchor( 'visits/visits', '<i class="doctor icon"></i> Consulta', array( 'class' => 'item' . ( $current == 'visits' ? ' active' : '' ) ) );
 
 	$active = ( in_array( $current, array( 'account_profile', 'account_settings', 'account_password' ) ) );
 ?>
@@ -92,27 +93,28 @@
 		echo anchor( 'manage/events_categories', '<i class="crosshairs icon"></i> Categoría de Eventos/Acontecimientos', array( 'class' => 'item' . ( $current == 'manage_events_categories' ? ' active' : '' ) ) );
 	*/
 
-	echo anchor( 'manage/regions', '<i class="map icon"></i> Regiones', array( 'class' => 'item' . ( $current == 'manage_regions' ? ' active' : '' ) ) );
-	echo anchor( 'account/cities', '<i class="location arrow icon"></i> Ciudades', array( 'class' => 'item' . ( $current == 'manage_cities' ? ' active' : '' ) ) );
-	echo anchor( 'account/account_settings', '<i class="crosshairs icon"></i> Comunas', array( 'class' => 'item' . ( $current == 'manage_villages' ? ' active' : '' ) ) );
-	echo anchor( 'account/account_settings', '<i class="crosshairs icon"></i> Barrios', array( 'class' => 'item' . ( $current == 'manage_districts' ? ' active' : '' ) ) );
-	echo anchor( 'account/account_settings', '<i class="crosshairs icon"></i> Lugares de Interveción', array( 'class' => 'item' . ( $current == 'manage_interventions_places' ? ' active' : '' ) ) );
-	echo anchor( 'account/account_settings', '<i class="crosshairs icon"></i> Especialistas', array( 'class' => 'item' . ( $current == 'manage_experts' ? ' active' : '' ) ) );
-	echo anchor( 'account/account_settings', '<i class="crosshairs icon"></i> Lugares de Origen', array( 'class' => 'item' . ( $current == 'manage_origin_places' ? ' active' : '' ) ) );
-	echo anchor( 'account/account_settings', '<i class="crosshairs icon"></i> Síntomas - Categorías', array( 'class' => 'item' . ( $current == 'manage_symptoms_categoriies' ? ' active' : '' ) ) );
-	echo anchor( 'account/account_settings', '<i class="crosshairs icon"></i> Síntomas', array( 'class' => 'item' . ( $current == 'manage_symptoms' ? ' active' : '' ) ) );
-	echo anchor( 'account/account_settings', '<i class="crosshairs icon"></i> Riesgos - Categorías', array( 'class' => 'item' . ( $current == 'manage_risks_categories' ? ' active' : '' ) ) );
-	echo anchor( 'account/account_settings', '<i class="crosshairs icon"></i> Riesgos', array( 'class' => 'item' . ( $current == 'manage_risks' ? ' active' : '' ) ) );
-	echo anchor( 'account/account_settings', '<i class="crosshairs icon"></i> Tipos de Consulta', array( 'class' => 'item' . ( $current == 'manage_visits_types' ? ' active' : '' ) ) );
-	echo anchor( 'account/account_settings', '<i class="crosshairs icon"></i> Referidos - Categorías', array( 'class' => 'item' . ( $current == 'manage_references_categories' ? ' active' : '' ) ) );
-	echo anchor( 'account/account_settings', '<i class="crosshairs icon"></i> Referidos', array( 'class' => 'item' . ( $current == 'manage_references' ? ' active' : '' ) ) );
-	echo anchor( 'account/account_settings', '<i class="crosshairs icon"></i> Cierres', array( 'class' => 'item' . ( $current == 'manage_closures' ? ' active' : '' ) ) );
-	echo anchor( 'account/account_settings', '<i class="crosshairs icon"></i> Condiciones de Cierre', array( 'class' => 'item' . ( $current == 'closures_conditions' ? ' active' : '' ) ) );
-	echo anchor( 'account/account_settings', '<i class="crosshairs icon"></i> Diagnósticos Clínicos', array( 'class' => 'item' . ( $current == 'diagnostics' ? ' active' : '' ) ) );
-	echo anchor( 'account/account_settings', '<i class="crosshairs icon"></i> Tipos de consultas de seguimiento', array( 'class' => 'item' . ( $current == 'followups_types' ? ' active' : '' ) ) );
-	echo anchor( 'account/account_settings', '<i class="crosshairs icon"></i> Tipo de Intervenciones SMPS', array( 'class' => 'item' . ( $current == 'manage_interventions_types' ? ' active' : '' ) ) );
-	echo anchor( 'account/account_settings', '<i class="crosshairs icon"></i> Educación', array( 'class' => 'item' . ( $current == 'manage_educations' ? ' active' : '' ) ) );
-	echo anchor( 'account/account_settings', '<i class="crosshairs icon"></i> Categoría de Eventos/Acontecimientos', array( 'class' => 'item' . ( $current == 'manage_events_categories' ? ' active' : '' ) ) );
+	echo anchor( 'manage/regions', '<i class="crosshairs icon"></i> Regiones', array( 'class' => 'item' . ( $current == 'manage_regions' ? ' active' : '' ) ) );
+	echo anchor( 'manage/cities', '<i class="crosshairs icon"></i> Ciudades', array( 'class' => 'item' . ( $current == 'manage_cities' ? ' active' : '' ) ) );
+	echo anchor( 'manage/villages', '<i class="crosshairs icon"></i> Comunas', array( 'class' => 'item' . ( $current == 'manage_villages' ? ' active' : '' ) ) );
+	echo anchor( 'manage/districts', '<i class="crosshairs icon"></i> Barrios', array( 'class' => 'item' . ( $current == 'manage_districts' ? ' active' : '' ) ) );
+	echo anchor( 'manage/interventions_places', '<i class="crosshairs icon"></i> Lugares de Interveción', array( 'class' => 'item' . ( $current == 'manage_interventions_places' ? ' active' : '' ) ) );
+	echo anchor( 'manage/experts', '<i class="crosshairs icon"></i> Especialistas', array( 'class' => 'item' . ( $current == 'manage_experts' ? ' active' : '' ) ) );
+	echo anchor( 'manage/origin_places', '<i class="crosshairs icon"></i> Lugares de Origen', array( 'class' => 'item' . ( $current == 'manage_origin_places' ? ' active' : '' ) ) );
+	echo anchor( 'manage/symptoms_categories', '<i class="crosshairs icon"></i> Síntomas - Categorías', array( 'class' => 'item' . ( $current == 'manage_symptoms_categoriies' ? ' active' : '' ) ) );
+	echo anchor( 'manage/symptoms', '<i class="crosshairs icon"></i> Síntomas', array( 'class' => 'item' . ( $current == 'manage_symptoms' ? ' active' : '' ) ) );
+	echo anchor( 'manage/risks_categories', '<i class="crosshairs icon"></i> Riesgos - Categorías', array( 'class' => 'item' . ( $current == 'manage_risks_categories' ? ' active' : '' ) ) );
+	echo anchor( 'manage/risks', '<i class="crosshairs icon"></i> Riesgos', array( 'class' => 'item' . ( $current == 'manage_risks' ? ' active' : '' ) ) );
+	echo anchor( 'manage/visits_types', '<i class="crosshairs icon"></i> Tipos de Consulta', array( 'class' => 'item' . ( $current == 'manage_visits_types' ? ' active' : '' ) ) );
+	echo anchor( 'manage/references_categories', '<i class="crosshairs icon"></i> Referidos - Categorías', array( 'class' => 'item' . ( $current == 'manage_references_categories' ? ' active' : '' ) ) );
+	echo anchor( 'manage/references', '<i class="crosshairs icon"></i> Referidos', array( 'class' => 'item' . ( $current == 'manage_references' ? ' active' : '' ) ) );
+	echo anchor( 'manage/closures', '<i class="crosshairs icon"></i> Cierres', array( 'class' => 'item' . ( $current == 'manage_closures' ? ' active' : '' ) ) );
+	echo anchor( 'manage/closures_conditions', '<i class="crosshairs icon"></i> Condiciones de Cierre', array( 'class' => 'item' . ( $current == 'closures_conditions' ? ' active' : '' ) ) );
+	echo anchor( 'manage/diagnostics', '<i class="crosshairs icon"></i> Diagnósticos Clínicos', array( 'class' => 'item' . ( $current == 'diagnostics' ? ' active' : '' ) ) );
+	echo anchor( 'manage/followups_types', '<i class="crosshairs icon"></i> Tipos de consultas de seguimiento', array( 'class' => 'item' . ( $current == 'followups_types' ? ' active' : '' ) ) );
+	echo anchor( 'manage/interventions_types', '<i class="crosshairs icon"></i> Tipo de Intervenciones SMPS', array( 'class' => 'item' . ( $current == 'manage_interventions_types' ? ' active' : '' ) ) );
+	echo anchor( 'manage/educations', '<i class="crosshairs icon"></i> Educación', array( 'class' => 'item' . ( $current == 'manage_educations' ? ' active' : '' ) ) );
+	echo anchor( 'manage/events_categories', '<i class="crosshairs icon"></i> Categoría de Eventos/Acontecimientos', array( 'class' => 'item' . ( $current == 'manage_events_categories' ? ' active' : '' ) ) );
+
 ?>
 			</div>
 		</div>

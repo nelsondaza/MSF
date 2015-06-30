@@ -39,7 +39,7 @@
 			if( $readonly ) {
 				echo form_hidden( $attributes['name'], $attributes['value'] );
 ?>
-			<div class="ui small form segment">
+			<div class="ui small form segment read-only">
 				<?= $attributes['value'] ?>
 			</div>
 <?php
@@ -126,7 +126,7 @@
 			if( $readonly ) {
 				echo form_hidden( $attributes['name'], $attributes['value'] );
 ?>
-			<div class="ui small form segment">
+			<div class="ui small form segment read-only">
 				<?= $attributes['value'] ?>
 			</div>
 <?php
@@ -150,11 +150,34 @@
 <?php
 			}
 			break;
+		case 'date':
+			if( $readonly ) {
+				echo form_hidden( $attributes['name'], $attributes['value'] );
+?>
+			<div class="ui small form segment read-only">
+				<?= $attributes['value'] ?>
+			</div>
+<?php
+			}
+			else {
+				$attributes['type'] = 'text';
+				echo form_input( $attributes, $attributes['value'], 'readonly="readonly"' );
+?>
+				<script type="text/javascript">
+					$('#<?= $attributes['name'] ?>').datetimepicker({
+						lang:'es',
+						format:'Y-m-d',
+						allowTimes:[]
+					});
+				</script>
+<?php
+			}
+			break;
 		default:
 			if( $readonly ) {
 				echo form_hidden( $attributes['name'], $attributes['value'] );
 ?>
-			<div class="ui small form segment">
+			<div class="ui small form segment read-only">
 				<?= $attributes['value'] ?>
 			</div>
 <?php
