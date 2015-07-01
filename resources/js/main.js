@@ -30,7 +30,9 @@ $(function () {
 
 	$('.ui.accordion').accordion();
 	$('.ui.checkbox').checkbox();
-	$(".chosen-select").chosen();
+	$(".chosen-select").chosen({
+		width: '100%',
+	});
 
 	$('.ui.menu.dash.sticky').sticky({offset: 70});
 	$('.ui.bcrumb.sticky').sticky({offset: 69});

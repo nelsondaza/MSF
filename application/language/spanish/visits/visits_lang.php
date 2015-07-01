@@ -19,6 +19,10 @@
 	$lang['visits_field_age'] = 'Edad';
 	$lang['visits_field_id_education'] = 'Educación';
 	$lang['visits_field_id_origin_place'] = 'Lugar de Origen';
+	$lang['visits_field_id_reference'] = 'Referidos DESDE';
+	$lang['visits_field_id_symptom'] = 'Síntoma';
+	$lang['visits_field_id_diagnostic'] = 'Diagnóstico';
+	$lang['visits_field_id_risk'] = 'Factor de Evento / Riesgo';
 
 
 

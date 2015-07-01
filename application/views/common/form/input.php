@@ -15,10 +15,29 @@
 	if( !isset( $attributes['type'] ) )
 		$attributes['type'] = 'text';
 
+	if( !isset( $GLOBALS['actualCol'] ) )
+		$GLOBALS['actualCol'] = 0;
+
+	if( isset( $cols ) && $cols > 0 ) {
+		$GLOBALS['actualCol'] ++;
+		if( $GLOBALS['actualCol'] < $cols ) {
+			$divider = false;
+		}
+		else {
+			$GLOBALS['actualCol'] = 0;
+			$divider = true;
+		}
+	}
+
 	$readonly = ( isset( $attributes['readonly'] ) && $attributes['readonly'] );
 	if( isset( $attributes['readonly'] ) && !$attributes['readonly'] )
 		unset( $attributes['readonly'] );
 
+	if( $GLOBALS['actualCol'] == 1 ) {
+?>
+<div class="two fields">
+<?php
+	}
 	if( $attributes['type'] != 'hidden' || ( isset( $field ) && !$field ) ) {
 ?>
 <div class="field <?= ( isset( $error ) && $error ? 'error' : '' ) ?>">
@@ -139,12 +158,6 @@
 					$('#<?= $attributes['name'] ?>').datetimepicker({
 						lang:'es',
 						format:'Y-m-d H:i',
-						allowTimes:[
-							'9:00', '10:00', '11:00',
-							'19:00', '20:00', '21:00'
-						]
-						//mask:true,
-						// '9999/19/39 29:59' - digit is the maximum possible for a cell
 					});
 				</script>
 <?php
@@ -187,6 +200,11 @@
 	}
 
 	if( $attributes['type'] != 'hidden' || ( isset( $field ) && !$field ) ) {
+?>
+</div>
+<?php
+	}
+	if( $GLOBALS['actualCol'] == 0 && $cols > 0 ) {
 ?>
 </div>
 <?php

@@ -34,7 +34,7 @@
 ?>
 		<div class="ui tertiary segment container-form">
 <?php
-	echo form_open_multipart(uri_string(), 'class="ui form ' . ( !empty($errors) ? 'error' : '' ) . '"');
+	echo form_open_multipart(uri_string(), 'class="ui small fluid form ' . ( !empty($errors) ? 'error' : '' ) . '"');
 
 	$this->load->view('common/form/input', array(
 			'error' => form_error('visits_field_start_date') || isset($visits_field_start_date_error),
@@ -46,7 +46,9 @@
 		        'id' => 'visits_field_start_date',
 		        'value' => set_value('visits_field_start_date') ? set_value('visits_field_start_date') : ( isset($visit['start_date']) ? $visit['start_date'] : date('Y-m-d')),
 		        'placeholder' => lang('visits_field_start_date')
-	        )
+	        ),
+			'cols' => 2,
+			'actualCol' => 0
 		)
 	);
 
@@ -135,7 +137,8 @@
 
 	$options = array(
 		'M' => 'Masculino',
-		'F' => 'Femenino'
+		'F' => 'Femenino',
+		'I' => 'Indefinido'
 	);
 
 	$this->load->view('common/form/input', array(
@@ -207,7 +210,148 @@
 		)
 	);
 
+	$options = array();
+	foreach( $references as $reference ) {
+		$options[$reference['id']] = $reference['name'];
+	}
 
+	$this->load->view('common/form/input', array(
+			'error' => form_error('visits_field_id_reference') || isset($visits_field_id_reference_error),
+			'label' => lang('visits_field_id_reference'),
+			'options' => $options,
+			'selected' => ( isset( $visit['id_reference'] ) && $visit['id_reference'] ? $visit['id_reference'] : null ),
+			'attributes' => array(
+				'type' => 'dropdown',
+				'name' => 'visits_field_id_reference',
+				'id' => 'visits_field_id_reference',
+				'value' => set_value('visits_field_id_reference') ? set_value('visits_field_id_reference') : (isset($visit['id_reference']) ? $visit['id_reference'] : ''),
+				'placeholder' => lang('visits_field_id_reference')
+			)
+		)
+	);
+
+
+	$options = array();
+	foreach( $symptoms as $symptom ) {
+		$options[$symptom['id']] = $symptom['name'];
+	}
+
+	$this->load->view('common/form/input', array(
+			'error' => form_error('visits_field_id_symptom') || isset($visits_field_id_symptom_error),
+			'label' => lang('visits_field_id_symptom'),
+			'options' => $options,
+			'selected' => ( isset( $visit['id_symptom'] ) && $visit['id_symptom'] ? $visit['id_symptom'] : null ),
+			'attributes' => array(
+				'type' => 'dropdown',
+				'name' => 'visits_field_id_symptom',
+				'id' => 'visits_field_id_symptom',
+				'value' => set_value('visits_field_id_symptom') ? set_value('visits_field_id_symptom') : (isset($visit['id_symptom']) ? $visit['id_symptom'] : ''),
+				'placeholder' => lang('visits_field_id_symptom')
+			)
+		)
+	);
+
+	$this->load->view('common/form/input', array(
+			'error' => form_error('visits_field_id_symptom') || isset($visits_field_id_symptom_error),
+			'label' => lang('visits_field_id_symptom'),
+			'options' => $options,
+			'selected' => ( isset( $visit['id_symptom'] ) && $visit['id_symptom'] ? $visit['id_symptom'] : null ),
+			'attributes' => array(
+				'type' => 'dropdown',
+				'name' => 'visits_field_id_symptom',
+				'id' => 'visits_field_id_symptom',
+				'value' => set_value('visits_field_id_symptom') ? set_value('visits_field_id_symptom') : (isset($visit['id_symptom']) ? $visit['id_symptom'] : ''),
+				'placeholder' => lang('visits_field_id_symptom')
+			)
+		)
+	);
+
+	$this->load->view('common/form/input', array(
+			'error' => form_error('visits_field_id_symptom') || isset($visits_field_id_symptom_error),
+			'label' => lang('visits_field_id_symptom'),
+			'options' => $options,
+			'selected' => ( isset( $visit['id_symptom'] ) && $visit['id_symptom'] ? $visit['id_symptom'] : null ),
+			'attributes' => array(
+				'type' => 'dropdown',
+				'name' => 'visits_field_id_symptom',
+				'id' => 'visits_field_id_symptom',
+				'value' => set_value('visits_field_id_symptom') ? set_value('visits_field_id_symptom') : (isset($visit['id_symptom']) ? $visit['id_symptom'] : ''),
+				'placeholder' => lang('visits_field_id_symptom')
+			)
+		)
+	);
+
+
+	$options = array();
+	foreach( $diagnostics as $diagnostic ) {
+		$options[$diagnostic['id']] = $diagnostic['name'];
+	}
+
+	$this->load->view('common/form/input', array(
+			'error' => form_error('visits_field_id_diagnostic') || isset($visits_field_id_diagnostic_error),
+			'label' => lang('visits_field_id_diagnostic'),
+			'options' => $options,
+			'selected' => ( isset( $visit['id_diagnostic'] ) && $visit['id_diagnostic'] ? $visit['id_diagnostic'] : null ),
+			'attributes' => array(
+				'type' => 'dropdown',
+				'name' => 'visits_field_id_diagnostic',
+				'id' => 'visits_field_id_diagnostic',
+				'value' => set_value('visits_field_id_diagnostic') ? set_value('visits_field_id_diagnostic') : (isset($visit['id_diagnostic']) ? $visit['id_diagnostic'] : ''),
+				'placeholder' => lang('visits_field_id_diagnostic')
+			)
+		)
+	);
+
+
+	$options = array();
+	foreach( $risks as $risk ) {
+		$options[$risk['id']] = $risk['name'];
+	}
+
+	$this->load->view('common/form/input', array(
+			'error' => form_error('visits_field_id_risk') || isset($visits_field_id_risk_error),
+			'label' => lang('visits_field_id_risk'),
+			'options' => $options,
+			'selected' => ( isset( $visit['id_risk'] ) && $visit['id_risk'] ? $visit['id_risk'] : null ),
+			'attributes' => array(
+				'type' => 'dropdown',
+				'name' => 'visits_field_id_risk',
+				'id' => 'visits_field_id_risk',
+				'value' => set_value('visits_field_id_risk') ? set_value('visits_field_id_risk') : (isset($visit['id_risk']) ? $visit['id_risk'] : ''),
+				'placeholder' => lang('visits_field_id_risk')
+			)
+		)
+	);
+
+	$this->load->view('common/form/input', array(
+			'error' => form_error('visits_field_id_risk') || isset($visits_field_id_risk_error),
+			'label' => lang('visits_field_id_risk'),
+			'options' => $options,
+			'selected' => ( isset( $visit['id_risk'] ) && $visit['id_risk'] ? $visit['id_risk'] : null ),
+			'attributes' => array(
+				'type' => 'dropdown',
+				'name' => 'visits_field_id_risk',
+				'id' => 'visits_field_id_risk',
+				'value' => set_value('visits_field_id_risk') ? set_value('visits_field_id_risk') : (isset($visit['id_risk']) ? $visit['id_risk'] : ''),
+				'placeholder' => lang('visits_field_id_risk')
+			)
+		)
+	);
+
+	$this->load->view('common/form/input', array(
+			'error' => form_error('visits_field_id_risk') || isset($visits_field_id_risk_error),
+			'label' => lang('visits_field_id_risk'),
+			'options' => $options,
+			'selected' => ( isset( $visit['id_risk'] ) && $visit['id_risk'] ? $visit['id_risk'] : null ),
+			'attributes' => array(
+				'type' => 'dropdown',
+				'name' => 'visits_field_id_risk',
+				'id' => 'visits_field_id_risk',
+				'value' => set_value('visits_field_id_risk') ? set_value('visits_field_id_risk') : (isset($visit['id_risk']) ? $visit['id_risk'] : ''),
+				'placeholder' => lang('visits_field_id_risk')
+			)
+		)
+	);
 ?>
 			<div class="field">
 				<?= form_button(array('type' => 'submit', 'class' => 'ui submit primary button small right floated', 'content' => '<i class="archive icon"></i> '.lang('visits_save'))); ?>
