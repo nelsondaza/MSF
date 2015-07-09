@@ -71,8 +71,23 @@
 			break;
 		case 'multicheckbox':
 			$options = ( isset( $options ) ? $options : array() );
+
+			$type = 'grouped';
+			$attributes['cols'] = ( !isset( $attributes['cols'] ) ? 1 : (int)$attributes['cols'] );
+
+			switch( $attributes['cols'] ) {
+				case 2:
+					$type = 'two';
+					break;
+				case 3:
+					$type = 'three';
+					break;
+				case 4:
+					$type = 'four';
+					break;
+			}
 ?>
-			<div class="grouped fields">
+			<div class="<?= $type ?> fields">
 <?php
 				foreach( $options as $option ) {
 ?>
