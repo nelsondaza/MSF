@@ -47,7 +47,7 @@
 		        'value' => set_value('visits_field_start_date') ? set_value('visits_field_start_date') : ( isset($visit['start_date']) ? $visit['start_date'] : date('Y-m-d')),
 		        'placeholder' => lang('visits_field_start_date')
 	        ),
-			'cols' => 2,
+			'cols' => 4,
 			'actualCol' => 0
 		)
 	);
@@ -185,7 +185,9 @@
 				'id' => 'visits_field_id_education',
 				'value' => set_value('visits_field_id_education') ? set_value('visits_field_id_education') : (isset($visit['id_education']) ? $visit['id_education'] : ''),
 				'placeholder' => lang('visits_field_id_education')
-			)
+			),
+			'cols' => 2,
+			'actualCol' => 0
 		)
 	);
 
@@ -210,77 +212,73 @@
 		)
 	);
 
+
 	$options = array();
 	foreach( $references as $reference ) {
-		$options[$reference['id']] = $reference['name'];
+		if( !isset( $options[$reference['category']] ) )
+			$options[$reference['category']] = array();
+		$options[$reference['category']][] = array(
+			'name' => 'references[]',
+			'label' => $reference['name'],
+			'value' => $reference['id']
+		);
 	}
 
 	$this->load->view('common/form/input', array(
 			'error' => form_error('visits_field_id_reference') || isset($visits_field_id_reference_error),
 			'label' => lang('visits_field_id_reference'),
-			'options' => $options,
+			'options' => $options['DE'],
 			'selected' => ( isset( $visit['id_reference'] ) && $visit['id_reference'] ? $visit['id_reference'] : null ),
 			'attributes' => array(
-				'type' => 'dropdown',
+				'type' => 'multicheckbox',
 				'name' => 'visits_field_id_reference',
 				'id' => 'visits_field_id_reference',
 				'value' => set_value('visits_field_id_reference') ? set_value('visits_field_id_reference') : (isset($visit['id_reference']) ? $visit['id_reference'] : ''),
-				'placeholder' => lang('visits_field_id_reference')
-			)
+				'placeholder' => lang('visits_field_id_reference'),
+				'cols' => 3,
+				'group' => 'Referido',
+				'group-end' => true
+			),
+			'cols' => 0,
+			'actualCol' => 0
 		)
 	);
 
 
 	$options = array();
 	foreach( $symptoms as $symptom ) {
-		$options[$symptom['id']] = $symptom['name'];
+		if( !isset( $options[$symptom['category']] ) )
+			$options[$symptom['category']] = array();
+		$options[$symptom['category']][] = array(
+			'name' => 'symptoms[]',
+			'label' => $symptom['name'],
+			'value' => $symptom['id']
+		);
 	}
 
-	$this->load->view('common/form/input', array(
-			'error' => form_error('visits_field_id_symptom') || isset($visits_field_id_symptom_error),
-			'label' => lang('visits_field_id_symptom'),
-			'options' => $options,
-			'selected' => ( isset( $visit['id_symptom'] ) && $visit['id_symptom'] ? $visit['id_symptom'] : null ),
-			'attributes' => array(
-				'type' => 'dropdown',
-				'name' => 'visits_field_id_symptom',
-				'id' => 'visits_field_id_symptom',
-				'value' => set_value('visits_field_id_symptom') ? set_value('visits_field_id_symptom') : (isset($visit['id_symptom']) ? $visit['id_symptom'] : ''),
-				'placeholder' => lang('visits_field_id_symptom')
+	$total = 2;
+	$col = 0;
+	foreach( $options as $cat => $opts ) {
+		$this->load->view('common/form/input', array(
+				'error' => form_error('visits_field_id_symptom') || isset($visits_field_id_symptom_error),
+				'label' => $cat,
+				'options' => $opts,
+				'selected' => ( isset( $visit['id_symptom'] ) && $visit['id_symptom'] ? $visit['id_symptom'] : null ),
+				'attributes' => array(
+					'type' => 'multicheckbox',
+					'name' => 'visits_field_id_symptom[]',
+					'id' => 'visits_field_id_symptom',
+					'value' => set_value('visits_field_id_symptom') ? set_value('visits_field_id_symptom') : (isset($visit['id_symptom']) ? $visit['id_symptom'] : ''),
+					'placeholder' => lang('visits_field_id_symptom'),
+					'group' => ( $col == 0 ? 'Síntomas' : null ),
+					'group-end' => ( $col == count( $options ) - 1 ),
+				),
+				'cols' => $total,
+				'actualCol' => $col % 2
 			)
-		)
-	);
-
-	$this->load->view('common/form/input', array(
-			'error' => form_error('visits_field_id_symptom') || isset($visits_field_id_symptom_error),
-			'label' => lang('visits_field_id_symptom'),
-			'options' => $options,
-			'selected' => ( isset( $visit['id_symptom'] ) && $visit['id_symptom'] ? $visit['id_symptom'] : null ),
-			'attributes' => array(
-				'type' => 'dropdown',
-				'name' => 'visits_field_id_symptom',
-				'id' => 'visits_field_id_symptom',
-				'value' => set_value('visits_field_id_symptom') ? set_value('visits_field_id_symptom') : (isset($visit['id_symptom']) ? $visit['id_symptom'] : ''),
-				'placeholder' => lang('visits_field_id_symptom')
-			)
-		)
-	);
-
-	$this->load->view('common/form/input', array(
-			'error' => form_error('visits_field_id_symptom') || isset($visits_field_id_symptom_error),
-			'label' => lang('visits_field_id_symptom'),
-			'options' => $options,
-			'selected' => ( isset( $visit['id_symptom'] ) && $visit['id_symptom'] ? $visit['id_symptom'] : null ),
-			'attributes' => array(
-				'type' => 'dropdown',
-				'name' => 'visits_field_id_symptom',
-				'id' => 'visits_field_id_symptom',
-				'value' => set_value('visits_field_id_symptom') ? set_value('visits_field_id_symptom') : (isset($visit['id_symptom']) ? $visit['id_symptom'] : ''),
-				'placeholder' => lang('visits_field_id_symptom')
-			)
-		)
-	);
-
+		);
+		$col++;
+	}
 
 	$options = array();
 	foreach( $diagnostics as $diagnostic ) {
@@ -303,13 +301,14 @@
 				'id' => 'visits_field_id_diagnostic',
 				'value' => set_value('visits_field_id_diagnostic') ? set_value('visits_field_id_diagnostic') : (isset($visit['id_diagnostic']) ? $visit['id_diagnostic'] : ''),
 				'placeholder' => lang('visits_field_id_diagnostic'),
-				'cols' => 3
+				'cols' => 3,
+				'group' => 'Diagnóstico',
+				'group-end' => true
 			),
 			'cols' => 0,
 			'actualCol' => 0
 		)
 	);
-
 
 	$options = array();
 	foreach( $risks as $risk ) {
@@ -322,8 +321,7 @@
 		);
 	}
 
-
-	$total = count( $options );
+	$total = 2;
 	$col = 0;
 	foreach( $options as $cat => $opts ) {
 		$this->load->view('common/form/input', array(
@@ -336,7 +334,9 @@
 					'name' => 'visits_field_id_risk[]',
 					'id' => 'visits_field_id_risk',
 					'value' => set_value('visits_field_id_risk') ? set_value('visits_field_id_risk') : (isset($visit['id_risk']) ? $visit['id_risk'] : ''),
-					'placeholder' => lang('visits_field_id_risk')
+					'placeholder' => lang('visits_field_id_risk'),
+					'group' => ( $col == 0 ? 'Factores de Evento / Riesgo' : null ),
+					'group-end' => ( $col == count( $options ) - 1 ),
 				),
 				'cols' => $total,
 				'actualCol' => $col

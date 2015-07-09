@@ -33,9 +33,29 @@
 	if( isset( $attributes['readonly'] ) && !$attributes['readonly'] )
 		unset( $attributes['readonly'] );
 
-	if( $GLOBALS['actualCol'] == 1 ) {
+	if( isset($attributes['group']) && $attributes['group'] ) {
 ?>
-<div class="two fields">
+	<h4 class="ui top attached header"><?= $attributes['group'] ?></h4>
+	<div class="ui secondary attached segment">
+<?php
+	}
+	if( $GLOBALS['actualCol'] == 1 ) {
+		$size = 'grouped';
+		$cols = ( isset( $cols ) && (int)$cols > 0 ? (int)$cols : 0 );
+
+		switch( $cols ) {
+			case 2:
+				$size = 'two';
+				break;
+			case 3:
+				$size = 'three';
+				break;
+			case 4:
+				$size = 'four';
+				break;
+		}
+?>
+<div class="<?= $size ?> fields">
 <?php
 	}
 	if( $attributes['type'] != 'hidden' || ( isset( $field ) && !$field ) ) {
@@ -224,7 +244,12 @@
 </div>
 <?php
 	}
-	if( !isset( $divider ) || $divider ) {
+	if( isset($attributes['group-end']) && $attributes['group-end'] ) {
+?>
+</div>
+<?php
+	}
+	else if( !isset( $divider ) || $divider ) {
 ?>
 <div class="ui fitted divider"></div>
 <?php
