@@ -284,7 +284,12 @@
 
 	$options = array();
 	foreach( $diagnostics as $diagnostic ) {
-		$options[$diagnostic['id']] = $diagnostic['name'];
+		//$options[$diagnostic['id']] = $diagnostic['name'];
+		$options[] = array(
+			'name' => 'diagnostics[]',
+			'label' => $diagnostic['name'],
+			'value' => $diagnostic['id']
+		);
 	}
 
 	$this->load->view('common/form/input', array(
@@ -293,65 +298,52 @@
 			'options' => $options,
 			'selected' => ( isset( $visit['id_diagnostic'] ) && $visit['id_diagnostic'] ? $visit['id_diagnostic'] : null ),
 			'attributes' => array(
-				'type' => 'dropdown',
+				'type' => 'multicheckbox',
 				'name' => 'visits_field_id_diagnostic',
 				'id' => 'visits_field_id_diagnostic',
 				'value' => set_value('visits_field_id_diagnostic') ? set_value('visits_field_id_diagnostic') : (isset($visit['id_diagnostic']) ? $visit['id_diagnostic'] : ''),
-				'placeholder' => lang('visits_field_id_diagnostic')
-			)
+				'placeholder' => lang('visits_field_id_diagnostic'),
+				'cols' => 3
+			),
+			'cols' => 0,
+			'actualCol' => 0
 		)
 	);
 
 
 	$options = array();
 	foreach( $risks as $risk ) {
-		$options[$risk['id']] = $risk['name'];
+		if( !isset( $options[$risk['category']] ) )
+			$options[$risk['category']] = array();
+		$options[$risk['category']][] = array(
+			'name' => 'risks[]',
+			'label' => $risk['name'],
+			'value' => $risk['id']
+		);
 	}
 
-	$this->load->view('common/form/input', array(
-			'error' => form_error('visits_field_id_risk') || isset($visits_field_id_risk_error),
-			'label' => lang('visits_field_id_risk'),
-			'options' => $options,
-			'selected' => ( isset( $visit['id_risk'] ) && $visit['id_risk'] ? $visit['id_risk'] : null ),
-			'attributes' => array(
-				'type' => 'dropdown',
-				'name' => 'visits_field_id_risk',
-				'id' => 'visits_field_id_risk',
-				'value' => set_value('visits_field_id_risk') ? set_value('visits_field_id_risk') : (isset($visit['id_risk']) ? $visit['id_risk'] : ''),
-				'placeholder' => lang('visits_field_id_risk')
-			)
-		)
-	);
 
-	$this->load->view('common/form/input', array(
-			'error' => form_error('visits_field_id_risk') || isset($visits_field_id_risk_error),
-			'label' => lang('visits_field_id_risk'),
-			'options' => $options,
-			'selected' => ( isset( $visit['id_risk'] ) && $visit['id_risk'] ? $visit['id_risk'] : null ),
-			'attributes' => array(
-				'type' => 'dropdown',
-				'name' => 'visits_field_id_risk',
-				'id' => 'visits_field_id_risk',
-				'value' => set_value('visits_field_id_risk') ? set_value('visits_field_id_risk') : (isset($visit['id_risk']) ? $visit['id_risk'] : ''),
-				'placeholder' => lang('visits_field_id_risk')
+	$total = count( $options );
+	$col = 0;
+	foreach( $options as $cat => $opts ) {
+		$this->load->view('common/form/input', array(
+				'error' => form_error('visits_field_id_risk') || isset($visits_field_id_risk_error),
+				'label' => $cat,
+				'options' => $opts,
+				'selected' => ( isset( $visit['id_risk'] ) && $visit['id_risk'] ? $visit['id_risk'] : null ),
+				'attributes' => array(
+					'type' => 'multicheckbox',
+					'name' => 'visits_field_id_risk[]',
+					'id' => 'visits_field_id_risk',
+					'value' => set_value('visits_field_id_risk') ? set_value('visits_field_id_risk') : (isset($visit['id_risk']) ? $visit['id_risk'] : ''),
+					'placeholder' => lang('visits_field_id_risk')
+				),
+				'cols' => $total,
+				'actualCol' => $col
 			)
-		)
-	);
-
-	$this->load->view('common/form/input', array(
-			'error' => form_error('visits_field_id_risk') || isset($visits_field_id_risk_error),
-			'label' => lang('visits_field_id_risk'),
-			'options' => $options,
-			'selected' => ( isset( $visit['id_risk'] ) && $visit['id_risk'] ? $visit['id_risk'] : null ),
-			'attributes' => array(
-				'type' => 'dropdown',
-				'name' => 'visits_field_id_risk',
-				'id' => 'visits_field_id_risk',
-				'value' => set_value('visits_field_id_risk') ? set_value('visits_field_id_risk') : (isset($visit['id_risk']) ? $visit['id_risk'] : ''),
-				'placeholder' => lang('visits_field_id_risk')
-			)
-		)
-	);
+		);
+		$col ++;
+	}
 ?>
 			<div class="field">
 				<?= form_button(array('type' => 'submit', 'class' => 'ui submit primary button small right floated', 'content' => '<i class="archive icon"></i> '.lang('visits_save'))); ?>
