@@ -1,22 +1,17 @@
 $(function () {
 
 
-	var $menu                = $('#toc');
-	$menu
-		.sidebar({
-			transition       : 'uncover',
-			mobileTransition : 'uncover'
-		})
-	;
-	$('.launch.button, .view-ui, .launch.item')
-		.on('click', function(event) {
-			$menu.sidebar('toggle');
-			event.preventDefault();
-		})
-	;
+	var $menu = $('#toc');
+	$menu.sidebar({
+		transition       : 'uncover',
+		mobileTransition : 'uncover'
+	});
+	$('.launch.button, .view-ui, .launch.item').on('click', function(event) {
+		$menu.sidebar('toggle');
+		event.preventDefault();
+	});
 
-	$sidebarButton       = $('.fixed.launch.button'),
-
+	$sidebarButton = $('.fixed.launch.button');
 
 
 	$('.ui.dropdown[data-content]').popup({
@@ -32,6 +27,9 @@ $(function () {
 	$('.ui.checkbox').checkbox();
 	$(".chosen-select").chosen({
 		width: '100%',
+		no_results_text: "No hay resultados",
+		disable_search_threshold: 5,
+		search_contains: true
 	});
 
 	$('.ui.menu.dash.sticky').sticky({offset: 70});
@@ -147,6 +145,89 @@ $(function () {
 
 	});
 
+});
+
+$(function(){
+	$('.ui.new-patient.modal').modal({
+		blurring: true,
+		autofocus: true,
+		onDeny    : function(){
+
+		},
+		selector    : {
+			close    : '.actions .button',
+			approve  : '.actions .positive, .actions .approve, .actions .ok',
+			deny     : '.actions .negative, .actions .deny, .actions .cancel'
+		},
+	});
+
+	$('.visit-action').click(function(event){
+		event.preventDefault();
+		$('.ui.new-patient.modal').modal('show');
+	});
+
+	$('#select-new-patient').selectize({
+		valueField: 'id',
+		labelField: 'patient',
+		searchField: ['search_text'],
+		options: [],
+		create: false,
+		render: {
+			option: function(item, escape) {
+				return '' +
+					'<div class="new-patient-option">' +
+						'<div class="title">' +
+							'<i class="ui icon user"></i><span class="name">' + escape( item.first_name + ' ' + item.last_name ) + '</span>' +
+						'</div>' +
+						'<div class="description">' +
+							'<b>CÓD: </b>' + escape(item.code) + ' ' +
+							'<b>PID: </b>' + escape(item.PID) + ' ' +
+						'</div>' +
+						'<div class="details">' +
+							'<b>Visitas: </b>' + escape(1) + ' ' +
+							'<b>Última visita: </b>' + escape('2015-02-02') + ' ' +
+						'</div>' +
+					'</div>';
+			}
+		},
+		load: function(query, callback) {
+
+			$('#new-visit').addClass('disabled');
+
+			if (!query.length) return callback();
+			$.ajax({
+				url: base_url + 'services/search/patient',
+				type: 'GET',
+				dataType: 'json',
+				data: {
+					q: query,
+					page_limit: 10
+				},
+				error: function() {
+					callback();
+				},
+				success: function(res) {
+					if( res.data ) {
+						$.each(res.data,function(index, elem){
+							elem.patient = elem.first_name + ' ' + elem.last_name + ' (' + elem.code + ')'
+						});
+						callback(res.data);
+					}
+					else {
+
+					}
+				}
+			});
+		},
+		onChange: function(value) {
+			$('#new-visit').removeClass('disabled');
+			$('#new-visit').unbind('click');
+			$('#new-visit').click(function(){
+				document.location.href = base_url + 'visits/visits';
+			});
+
+		}
+	});
 });
 
 

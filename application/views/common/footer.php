@@ -7,6 +7,34 @@
         </div>
     </div>
 </div>
+<div class="ui small modal new-patient">
+    <div class="ui top attached header">Paciente / Visita</div>
+    <div class="content">
+		<form action="" class="ui small fluid form " method="post" accept-charset="utf-8">
+			<div class="two fields">
+				<div class="field ">
+					<label class="control-label" for="select-new-patient">Buscar Paciente:</label>
+					<select name="select-new-patient" id="select-new-patient"></select>
+				</div>
+				<div class="field">
+					<div class="two fields">
+						<div class="field ">
+							<label class="control-label" for="">Iniciar Visita</label>
+							<div class="ui mini button blue disabled" id="new-visit">Nueva</div>
+						</div>
+						<div class="field ">
+							<label class="control-label" for="">Crear Paciente</label>
+							<div class="ui mini button positive">Nuevo</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+    </div>
+    <div class="ui bottom attached header actions">
+        <div class="ui mini button negative">Cancelar</div>
+    </div>
+</div>
 <?php
 /*
 <script>
