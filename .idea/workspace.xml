@@ -1,7 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2031ac1b-b093-4856-b7e7-32023e1522f0" name="Default" comment="" />
+    <list default="true" id="2031ac1b-b093-4856-b7e7-32023e1522f0" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/css/40-modal-new-patient.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/css/40-modal-new-patient.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/msf_2015-07-09.sql" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/application/models/manage/patients_model.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/application/controllers/services/search.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/css/vendor/selectize.default.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/js/vendor/selectize.min.js" />
+      <change type="DELETED" beforePath="C:\web_apps\desarrollo\MSF\application\controllers\services\visits.php" afterPath="" />
+      <change type="DELETED" beforePath="C:\web_apps\desarrollo\MSF\resources\css\10-body.css" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/css/10-base.less" afterPath="$PROJECT_DIR$/resources/css/10-base.less" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/css/10-body.less" afterPath="$PROJECT_DIR$/resources/css/10-body.less" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/config/database.php" afterPath="$PROJECT_DIR$/application/config/database.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/common/footer.php" afterPath="$PROJECT_DIR$/application/views/common/footer.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/common/head.php" afterPath="$PROJECT_DIR$/application/views/common/head.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/css/main.css" afterPath="$PROJECT_DIR$/resources/css/main.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/js/main.js" afterPath="$PROJECT_DIR$/resources/js/main.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/css/main.less" afterPath="$PROJECT_DIR$/resources/css/main.less" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/common/menu.php" afterPath="$PROJECT_DIR$/application/views/common/menu.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+    </list>
     <ignored path="MSF.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -68,7 +89,7 @@
         <entry file="file://$PROJECT_DIR$/resources/css/10-body.less">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="33" column="25" selection-start-line="33" selection-start-column="25" selection-end-line="33" selection-end-column="25" />
+              <caret line="38" column="25" selection-start-line="38" selection-start-column="25" selection-end-line="38" selection-end-column="25" />
               <folding />
             </state>
           </provider>
@@ -90,8 +111,10 @@
         <entry file="file://$PROJECT_DIR$/resources/js/main.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="70" column="16" selection-start-line="70" selection-start-column="16" selection-end-line="70" selection-end-column="16" />
-              <folding />
+              <caret line="68" column="16" selection-start-line="68" selection-start-column="16" selection-end-line="68" selection-end-column="16" />
+              <folding>
+                <marker date="1436537447396" expanded="true" signature="14:5889" placeholder="{...}" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -954,13 +977,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/controllers/services/visits.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.08232445">
-          <caret line="4" column="18" selection-start-line="4" selection-start-column="10" selection-end-line="4" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/application/views/common/menu.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.40526977">
@@ -1041,7 +1057,7 @@
     <entry file="file://$PROJECT_DIR$/resources/css/10-body.less">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="33" column="25" selection-start-line="33" selection-start-column="25" selection-end-line="33" selection-end-column="25" />
+          <caret line="38" column="25" selection-start-line="38" selection-start-column="25" selection-end-line="38" selection-end-column="25" />
           <folding />
         </state>
       </provider>
@@ -1072,8 +1088,10 @@
     <entry file="file://$PROJECT_DIR$/resources/js/main.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="70" column="16" selection-start-line="70" selection-start-column="16" selection-end-line="70" selection-end-column="16" />
-          <folding />
+          <caret line="68" column="16" selection-start-line="68" selection-start-column="16" selection-end-line="68" selection-end-column="16" />
+          <folding>
+            <marker date="1436537447396" expanded="true" signature="14:5889" placeholder="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -17,6 +17,7 @@
 <link rel="stylesheet" href="<?= base_url() ?>resources/css/vendor/semantic.min.css">
 <link rel="stylesheet" href="<?= base_url() ?>resources/css/vendor/jquery.datetimepicker.css">
 <link rel="stylesheet" href="<?= base_url() ?>resources/css/vendor/chosen.css">
+<link rel="stylesheet" href="<?= base_url() ?>resources/css/vendor/selectize.default.css">
 <link rel="stylesheet" href="<?= base_url() ?>resources/css/main.css">
 <link rel="shortcut icon" href="<?= base_url() ?>favicon.ico"/>
 <script src="<?= base_url() ?>resources/js/vendor/modernizr-2.6.2.min.js"></script>
@@ -31,6 +32,7 @@
 <script src="<?= base_url() ?>resources/js/vendor/jquery.tablesort.min.js"></script>
 <script src="<?= base_url() ?>resources/js/vendor/chosen.jquery.js"></script>
 <script src="<?= base_url() ?>resources/js/vendor/semantic.min.js"></script>
+<script src="<?= base_url() ?>resources/js/vendor/selectize.min.js"></script>
 
 <link rel="stylesheet" href="<?= base_url() ?>resources/css/vendor/jquery.gridster.css">
 <script src="<?= base_url() ?>resources/js/vendor/jquery.gridster.with-extras.min.js"></script>
@@ -38,3 +40,4 @@
 
 <script src="<?= base_url() ?>resources/js/plugins.js"></script>
 <script src="<?= base_url() ?>resources/js/main.js"></script>
+<script type="text/javascript"> var base_url = '<?= base_url() ?>';</script>

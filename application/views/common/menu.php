@@ -22,7 +22,7 @@
 	</div>
 <?php
 	echo anchor( base_url(), '<i class="home icon"></i> ' . lang( 'website_home' ), array( 'class' => 'item' . ( $current == 'home' ? ' active' : '' ) ) );
-	echo anchor( 'visits/visits', '<i class="doctor icon"></i> Consulta', array( 'class' => 'item' . ( $current == 'visits' ? ' active' : '' ) ) );
+	echo anchor( '#', '<i class="doctor icon"></i> Consulta', array( 'class' => 'visit-action item' . ( $current == 'visits' ? ' active' : '' ) ) );
 
 	$active = ( in_array( $current, array( 'account_profile', 'account_settings', 'account_password' ) ) );
 ?>
