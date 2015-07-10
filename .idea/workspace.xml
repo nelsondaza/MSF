@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2031ac1b-b093-4856-b7e7-32023e1522f0" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/common/form/input.php" afterPath="$PROJECT_DIR$/application/views/common/form/input.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/css/main.css" afterPath="$PROJECT_DIR$/resources/css/main.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/models/manage/references_model.php" afterPath="$PROJECT_DIR$/application/models/manage/references_model.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/models/manage/symptoms_model.php" afterPath="$PROJECT_DIR$/application/models/manage/symptoms_model.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/visits/visits.php" afterPath="$PROJECT_DIR$/application/views/visits/visits.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="2031ac1b-b093-4856-b7e7-32023e1522f0" name="Default" comment="" />
     <ignored path="MSF.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -717,7 +710,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1672" y="-8" width="1696" height="1036" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
