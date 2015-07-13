@@ -27,42 +27,10 @@
 			$this->shapeResponse();
 		}
 
-		function instance( $idSource, $action, $subAction = null, $request = null ) {
-
-			$source = $this->sources_model->get_one_by_id( $idSource );
-
-			if( !empty( $source ) ) {
-				if( \sources\DataSource::checkClass( $source['base_class'] ) ) {
-					$sourceObj = \sources\DataSource::create( $source['base_class'] );
-					$sourceObj->init( $idSource );
-
-					if( method_exists( $sourceObj, 'service_' . $action ) ) {
-						$action = 'service_' . $action;
-						$this->data = $sourceObj->$action( $subAction, $request );
-					}
-					else {
-						$this->data['error'] = array(
-							'code' => 20,
-							'msg' => sprintf( lang( 'services_action_not_found' ), 'service_' . $action )
-						);
-					}
-
-				}
-			}
-			else {
-				$this->data['error'] = array(
-					'code' => 20,
-					'msg' => lang( 'services_object_not_found' )
-				);
-			}
-
-			$this->shapeResponse();
-		}
-
 		function patient( ) {
 
-			$q = $this->input->get('q');
-			$limit = min( abs( (int)$this->input->get('page_limit') ), 20 );
+			$q = $this->input->get('q',true);
+			$limit = min( abs( (int)$this->input->get('page_limit',true) ), 20 );
 			$list = $this->patients_model->search( $q, $limit );
 
 			$this->data = $list;

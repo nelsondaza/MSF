@@ -10,7 +10,7 @@
 		 */
 		function index() {
 
-			$data = $this->auth( 'manage/brands', array(
+			$data = $this->auth( '', array(
 				//'retrieve_brands' => 'account/account_profile'
 			) );
 

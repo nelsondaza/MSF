@@ -2,7 +2,7 @@
 
 	require_once( APPPATH . "models/general_model.php" );
 
-	class Visits_types_model extends General_model {
+	class Consults_types_model extends General_model {
 
 		/**
 		 * Returns a list with active elements

@@ -28,8 +28,11 @@ $(function () {
 	$(".chosen-select").chosen({
 		width: '100%',
 		no_results_text: "No hay resultados",
-		disable_search_threshold: 5,
+		disable_search_threshold: 7,
 		search_contains: true
+	});
+	$('.message .close').on('click', function() {
+		$(this).closest('.message').transition('fade');
 	});
 
 	$('.ui.menu.dash.sticky').sticky({offset: 70});
@@ -148,6 +151,10 @@ $(function () {
 });
 
 $(function(){
+
+	if( $('.ui.new-patient.modal').length == 0 )
+		return;
+
 	$('.ui.new-patient.modal').modal({
 		blurring: true,
 		autofocus: true,
@@ -161,7 +168,7 @@ $(function(){
 		},
 	});
 
-	$('.visit-action').click(function(event){
+	$('.consult-action').click(function(event){
 		event.preventDefault();
 		$('.ui.new-patient.modal').modal('show');
 	});
@@ -192,9 +199,11 @@ $(function(){
 		},
 		load: function(query, callback) {
 
-			$('#new-visit').addClass('disabled');
+			$('#consults').addClass('disabled').prop('disabled');
 
-			if (!query.length) return callback();
+			if (!query.length)
+				return callback();
+
 			$.ajax({
 				url: base_url + 'services/search/patient',
 				type: 'GET',
@@ -208,26 +217,209 @@ $(function(){
 				},
 				success: function(res) {
 					if( res.data ) {
+						$('#select-new-patient').popup('destroy');
 						$.each(res.data,function(index, elem){
 							elem.patient = elem.first_name + ' ' + elem.last_name + ' (' + elem.code + ')'
 						});
 						callback(res.data);
 					}
 					else {
-
+						$('#select-new-patient').popup(
+							{
+								position : 'top center',
+								content  : 'No se encontraron resultados',
+								inline   : true,
+								className   : {
+									loading     : 'loading',
+									popup       : 'ui inverted red popup',
+									position    : 'top left',
+									visible     : 'visible'
+								},
+								onHidden: function(){
+									$('#select-new-patient').popup('destroy');
+								}
+							}
+						).popup('show');
 					}
 				}
 			});
 		},
 		onChange: function(value) {
-			$('#new-visit').removeClass('disabled');
-			$('#new-visit').unbind('click');
-			$('#new-visit').click(function(){
-				document.location.href = base_url + 'visits/visits';
+			$('#consults').removeClass('disabled').removeProp('disabled');
+			$('#consults').unbind('click');
+			$('#consults').click(function(){
+				document.location.href = base_url + 'history/' + value;
 			});
 
 		}
 	});
+
+	$('#new-patient').click(function(){
+		$('#search-patient').hide();
+		$('#create-patient').removeClass('hidden').show();
+		$('#patient_first_name').focus();
+		$('#new-patient-create').removeClass('disabled').removeProp('disabled');
+		$('#new-patient-form')[0].reset();
+		$('#new-patient-form input, #new-patient-create, #new-patient-code').popup('destroy');
+		$('#new-patient-code').click();
+	});
+	$('#new-patient-cancel').click(function(){
+		$('#create-patient').hide();
+		$('#search-patient').show();
+
+		var selectize = $("#select-new-patient")[0].selectize;
+		selectize.clear();
+		selectize.clearOptions();
+
+		$('#select-new-patient').click();
+	});
+
+	$('#new-patient-create').click(function(){
+
+		$('#new-patient-code').addClass('disabled').prop('disabled','disabled');
+		$('#new-patient-create').addClass('disabled').prop('disabled','disabled');
+
+		var $newPatient = {
+			'first_name': $('#patient_first_name').val(),
+			'last_name': $('#patient_last_name').val(),
+			'code': $('#patient_code').val(),
+			'PID': $('#patient_PID').val(),
+		};
+
+		$.ajax({
+			type: "POST",
+			url: base_url + 'services/patient/create',
+			data: $newPatient,
+			success: function( result ){
+				if( result.error ) {
+					$('#patient_' + result.error.scope).popup(
+						{
+							position : 'top center',
+							title    : 'Error',
+							content  : result.error.msg,
+							inline   : true,
+							variation: 'wide small',
+							className   : {
+								loading     : 'loading',
+								popup       : 'ui inverted red popup',
+								position    : 'top center',
+								visible     : 'visible'
+							},
+							onHidden: function(){
+								$('#patient_' + result.error.scope).popup('destroy');
+							}
+						}
+					).popup('show');
+					setTimeout(function(){
+						$('#new-patient-create').removeClass('disabled').removeProp('disabled');
+					},1000);
+				}
+				else {
+					document.location.href = base_url + 'history/' + result.data.id;
+				}
+			},
+			error: function(){
+				$('#new-patient-create').popup(
+					{
+						position : 'top center',
+						title    : 'Error',
+						content  : 'Error al crear el paciente.',
+						inline   : true,
+						variation: 'wide small',
+						className   : {
+							loading     : 'loading',
+							popup       : 'ui inverted red popup',
+							position    : 'top center',
+							visible     : 'visible'
+						}
+						,
+						onHidden: function(){
+							$('#new-patient-create').popup('destroy');
+						}
+					}
+				).popup('show');
+
+				$('#new-patient-code').removeClass('disabled').removeProp('disabled');
+				$('#new-patient-create').removeClass('disabled').removeProp('disabled');
+			},
+			dataType: 'json'
+		});
+
+	});
+
+	$('#new-patient-code').click(function(){
+
+		$('#new-patient-code').addClass('disabled').prop('disabled','disabled');
+		$('#new-patient-create').addClass('disabled').prop('disabled','disabled');
+
+		$.ajax({
+			type: "POST",
+			url: base_url + 'services/patient/code',
+			success: function( result ){
+				if( result.error ) {
+					$('#patient_' + result.error.scope).popup(
+						{
+							position : 'top center',
+							title    : 'Error',
+							content  : result.error.msg,
+							inline   : true,
+							variation: 'wide small',
+							className   : {
+								loading     : 'loading',
+								popup       : 'ui inverted red popup',
+								position    : 'top center',
+								visible     : 'visible'
+							},
+							onHidden: function(){
+								$('#new-patient-code').popup('destroy');
+							}
+						}
+					).popup('show');
+				}
+				else {
+					$('#patient_code').val(result.data.code);
+				}
+
+				$('#new-patient-code').removeClass('disabled').removeProp('disabled');
+				$('#new-patient-create').removeClass('disabled').removeProp('disabled');
+				setTimeout(function(){
+					$('#new-patient-code').removeClass('disabled').removeProp('disabled');
+				},1000);
+			},
+			error: function(){
+				$('#new-patient-code').popup(
+					{
+						position : 'top center',
+						title    : 'Error',
+						content  : 'Error al buscar código.',
+						inline   : true,
+						variation: 'wide small',
+						className   : {
+							loading     : 'loading',
+							popup       : 'ui inverted red popup',
+							position    : 'top center',
+							visible     : 'visible'
+						}
+						,
+						onHidden: function(){
+							$('#new-patient-code').popup('destroy');
+						}
+					}
+				).popup('show');
+
+				$('#new-patient-code').removeClass('disabled').removeProp('disabled');
+				$('#new-patient-create').removeClass('disabled').removeProp('disabled');
+
+				setTimeout(function(){
+					$('#new-patient-code').removeClass('disabled').removeProp('disabled');
+				},1000);
+
+			},
+			dataType: 'json'
+		});
+
+	});
+
 });
 
 

@@ -53,6 +53,9 @@
 			case 4:
 				$size = 'four';
 				break;
+			case 5:
+				$size = 'five';
+				break;
 		}
 ?>
 <div class="<?= $size ?> fields">
@@ -79,7 +82,7 @@
 				echo form_hidden( $attributes['name'], $attributes['value'] );
 ?>
 			<div class="ui small form segment read-only">
-				<?= $attributes['value'] ?>
+				<?= ( $attributes['placeholder'] ? $attributes['placeholder'] : $attributes['value'] ) ?>
 			</div>
 <?php
 			}
@@ -107,35 +110,44 @@
 					break;
 			}
 ?>
-			<div class="<?= $type ?> fields">
+			<div class="<?= $type ?> fields" id="<?= $attributes['id'] ?>">
 <?php
 				foreach( $options as $option ) {
+					if ( $readonly ) {
+						if ( in_array( $option['value'], $selected ) ) {
 ?>
 				<div class="field">
+					<span class="ui label"><?= $option['label'] ?></span>
+				</div>
 <?php
-					if ( $readonly ) {
-?>
-					<span class="ui teal mini label"><?= $option['label'] ?></span>
-<?php
+						}
 					}
 					else {
 ?>
+				<div class="field">
 					<div class="ui toggle checkbox">
-						<input type="checkbox" name="<?= $option['name'] ?>" value="<?= $option['value'] ?>" <?= ( isset( $option['checked'] ) && $option['checked'] ? 'checked="checked"' : '' ) ?>>
+						<input type="checkbox" name="<?= $attributes['name'] ?>[]" value="<?= $option['value'] ?>" <?= ( ( isset( $option['checked'] ) && $option['checked'] ) || in_array( $option['value'], $selected ) ? 'checked="checked"' : '' ) ?>>
 						<label><?= $option['label'] ?></label>
 					</div>
-<?php
-					}
-?>
 				</div>
 <?php
+					}
 				}
 ?>
 			</div>
 <?php
 			break;
 		case 'dropdown':
-			echo form_dropdown( $attributes['name'], ( isset( $options ) ? $options : array() ),  ( isset( $selected ) ? $selected : array() ),' id="' . $attributes['id'] . '" class="chosen-select"' );
+			if( $readonly ) {
+				echo form_hidden( $attributes['name'], $attributes['value'] );
+?>
+			<div class="ui small form segment read-only">
+				<?= ( $attributes['placeholder'] ? $attributes['placeholder'] : $attributes['value'] ) ?>
+			</div>
+<?php
+			}
+			else
+				echo form_dropdown( $attributes['name'], ( isset( $options ) ? $options : array() ),  ( isset( $selected ) ? $selected : array() ),' id="' . $attributes['id'] . '" class="chosen-select"' );
 			break;
 		case 'checkbox':
 		case 'radio':
@@ -181,7 +193,7 @@
 				echo form_hidden( $attributes['name'], $attributes['value'] );
 ?>
 			<div class="ui small form segment read-only">
-				<?= $attributes['value'] ?>
+				<?= ( $attributes['placeholder'] ? $attributes['placeholder'] : $attributes['value'] ) ?>
 			</div>
 <?php
 			}
@@ -190,7 +202,7 @@
 				echo form_input( $attributes, $attributes['value'], 'readonly="readonly"' );
 ?>
 				<script type="text/javascript">
-					$('#<?= $attributes['name'] ?>').datetimepicker({
+					$('#<?= $attributes['id'] ?>').datetimepicker({
 						lang:'es',
 						format:'Y-m-d H:i',
 					});
@@ -203,7 +215,7 @@
 				echo form_hidden( $attributes['name'], $attributes['value'] );
 ?>
 			<div class="ui small form segment read-only">
-				<?= $attributes['value'] ?>
+				<?= ( $attributes['placeholder'] ? $attributes['placeholder'] : $attributes['value'] ) ?>
 			</div>
 <?php
 			}
@@ -212,7 +224,7 @@
 				echo form_input( $attributes, $attributes['value'], 'readonly="readonly"' );
 ?>
 				<script type="text/javascript">
-					$('#<?= $attributes['name'] ?>').datetimepicker({
+					$('#<?= $attributes['id'] ?>').datetimepicker({
 						lang:'es',
 						format:'Y-m-d',
 						allowTimes:[]
@@ -225,9 +237,9 @@
 			if( $readonly ) {
 				echo form_hidden( $attributes['name'], $attributes['value'] );
 ?>
-			<div class="ui small form segment read-only">
-				<?= $attributes['value'] ?>
-			</div>
+		<div class="ui small form segment read-only">
+			<?= ( $attributes['placeholder'] ? $attributes['placeholder'] : $attributes['value'] ) ?>
+		</div>
 <?php
 			}
 			else
@@ -239,7 +251,7 @@
 </div>
 <?php
 	}
-	if( $GLOBALS['actualCol'] == 0 && $cols > 0 ) {
+	if( $GLOBALS['actualCol'] == 0 && isset( $cols ) && $cols > 0 ) {
 ?>
 </div>
 <?php
