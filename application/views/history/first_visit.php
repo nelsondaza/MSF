@@ -37,10 +37,10 @@
 				'type' => 'date',
 				'name' => 'history_field_start_date',
 				'id' => 'history_field_start_date',
-				'value' => $patient['first_session'],
-				'placeholder' => '- No iniciada -'
+				'value' => ( !empty( $consults ) ? $consults[0]['creation'] : $patient['first_session'] ),
+				'placeholder' => ( !empty( $consults ) ? $consults[0]['creation'] : '- No iniciada -' )
 			),
-			'cols' => 5,
+			'cols' => 4,
 			'actualCol' => 0
 		)
 	);
@@ -60,11 +60,34 @@
 	);
 
 	$options = array();
+	foreach( $regions as $region ) {
+		$options[$region['id']] = $region['name'];
+	}
+
+	$this->load->view('common/form/input', array(
+			'error' => false,
+			'label' => lang('history_field_id_region'),
+			'options' => $options,
+			'selected' => $regions[0]['id'],
+			'attributes' => array(
+				'readonly' => true,
+				'type' => 'dropdown',
+				'name' => 'history_field_id_region',
+				'id' => 'history_field_id_region',
+				'value' => $regions[0]['id'],
+				'placeholder' => ( $readOnly ? $regions[0]['name'] : lang('history_field_id_region') )
+			)
+		)
+	);
+
+
+	$options = array();
 	$optionName = '';
 	foreach( $localizations as $localization ) {
-		if( !isset( $options[$localization['region']] ) )
-			$options[$localization['region']] = array();
-		$options[$localization['region']][$localization['id']] = $localization['name'];
+		$lgroup = $localization['city'] . ' - ' . $localization['village'];
+		if( !isset( $options[$lgroup] ) )
+			$options[$lgroup] = array();
+		$options[$lgroup][$localization['id']] = $localization['name'];
 		if( isset($patient['id_localization']) && $patient['id_localization'] == $localization['id'] )
 			$optionName = $localization['name'];
 	}
@@ -129,10 +152,28 @@
 				'id' => 'history_field_id_expert',
 				'value' => ( isset( $patient['id_expert'] ) && $patient['id_expert'] ? $patient['id_expert'] : null ),
 				'placeholder' => ( $readOnly ? $optionName : lang('history_field_id_expert') )
-			)
+			),
+			'cols' => 5,
+			'actualCol' => 0
 		)
 	);
 
+
+	$this->load->view('common/form/input', array(
+			'error' => false,
+			'label' => lang('history_field_code_patient'),
+			'attributes' => array(
+				'readonly' => 'true',
+				'type' => 'text',
+				'name' => 'history_field_code_patient',
+				'id' => 'history_field_code_patient',
+				'value' => $patient['code'],
+				'placeholder' => $patient['code']
+			),
+			'cols' => 4,
+			'actualCol' => 0
+		)
+	);
 
 	$this->load->view('common/form/input', array(
 			'error' => false,
@@ -143,10 +184,8 @@
 				'name' => 'history_field_id_patient',
 				'id' => 'history_field_id_patient',
 				'value' => $patient['id'],
-				'placeholder' => $patient['code'] . ' (' . $patient['first_name'] . ' ' . $patient['last_name'] . ')'
-			),
-			'cols' => 5,
-			'actualCol' => 0
+				'placeholder' => $patient['first_name'] . ' ' . $patient['last_name']
+			)
 		)
 	);
 
@@ -168,7 +207,9 @@
 				'id' => 'history_field_gender',
 				'value' => ( isset( $patient['gender'] ) && $patient['gender'] ? $patient['gender'] : null ),
 				'placeholder' => ( $readOnly ? ( isset( $patient['gender'] ) && $patient['gender'] ? $options[$patient['gender']] : null ) : lang('history_field_gender') )
-			)
+			),
+			'cols' => 4,
+			'actualCol' => 0
 		)
 	);
 
@@ -265,7 +306,7 @@
 ?>
 		<br>
 		<div class="field">
-			<?= form_button(array('type' => 'submit', 'class' => 'ui submit primary button small', 'content' => '<i class="archive icon"></i> '.lang('history_save'))); ?>
+			<?= form_button(array('type' => 'button', 'class' => 'ui submit primary button small', 'content' => '<i class="archive icon"></i> '.lang('history_save'))); ?>
 		</div>
 <?php
 	}

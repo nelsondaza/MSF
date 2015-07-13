@@ -16,7 +16,8 @@
 
 			$this->load->model( array(
 				'manage/patients_model',
-				'manage/cities_model',
+				'manage/regions_model',
+				'manage/districts_model',
 				'manage/experts_model',
 				'manage/educations_model',
 				'manage/origin_places_model',
@@ -42,7 +43,9 @@
 				return;
 			}
 
-			$data['localizations'] = $this->cities_model->getActiveList();
+
+			$data['regions'] = $this->regions_model->getActiveList();
+			$data['localizations'] = $this->districts_model->getActiveList();
 			$data['experts'] = $this->experts_model->getActiveList();
 			$data['educations'] = $this->educations_model->getActiveList();
 			$data['origin_places'] = $this->origin_places_model->getActiveList();

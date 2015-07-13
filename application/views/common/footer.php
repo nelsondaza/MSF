@@ -39,7 +39,7 @@
 					<input type="text" name="patient_last_name" id="patient_last_name">
 				</div>
 				<div class="field ">
-					<label class="control-label" for="patient_code">* Código:</label>
+					<label class="control-label" for="patient_code">* Consecutivo:</label>
 					<div class="ui icon input">
 						<input type="text" name="patient_code" id="patient_code">
 						<i class="inverted circular search link icon" id="new-patient-code"></i>

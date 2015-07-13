@@ -275,7 +275,7 @@
 ?>
 		<br>
 		<div class="field">
-			<?= form_button(array('type' => 'submit', 'class' => 'ui submit primary button small', 'content' => '<i class="archive icon"></i> '.lang('history_save'))); ?>
+			<?= form_button(array('type' => 'button', 'class' => 'ui submit primary button small', 'content' => '<i class="archive icon"></i> '.lang('history_save'))); ?>
 		</div>
 <?php
 	}

@@ -6,6 +6,7 @@ $(function(){
 	if( $form.length == 0 )
 		return;
 
+	$form.unbind('submit');
 	$form.submit(function(){
 		return false;
 	});
@@ -110,6 +111,7 @@ $(function(){
 	if( $forms.length == 0 )
 		return;
 
+	$forms.unbind('submit');
 	$forms.submit(function(){
 		return false;
 	});
