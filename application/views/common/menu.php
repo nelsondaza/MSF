@@ -22,7 +22,7 @@
 	</div>
 <?php
 	echo anchor( base_url(), '<i class="home icon"></i> ' . lang( 'website_home' ), array( 'class' => 'item' . ( $current == 'home' ? ' active' : '' ) ) );
-	echo anchor( '#', '<i class="doctor icon"></i> Consulta', array( 'class' => 'visit-action item' . ( $current == 'visits' ? ' active' : '' ) ) );
+	echo anchor( '#', '<i class="doctor icon"></i> Consulta', array( 'class' => 'consult-action item' . ( $current == 'history' ? ' active' : '' ) ) );
 
 	$active = ( in_array( $current, array( 'account_profile', 'account_settings', 'account_password' ) ) );
 ?>
@@ -104,12 +104,12 @@
 	echo anchor( 'manage/symptoms', '<i class="crosshairs icon"></i> Síntomas', array( 'class' => 'item' . ( $current == 'manage_symptoms' ? ' active' : '' ) ) );
 	echo anchor( 'manage/risks_categories', '<i class="crosshairs icon"></i> Riesgos - Categorías', array( 'class' => 'item' . ( $current == 'manage_risks_categories' ? ' active' : '' ) ) );
 	echo anchor( 'manage/risks', '<i class="crosshairs icon"></i> Riesgos', array( 'class' => 'item' . ( $current == 'manage_risks' ? ' active' : '' ) ) );
-	echo anchor( 'manage/visits_types', '<i class="crosshairs icon"></i> Tipos de Consulta', array( 'class' => 'item' . ( $current == 'manage_visits_types' ? ' active' : '' ) ) );
 	echo anchor( 'manage/references_categories', '<i class="crosshairs icon"></i> Referidos - Categorías', array( 'class' => 'item' . ( $current == 'manage_references_categories' ? ' active' : '' ) ) );
 	echo anchor( 'manage/references', '<i class="crosshairs icon"></i> Referidos', array( 'class' => 'item' . ( $current == 'manage_references' ? ' active' : '' ) ) );
 	echo anchor( 'manage/closures', '<i class="crosshairs icon"></i> Cierres', array( 'class' => 'item' . ( $current == 'manage_closures' ? ' active' : '' ) ) );
 	echo anchor( 'manage/closures_conditions', '<i class="crosshairs icon"></i> Condiciones de Cierre', array( 'class' => 'item' . ( $current == 'closures_conditions' ? ' active' : '' ) ) );
 	echo anchor( 'manage/diagnostics', '<i class="crosshairs icon"></i> Diagnósticos Clínicos', array( 'class' => 'item' . ( $current == 'diagnostics' ? ' active' : '' ) ) );
+	echo anchor( 'manage/consults_types', '<i class="crosshairs icon"></i> Tipos de Consultas', array( 'class' => 'item' . ( $current == 'manage_consults_types' ? ' active' : '' ) ) );
 	echo anchor( 'manage/followups_types', '<i class="crosshairs icon"></i> Tipos de consultas de seguimiento', array( 'class' => 'item' . ( $current == 'followups_types' ? ' active' : '' ) ) );
 	echo anchor( 'manage/interventions_types', '<i class="crosshairs icon"></i> Tipo de Intervenciones SMPS', array( 'class' => 'item' . ( $current == 'manage_interventions_types' ? ' active' : '' ) ) );
 	echo anchor( 'manage/educations', '<i class="crosshairs icon"></i> Educación', array( 'class' => 'item' . ( $current == 'manage_educations' ? ' active' : '' ) ) );

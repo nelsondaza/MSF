@@ -197,6 +197,10 @@
 				return $this->db->count_all_results( $this->tableName );
 			}
 
+			if ( stripos( $action, 'insert_batch' ) === 0 ) {
+				$this->db->insert_batch( $this->tableName, array_pop( $arguments ) );
+				return $this->db->affected_rows( );
+			}
 			if ( stripos( $action, 'insert' ) === 0 ) {
 				$this->db->insert( $this->tableName, array_pop( $arguments ) );
 				return $this->db->insert_id( );

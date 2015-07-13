@@ -41,8 +41,7 @@
 $route['default_controller'] 	= 'home';
 $route['404_override'] 			= '';
 
-$route['analytics/flow/(:num)'] = "analytics/flow/shape/$1";
-$route['services/source/(:num)/(.*)'] = "services/source/instance/$1/$2";
+$route['history/(:num)'] = "history/index/$1";
 
 
 /* End of file routes.php */
