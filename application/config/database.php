@@ -58,6 +58,8 @@ $db['default']['autoinit'] = TRUE;
 $db['default']['stricton'] = FALSE;
 
 	if( $_SERVER['SERVER_ADDR'] == '127.0.0.1' ) {
+		echo "JA";
+
 		$db['default']['username'] = 'root';
 		$db['default']['password'] = 'mysql';
 		$db['default']['database'] = 'msf';
