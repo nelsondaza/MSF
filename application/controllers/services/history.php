@@ -124,7 +124,12 @@
 				'id_consults_type' => (int)trim( $this->input->post('id_consults_type',true)),
 				'id_interventions_type' => (int)trim( $this->input->post('id_interventions_type',true)),
 				'operation_reduction' => (int)trim( $this->input->post('operation_reduction',true)),
-				'symptoms_severity' => (int)trim( $this->input->post('symptoms_severity',true))
+				'symptoms_severity' => (int)trim( $this->input->post('symptoms_severity',true)),
+				'id_referenced_to' => (int)trim( $this->input->post('id_referenced_to',true)),
+				'referenced_date' => trim( $this->input->post('referenced_date',true)),
+				'psychotropics_date' => trim( $this->input->post('psychotropics_date',true)),
+				'comments' => trim( $this->input->post('comments',true)),
+				'psychotropics' => (int)trim( $this->input->post('psychotropics',true)),
 			);
 
 			$patient = $this->patients_model->get_one_by_id( $consultInfo['id_patient'] );
@@ -136,6 +141,7 @@
 					'msg' => 'No se encontró el paciente.',
 					'scope' => 'id_patient'
 				);
+
 			}
 			else {
 

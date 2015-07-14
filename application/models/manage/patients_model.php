@@ -33,7 +33,7 @@
 		public function search( $q, $limit ) {
 
 			$this->db->select( '
-				first_name, last_name, PID, code, last_session, search_text,
+				id, first_name, last_name, PID, code, last_session,
 				(
 					(
 						SELECT COUNT(*) AS total

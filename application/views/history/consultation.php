@@ -165,7 +165,7 @@
 
 	$this->load->view('common/form/input', array(
 			'error' => false,
-			'label' => lang('history_field_id_consults_type'),
+			'label' => '<br>' . lang('history_field_id_consults_type'),
 			'options' => $options,
 			'selected' => ( isset( $consult['id_consults_type'] ) && $consult['id_consults_type'] ? $consult['id_consults_type'] : null ),
 			'attributes' => array(
@@ -176,7 +176,7 @@
 				'value' => ( isset( $consult['id_consults_type'] ) && $consult['id_consults_type'] ? $consult['id_consults_type'] : null ),
 				'placeholder' => ( $readOnly ? $optionName : lang('history_field_id_consults_type') )
 			),
-			'cols' => 5,
+			'cols' => 7,
 			'actualCol' => 0
 		)
 	);
@@ -191,7 +191,7 @@
 
 	$this->load->view('common/form/input', array(
 			'error' => false,
-			'label' => lang('history_field_id_interventions_type'),
+			'label' => '<br>' . lang('history_field_id_interventions_type'),
 			'options' => $options,
 			'selected' => ( isset( $consult['id_interventions_type'] ) && $consult['id_interventions_type'] ? $consult['id_interventions_type'] : null ),
 			'attributes' => array(
@@ -207,7 +207,7 @@
 
 	$this->load->view('common/form/input', array(
 			'error' => false,
-			'label' => lang('history_field_date'),
+			'label' => '<br>' . lang('history_field_date'),
 			'attributes' => array(
 				'readonly' => $readOnly,
 				'type' => 'datetime',
@@ -230,7 +230,7 @@
 
 	$this->load->view('common/form/input', array(
 			'error' => false,
-			'label' => lang('history_field_symptoms_severity'),
+			'label' => lang('history_field_symptoms_severity') . ' (Ratio)',
 			'options' => $options,
 			'selected' => ( isset( $consult['symptoms_severity'] ) && $consult['symptoms_severity'] ? $consult['symptoms_severity'] : null ),
 			'attributes' => array(
@@ -240,6 +240,20 @@
 				'id' => 'history_field_symptoms_severity_' . $index,
 				'value' => ( isset( $consult['symptoms_severity'] ) && $consult['symptoms_severity'] ? $consult['symptoms_severity'] : null ),
 				'placeholder' => ( $readOnly ? $optionName : lang('history_field_symptoms_severity') )
+			)
+		)
+	);
+
+	$this->load->view('common/form/input', array(
+			'error' => false,
+			'label' => '<br>(Diferencia)',
+			'attributes' => array(
+				'readonly' => 'true',
+				'type' => 'text',
+				'name' => 'history_field_symptoms_severity_dif_' . $index,
+				'id' => 'history_field_symptoms_severity_dif_' . $index,
+				'value' => 0,
+				'placeholder' => ''
 			)
 		)
 	);
@@ -254,7 +268,7 @@
 
 	$this->load->view('common/form/input', array(
 			'error' => false,
-			'label' => lang('history_field_operation_reduction'),
+			'label' => lang('history_field_operation_reduction') . ' (Ratio)',
 			'options' => $options,
 			'selected' => ( isset( $consult['operation_reduction'] ) && $consult['operation_reduction'] ? $consult['operation_reduction'] : null ),
 			'attributes' => array(
@@ -268,6 +282,109 @@
 		)
 	);
 
+	$this->load->view('common/form/input', array(
+			'error' => false,
+			'label' => '<br>(Diferencia)',
+			'attributes' => array(
+				'readonly' => 'true',
+				'type' => 'text',
+				'name' => 'history_field_operation_reduction_dif_' . $index,
+				'id' => 'history_field_operation_reduction_dif_' . $index,
+				'value' => 0,
+				'placeholder' => ''
+			)
+		)
+	);
+
+	$options = array();
+	$optionName = '-';
+	foreach( $references as $reference ) {
+		if( !isset( $options[$reference['category']] ) ) {
+			$options[$reference['category']] = array();
+			$options[$reference['category']][''] = ' - Ninguno - ';
+		}
+		$options[$reference['category']][$reference['id']] = $reference['name'];
+
+		if( isset($consult['id_referenced_to']) && $consult['id_referenced_to'] == $reference['id'] )
+			$optionName = $reference['name'];
+	}
+
+	$this->load->view('common/form/input', array(
+			'error' => false,
+			'label' => 'Referido Hacia',
+			'options' => $options['A'],
+			'selected' => ( isset( $consult['id_referenced_to'] ) && $consult['id_referenced_to'] ? $consult['id_referenced_to'] : null ),
+			'attributes' => array(
+				'readonly' => $readOnly,
+				'type' => 'dropdown',
+				'name' => 'history_field_id_referenced_to',
+				'id' => 'history_field_id_referenced_to_' . $index,
+				'value' => ( isset( $consult['id_referenced_to'] ) && $consult['id_referenced_to'] ? $consult['id_referenced_to'] : null ),
+				'placeholder' => ( $readOnly ? $optionName : 'Referido Hacia' )
+			),
+			'cols' => 4,
+			'actualCol' => 0
+		)
+	);
+
+	$this->load->view('common/form/input', array(
+			'error' => false,
+			'label' => 'Fecha de la Sesión',
+			'attributes' => array(
+				'readonly' => $readOnly,
+				'type' => 'date',
+				'name' => 'history_field_referenced_date',
+				'id' => 'history_field_referenced_date_' . $index,
+				'value' => ( isset( $consult['referenced_date'] ) && $consult['referenced_date'] ? $consult['referenced_date'] : '' ),
+				'placeholder' => ( isset( $consult['referenced_date'] ) && $consult['referenced_date'] ? $consult['referenced_date'] : 'yyyy-mm-dd' )
+			)
+		)
+	);
+
+	$this->load->view('common/form/input', array(
+			'error' => false,
+			'label' => 'Psicotrópicos',
+			'attributes' => array(
+				'readonly' => $readOnly,
+				'type' => 'checkbox',
+				'name' => 'history_field_psychotropics',
+				'id' => 'history_field_psychotropics_' . $index,
+				'value' => '1',
+				'checked' => ( isset( $consult['psychotropics'] ) && $consult['psychotropics'] ),
+				'placeholder' => 'Psicotrópicos'
+			)
+		)
+	);
+
+	$this->load->view('common/form/input', array(
+			'error' => false,
+			'label' => 'Fecha de Inicio de Psicotrópicos',
+			'attributes' => array(
+				'readonly' => $readOnly,
+				'type' => 'date',
+				'name' => 'history_field_psychotropics_date',
+				'id' => 'history_field_psychotropics_date_' . $index,
+				'value' => ( isset( $consult['psychotropics_date'] ) && $consult['psychotropics_date'] ? $consult['psychotropics_date'] : '' ),
+				'placeholder' => ( isset( $consult['psychotropics_date'] ) && $consult['psychotropics_date'] ? $consult['psychotropics_date'] : 'yyyy-mm-dd' )
+			)
+		)
+	);
+
+	$this->load->view('common/form/input', array(
+			'error' => false,
+			'label' => 'Comentarios',
+			'attributes' => array(
+				'readonly' => $readOnly,
+				'type' => 'textarea',
+				'name' => 'history_field_comments',
+				'id' => 'history_field_comments_' . $index,
+				'value' => ( isset( $consult['comments'] ) && $consult['comments'] ? $consult['comments'] : '' ),
+				'placeholder' => ( isset( $consult['comments'] ) && $consult['comments'] ? $consult['comments'] : ' - Ninguno -' )
+			),
+			'cols' => 0,
+			'actualCol' => 0
+		)
+	);
 
 
 
@@ -296,6 +413,25 @@
 					( text <= 5 ? '≤ 5' : ( text >= 19 ? '≥ 19' : '6-18' ) )
 				);
 			}).keyup();
+
+<?php
+	if( count( $consults ) > 0 ) {
+?>
+			$('#history_field_operation_reduction_<?= $index ?>').change(function(){
+				var value = parseInt( $(this).val() );
+				$('#history_field_operation_reduction_dif_<?= $index ?>').parent().children('.read-only').text(
+					<?= $consults[0]['operation_reduction'] ?> - value
+				);
+			}).change();
+			$('#history_field_symptoms_severity_<?= $index ?>').change(function(){
+				var value = parseInt( $(this).val() );
+				$('#history_field_symptoms_severity_dif_<?= $index ?>').parent().children('.read-only').text(
+					<?= $consults[0]['symptoms_severity'] ?> - value
+				);
+			}).change();
+<?php
+	}
+?>
 		});
 	</script>
 <?php

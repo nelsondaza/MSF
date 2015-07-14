@@ -131,7 +131,11 @@ $(function(){
 			'id_interventions_type',
 			'date',
 			'symptoms_severity',
-			'operation_reduction'
+			'operation_reduction',
+			'id_referenced_to',
+			'referenced_date',
+			'psychotropics_date',
+			'comments',
 		];
 
 		var $newPatient = {};
@@ -152,8 +156,7 @@ $(function(){
 			});
 		});
 
-
-		console.debug( $newPatient );
+		$newPatient['psychotropics'] = $('#history_field_psychotropics_' + id + ':checked').length == 1;
 
 		$.ajax({
 			type: "POST",

@@ -176,9 +176,7 @@ $(function(){
 	$('#select-new-patient').selectize({
 		valueField: 'id',
 		labelField: 'patient',
-		searchField: ['search_text'],
-		options: [],
-		create: false,
+		searchField: ['first_name','last_name','PID','code'],
 		render: {
 			option: function(item, escape) {
 
@@ -219,7 +217,7 @@ $(function(){
 					callback();
 				},
 				success: function(res) {
-					if( res.data ) {
+					if( res.data && res.data.length > 0 ) {
 						$('#select-new-patient').popup('destroy');
 						$.each(res.data,function(index, elem){
 							elem.patient = elem.first_name + ' ' + elem.last_name + ' (' + elem.code + ')'

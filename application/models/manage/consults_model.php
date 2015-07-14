@@ -13,5 +13,4 @@
 			return $this->get_order_by_name( );
 		}
 
-
 	}

@@ -56,6 +56,12 @@
 			case 5:
 				$size = 'five';
 				break;
+			case 6:
+				$size = 'six';
+				break;
+			case 7:
+				$size = 'seven';
+				break;
 		}
 ?>
 <div class="<?= $size ?> fields">
@@ -87,7 +93,7 @@
 <?php
 			}
 			else
-				echo form_textarea( $attributes['name'], $attributes['value'] );
+				echo form_textarea( $attributes['name'], $attributes['value'], ' id="' . $attributes['id'] . '"' );
 			break;
 		case 'multiselect':
 			echo form_multiselect( $attributes['name'], ( isset( $options ) ? $options : array() ),  ( isset( $selected ) ? $selected : array() ) );
@@ -150,6 +156,24 @@
 				echo form_dropdown( $attributes['name'], ( isset( $options ) ? $options : array() ),  ( isset( $selected ) ? $selected : array() ),' id="' . $attributes['id'] . '" class="chosen-select"' );
 			break;
 		case 'checkbox':
+					if ( $readonly ) {
+?>
+				<div class="field">
+					<span class="ui label"><?= ( $attributes['placeholder'] ? $attributes['placeholder'] : $attributes['value'] ) ?></span>
+				</div>
+<?php
+					}
+					else {
+?>
+				<div class="field">
+					<div class="ui toggle checkbox">
+						<input type="checkbox" id="<?= $attributes['id'] ?>" name="<?= $attributes['name'] ?>" value="<?= $attributes['value'] ?>" <?= ( ( isset( $attributes['checked'] ) && $attributes['checked'] ) ? 'checked="checked"' : '' ) ?>>
+						<label><?= ( $attributes['placeholder'] ? $attributes['placeholder'] : $attributes['value'] ) ?></label>
+					</div>
+				</div>
+<?php
+					}
+			break;
 		case 'radio':
 			echo form_checkbox( $attributes, $attributes['value'], ( isset( $checked ) && $checked ) );
 			break;
