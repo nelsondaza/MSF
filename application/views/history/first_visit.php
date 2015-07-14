@@ -19,6 +19,7 @@
 	}
 	else {
 ?>
+		<div class="ui small label"><?= $patient['first_session'] ?></div>
 		<div class="ui small label"><?= $patient['code'] . ' (' . $patient['first_name'] . ' ' . $patient['last_name'] . ')' ?></div>
 <?php
 	}
@@ -37,8 +38,8 @@
 				'type' => 'date',
 				'name' => 'history_field_start_date',
 				'id' => 'history_field_start_date',
-				'value' => ( !empty( $consults ) ? $consults[0]['creation'] : $patient['first_session'] ),
-				'placeholder' => ( !empty( $consults ) ? $consults[0]['creation'] : '- No iniciada -' )
+				'value' => ( $patient['first_session'] ? $patient['first_session'] : '- No iniciada -' ),
+				'placeholder' => ( $patient['first_session'] ? $patient['first_session'] : '- No iniciada -' )
 			),
 			'cols' => 4,
 			'actualCol' => 0
@@ -53,8 +54,8 @@
 				'type' => 'date',
 				'name' => 'history_field_open_date',
 				'id' => 'history_field_open_date',
-				'value' => $patient['reopen_date'],
-				'placeholder' => '- No aplica -'
+				'value' => ( $patient['reopen_date'] ? $patient['reopen_date'] : '- No cerrada -' ),
+				'placeholder' => ( $patient['reopen_date'] ? $patient['reopen_date'] : '- No cerrada -' )
 			)
 		)
 	);

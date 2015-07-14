@@ -16,5 +16,14 @@
 >>>>>>> origin/master
 .idea/workspace.xml
 .idea/workspace.xml
+<<<<<<< HEAD
 .idea/deployment.xml
+*.xml
+=======
+
+.idea/watcherTasks.xml
+
+.idea/workspace.xml
+>>>>>>> origin/master
+.idea/workspace.xml
 *.xml
