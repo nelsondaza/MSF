@@ -59,6 +59,11 @@
 			}
 			else {
 
+				if( !$patient['gender'] )
+					$patientInfo['first_session'] = date('Y-m-d H:i:s');
+				$patientInfo['last_session'] = date('Y-m-d H:i:s');
+
+
 				$this->patients_model->update_by_id($id, $patientInfo);
 
 				$this->patients_references_model->delete_by_id_patient($id);
@@ -134,7 +139,10 @@
 			}
 			else {
 
+				$this->patients_model->update_by_id($consultInfo['id_patient'], array('last_session' => date('Y-m-d H:i:s')));
+
 				$idConsult = $this->consults_model->insert( $consultInfo );
+
 
 				$this->consults_symptoms_model->delete_by_id_consult( $idConsult );
 				$id_symptoms = $this->input->post('id_symptom',true);

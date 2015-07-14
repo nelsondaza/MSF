@@ -31,13 +31,26 @@
 		}
 
 		public function search( $q, $limit ) {
+
+			$this->db->select( '
+				first_name, last_name, PID, code, last_session, search_text,
+				(
+					(
+						SELECT COUNT(*) AS total
+						FROM msf_consults
+						WHERE msf_consults.id_patient = msf_patients.id
+					) + 1
+				) AS consults
+			' );
+
 			$parts = explode(' ', $q );
 			foreach( $parts as $key ) {
 				$this->db->like('search_text', $key );
 			}
 			$this->db->limit( $limit );
+			$this->db->order_by('first_name,last_name,code,PID');
 
-			return $this->get_order_by_first_name_and_last_name( );
+			return $this->db->get($this->tableName)->result_array( );
 		}
 
 	}

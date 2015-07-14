@@ -181,6 +181,9 @@ $(function(){
 		create: false,
 		render: {
 			option: function(item, escape) {
+
+				console.debug(item);
+
 				return '' +
 					'<div class="new-patient-option">' +
 						'<div class="title">' +
@@ -191,8 +194,8 @@ $(function(){
 							'<b>PID: </b>' + escape(item.PID) + ' ' +
 						'</div>' +
 						'<div class="details">' +
-							'<b>Visitas: </b>' + escape(1) + ' ' +
-							'<b>Última visita: </b>' + escape('2015-02-02') + ' ' +
+							'<b>Visitas: </b>' + escape(item.consults) + ' ' +
+							'<b>Última visita: </b>' + escape(item.last_session) + ' ' +
 						'</div>' +
 					'</div>';
 			}
