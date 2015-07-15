@@ -141,14 +141,18 @@
 					'msg' => 'No se encontró el paciente.',
 					'scope' => 'id_patient'
 				);
-
 			}
 			else {
 
-				$this->patients_model->update_by_id($consultInfo['id_patient'], array('last_session' => date('Y-m-d H:i:s')));
+				$idConsult = (int)trim( $this->input->post('id_consult',true));
 
-				$idConsult = $this->consults_model->insert( $consultInfo );
-
+				if( !$idConsult ) {
+					$this->patients_model->update_by_id($consultInfo['id_patient'], array('last_session' => date('Y-m-d H:i:s')));
+					$idConsult = $this->consults_model->insert($consultInfo);
+				}
+				else {
+					$this->consults_model->update_by_id($idConsult, $consultInfo);
+				}
 
 				$this->consults_symptoms_model->delete_by_id_consult( $idConsult );
 				$id_symptoms = $this->input->post('id_symptom',true);

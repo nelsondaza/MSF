@@ -28,5 +28,6 @@
 
 
 	$lang['history_save'] = 'Guardar';
+	$lang['history_edit'] = 'Editar';
 
 

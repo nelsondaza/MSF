@@ -61,7 +61,7 @@
 <?php
 	}
 
-	if ( $this->authorization->is_permitted( array( 'retrieve_users', 'retrieve_measures' ) ) ) {
+	if ( false && $this->authorization->is_permitted( array( 'retrieve_users', 'retrieve_measures' ) ) ) {
 		$active = ( in_array( $current, array( 'manage_sources', 'manage_measures' ) ) );
 
 ?>

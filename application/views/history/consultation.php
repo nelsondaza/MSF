@@ -6,13 +6,13 @@
 	 * Time: 10:21 PM
 	 */
 
-	$readOnly = ( isset($consult['creation']) && $consult['creation'] );
+	$readOnly = ( isset($consult['creation']) && $consult['creation'] && ( !isset( $editable ) || !$editable ) );
 
 ?>
 	<div class="<?= ( $actual ? 'active' : '' ) ?> title">
 		<i class="dropdown icon"></i><?= $title ?>
 <?php
-	if( $actual ) {
+	if( $actual && ( !isset($consult['creation']) || !$consult['creation'] ) ) {
 ?>
 	<div class="ui tiny teal tag label">Actual</div>
 <?php
@@ -29,6 +29,7 @@
 <?php
 	echo form_open_multipart(uri_string(), 'id="consult_form_' . $index . '" data-index="' . $index . '" class="ui small fluid form consultation"');
 	echo form_hidden('history_field_id_patient_' . $index, $patient['id']);
+	echo form_hidden('history_field_id_consult_' . $index, ( isset($consult['id']) && $consult['id'] ? $consult['id'] : '' ));
 
 	$options = array();
 	foreach( $symptoms as $symptom ) {
@@ -396,7 +397,24 @@
 		</div>
 <?php
 	}
+	else {
 ?>
+		<br>
+		<div class="field">
+			<a href="<?= base_url()?>history/consult/<?= $consult['id'] ?>" class="ui orange button small"><i class="edit icon"></i> <?= lang('history_edit') ?></a>
+		</div>
+<?php
+	}
+	if( isset( $back ) && $back ) {
+?>
+		<br>
+		<div class="field">
+			<?= $back ?>
+		</div>
+<?php
+	}
+?>
+
 		<?= form_close() ?>
 	</div>
 	<script type="text/javascript">
@@ -415,7 +433,7 @@
 			}).keyup();
 
 <?php
-	if( count( $consults ) > 0 ) {
+	if( count( $consults ) > 0 && $index > 0 ) {
 ?>
 			$('#history_field_operation_reduction_<?= $index ?>').change(function(){
 				var value = parseInt( $(this).val() );

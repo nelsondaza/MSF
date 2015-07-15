@@ -6,10 +6,10 @@
 	 * Time: 10:21 PM
 	 */
 
-	$readOnly = !!$patient['gender'];
+	$readOnly = ( !!$patient['gender'] && ( !isset( $editable ) || !$editable ) );
+	$actual = !$patient['gender'] || ( isset( $editable ) && $editable );
 ?>
-	<script type="text/javascript" src="<?= base_url() ?>resources/js/history.js"></script>
-	<div class="<?= ( !$patient['gender'] ? 'active' : '' )?> title">
+	<div class="<?= ( $actual ? 'active' : '' )?> title">
 		<i class="dropdown icon"></i>Primera Visita
 <?php
 	if( !$patient['gender'] ) {
@@ -26,7 +26,7 @@
 ?>
 
 	</div>
-	<div class="<?= ( !$patient['gender'] ? 'active' : '' )?> content">
+	<div class="<?= ( $actual ? 'active' : '' )?> content">
 <?php
 	echo form_open_multipart(uri_string(), 'id="first_visit_form" class="ui small fluid form ' . ( !empty($errors) ? 'error' : '' ) . '"');
 
@@ -76,7 +76,7 @@
 				'name' => 'history_field_id_region',
 				'id' => 'history_field_id_region',
 				'value' => $regions[0]['id'],
-				'placeholder' => ( $readOnly ? $regions[0]['name'] : lang('history_field_id_region') )
+				'placeholder' => $regions[0]['name']
 			)
 		)
 	);
@@ -308,6 +308,22 @@
 		<br>
 		<div class="field">
 			<?= form_button(array('type' => 'button', 'class' => 'ui submit primary button small', 'content' => '<i class="archive icon"></i> '.lang('history_save'))); ?>
+		</div>
+<?php
+	}
+	else {
+?>
+		<br>
+		<div class="field">
+			<a href="<?= base_url()?>history/first_visit/<?= $patient['id'] ?>" class="ui orange button small"><i class="edit icon"></i> <?= lang('history_edit') ?></a>
+		</div>
+<?php
+	}
+	if( isset( $back ) && $back ) {
+?>
+		<br>
+		<div class="field">
+			<?= $back ?>
 		</div>
 <?php
 	}

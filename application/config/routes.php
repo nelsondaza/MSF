@@ -42,6 +42,8 @@ $route['default_controller'] 	= 'home';
 $route['404_override'] 			= '';
 
 $route['history/(:num)'] = "history/index/$1";
+$route['history/first_visit/(:num)'] = "history/first_visit/$1";
+$route['history/consult/(:num)'] = "history/consult/$1";
 
 
 /* End of file routes.php */

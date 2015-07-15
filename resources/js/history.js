@@ -126,6 +126,7 @@ $(function(){
 		$self.addClass('disabled').prop('disabled','disabled');
 
 		var fields = [
+			'id_consult',
 			'id_patient',
 			'id_consults_type',
 			'id_interventions_type',

@@ -12,41 +12,17 @@
 <div class="container content">
 	<div class="sub-header"><i class="doctor icon"></i> <?= lang($class . '_page_name') ?></div>
 	<div class="section">
-<?php
-	if( !$patient['gender'] ) {
-?>
-	<div class="ui orange small floating message">
-		<i class="close icon"></i>
-		<div class="header">Primera Visita</div>
-		<p>Es necesario completar algunos datos del paciente antes de ingresar la primera consulta.</p>
-	</div>
-<?php
-	}
-?>
+		<div class="ui small breadcrumb">
+			<a href="<?= base_url() ?>" class="section">Inicio</a>
+			<i class="right chevron icon divider"></i>
+			<a href="<?= base_url() ?>history/<?= $patient['id'] ?>" class="section"><?= $patient['code'] . ' (' . $patient['first_name'] . ' ' . $patient['last_name'] . ')' ?></a>
+			<i class="right arrow icon divider"></i>
+			<div class="active section">Primera Sesión</div>
+		</div>
 		<div class="ui styled fluid accordion">
-		<?= $this->load->view('history/first_visit') ?>
-<?php
-	$index = 0;
-	foreach( $consults as $key => $consult ) {
-		echo $this->load->view('history/consultation',
-			array('title'   => ( $index == 0 ? '1ra Consulta' : 'Seguimiento ' . $index ),
-				  'actual'  => false,
-				  'index'   => $index,
-				  'consult' => $consult
-			)
-		);
-		$index ++;
-	}
-
-	if( $patient['gender'] ) {
-		echo $this->load->view('history/consultation', array(
-				'title'   => ($index == 0 ? '1ra Consulta' : 'Seguimiento ' . $index),
-				'actual'  => TRUE,
-				'index'   => $index,
-				'consult' => array()
-			));
-	}
-?>
+		<?=
+			$this->load->view('history/first_visit', array('editable' => true, 'back'=> '<a class="ui small orange button" href="' . base_url() . 'history/' . $patient['id'] . '"><i class="angle double left icon"></i> Regresar a la historia</a>' ) )
+		?>
 		</div>
 	</div>
 	<div class="clearfix"></div>
