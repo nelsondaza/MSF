@@ -49,7 +49,7 @@
 		        'id' => 'role_name',
 		        'value' => set_value('role_name') ? set_value('role_name') : (isset($role->name) ? $role->name : ''),
 		        'maxlength' => '80',
-		        'placeholder' => lang('roles_name')
+		        'placeholder' => set_value('role_name') ? set_value('role_name') : (isset($role->name) ? $role->name : lang('roles_name'))
 	        )
 		)
 	);

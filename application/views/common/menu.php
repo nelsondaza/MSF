@@ -35,11 +35,8 @@
 			</div>
 		</div>
 <?php
-
 	if ( $this->authorization->is_permitted( array( 'retrieve_users', 'retrieve_roles', 'retrieve_permissions' ) ) ) {
-
 		$active = ( in_array( $current, array( 'manage_users', 'manage_roles', 'manage_permissions' ) ) );
-
 ?>
 		<div class="item <?= ( $active ? 'active' : '' ) ?>">
 			<a class="title <?= ( $active ? 'active' : '' ) ?>"><i class="users icon"></i> Control de Acceso</a>

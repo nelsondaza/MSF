@@ -43,6 +43,10 @@
 				return;
 			}
 
+			if( !$data['patient']['id_expert'] ) {
+				$data['patient']['id_expert'] = $data['account']->id;
+				$data['patient']['expert'] = $data['account_details']->fullname;
+			}
 
 			$data['regions'] = $this->regions_model->getActiveList();
 			$data['localizations'] = $this->districts_model->getActiveList();
@@ -66,6 +70,7 @@
 			}
 
 
+
 			$this->view( $data );
 
 		}
@@ -81,7 +86,7 @@
 				'manage/patients_model',
 				'manage/regions_model',
 				'manage/districts_model',
-				'manage/experts_model',
+				//'manage/experts_model',
 				'manage/educations_model',
 				'manage/origin_places_model',
 				'manage/references_model',
@@ -109,7 +114,7 @@
 
 			$data['regions'] = $this->regions_model->getActiveList();
 			$data['localizations'] = $this->districts_model->getActiveList();
-			$data['experts'] = $this->experts_model->getActiveList();
+			//$data['experts'] = $this->experts_model->getActiveList();
 			$data['educations'] = $this->educations_model->getActiveList();
 			$data['origin_places'] = $this->origin_places_model->getActiveList();
 			$data['references'] = $this->references_model->getActiveList();

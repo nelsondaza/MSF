@@ -33,6 +33,9 @@
 	if( isset( $attributes['readonly'] ) && !$attributes['readonly'] )
 		unset( $attributes['readonly'] );
 
+	if( !isset( $attributes['id'] ) )
+		$attributes['id'] = $attributes['name'];
+
 	if( isset($attributes['group']) && $attributes['group'] ) {
 ?>
 	<h4 class="ui top attached header"><?= $attributes['group'] ?></h4>
@@ -100,6 +103,8 @@
 			break;
 		case 'multicheckbox':
 			$options = ( isset( $options ) ? $options : array() );
+			if( !isset( $selected ) )
+				$selected = array( );
 
 			$type = 'grouped';
 			$attributes['cols'] = ( !isset( $attributes['cols'] ) ? 1 : (int)$attributes['cols'] );

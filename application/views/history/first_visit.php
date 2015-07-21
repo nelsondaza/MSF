@@ -29,6 +29,7 @@
 	<div class="<?= ( $actual ? 'active' : '' )?> content">
 <?php
 	echo form_open_multipart(uri_string(), 'id="first_visit_form" class="ui small fluid form ' . ( !empty($errors) ? 'error' : '' ) . '"');
+	echo form_hidden('history_field_id_expert', $patient['id_expert'] );
 
 	$this->load->view('common/form/input', array(
 			'error' => false,
@@ -133,32 +134,19 @@
 		)
 	);
 
-	$options = array();
-	$optionName = '';
-	foreach( $experts as $expert ) {
-		$options[$expert['id']] = $expert['name'];
-		if( isset($patient['id_expert']) && $patient['id_expert'] == $expert['id'] )
-			$optionName = $expert['name'];
-	}
-
 	$this->load->view('common/form/input', array(
 			'error' => false,
 			'label' => lang('history_field_id_expert'),
-			'options' => $options,
-			'selected' => ( isset( $patient['id_expert'] ) && $patient['id_expert'] ? $patient['id_expert'] : null ),
 			'attributes' => array(
-				'readonly' => $readOnly,
-				'type' => 'dropdown',
-				'name' => 'history_field_id_expert',
-				'id' => 'history_field_id_expert',
-				'value' => ( isset( $patient['id_expert'] ) && $patient['id_expert'] ? $patient['id_expert'] : null ),
-				'placeholder' => ( $readOnly ? $optionName : lang('history_field_id_expert') )
-			),
-			'cols' => 5,
-			'actualCol' => 0
+				'readonly' => 'true',
+				'type' => 'text',
+				'name' => 'history_field_id_expert_name',
+				'id' => 'history_field_id_expert_name',
+				'value' => $patient['expert'],
+				'placeholder' => $patient['expert']
+			)
 		)
 	);
-
 
 	$this->load->view('common/form/input', array(
 			'error' => false,

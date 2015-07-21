@@ -330,7 +330,7 @@
 
 	$this->load->view('common/form/input', array(
 			'error' => false,
-			'label' => 'Fecha de la Sesión',
+			'label' => 'Fecha de Referido',
 			'attributes' => array(
 				'readonly' => $readOnly,
 				'type' => 'date',
@@ -438,13 +438,13 @@
 			$('#history_field_operation_reduction_<?= $index ?>').change(function(){
 				var value = parseInt( $(this).val() );
 				$('#history_field_operation_reduction_dif_<?= $index ?>').parent().children('.read-only').text(
-					<?= $consults[0]['operation_reduction'] ?> - value
+					<?= $consults[$index - 1]['operation_reduction'] ?> - value
 				);
 			}).change();
 			$('#history_field_symptoms_severity_<?= $index ?>').change(function(){
 				var value = parseInt( $(this).val() );
 				$('#history_field_symptoms_severity_dif_<?= $index ?>').parent().children('.read-only').text(
-					<?= $consults[0]['symptoms_severity'] ?> - value
+					<?= $consults[$index - 1]['symptoms_severity'] ?> - value
 				);
 			}).change();
 <?php
