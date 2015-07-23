@@ -42,7 +42,7 @@
 				'value' => ( $patient['first_session'] ? $patient['first_session'] : '- No iniciada -' ),
 				'placeholder' => ( $patient['first_session'] ? $patient['first_session'] : '- No iniciada -' )
 			),
-			'cols' => 4,
+			'cols' => 5,
 			'actualCol' => 0
 		)
 	);
@@ -84,19 +84,48 @@
 
 
 	$options = array();
+	$optionId = '';
 	$optionName = '';
 	foreach( $localizations as $localization ) {
-		$lgroup = $localization['city'] . ' - ' . $localization['village'];
+		$lgroup = $localization['city'];
 		if( !isset( $options[$lgroup] ) )
 			$options[$lgroup] = array();
-		$options[$lgroup][$localization['id']] = $localization['name'];
-		if( isset($patient['id_localization']) && $patient['id_localization'] == $localization['id'] )
-			$optionName = $localization['name'];
+		$options[$lgroup][$localization['id_village']] = $localization['village'];
+		if( isset($patient['id_localization']) && $patient['id_localization'] == $localization['id'] ) {
+			$optionId = $localization['id_village'];
+			$optionName = $localization['village'];
+		}
 	}
 
 	$this->load->view('common/form/input', array(
 			'error' => false,
 			'label' => lang('history_field_id_localization'),
+			'options' => $options,
+			'selected' => $optionId,
+			'attributes' => array(
+				'readonly' => $readOnly,
+				'type' => 'dropdown',
+				'name' => 'history_field_id_localization',
+				'id' => 'history_field_id_localization',
+				'value' => $optionId,
+				'placeholder' => ( $readOnly ? $optionName : lang('history_field_id_localization') )
+			)
+		)
+	);
+
+	$options = array();
+	$optionName = '';
+	foreach( $localizations as $localization ) {
+		if( $optionId == $localization['id_village'] ) {
+			$options[$localization['id']] = $localization['name'];
+			if( isset($patient['id_localization']) && $patient['id_localization'] == $localization['id'] )
+				$optionName = $localization['name'];
+		}
+	}
+
+	$this->load->view('common/form/input', array(
+			'error' => false,
+			'label' => '(Barrio)',
 			'options' => $options,
 			'selected' => ( isset( $patient['id_localization'] ) && $patient['id_localization'] ? $patient['id_localization'] : null ),
 			'attributes' => array(
@@ -105,7 +134,7 @@
 				'name' => 'history_field_id_localization',
 				'id' => 'history_field_id_localization',
 				'value' => (isset($patient['id_localization']) ? $patient['id_localization'] : ''),
-				'placeholder' => ( $readOnly ? $optionName : lang('history_field_id_localization') )
+				'placeholder' => 'Barrio'
 			)
 		)
 	);
@@ -332,6 +361,9 @@
 					( text <= 5 ? '≤ 5' : ( text >= 19 ? '≥ 19' : '6-18' ) )
 				);
 			}).keyup();
+
+
+
 		});
 	</script>
 <?php
