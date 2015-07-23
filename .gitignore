@@ -1,32 +1,7 @@
-<<<<<<< HEAD
-.idea/workspace.xml
-=======
 
-.idea/workspace.xml
+# Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio
+*.iml
 
-.idea/watcherTasks.xml
->>>>>>> origin/master
-.idea/workspace.xml
-<<<<<<< HEAD
-.idea/workspace.xml
-=======
+## Directory-based project format:
+.idea/
 
-.idea/watcherTasks.xml
-
->>>>>>> origin/master
-.idea/workspace.xml
-.idea/workspace.xml
-<<<<<<< HEAD
-.idea/deployment.xml
-*.xml
-=======
-
-.idea/watcherTasks.xml
-
-.idea/workspace.xml
->>>>>>> origin/master
-.idea/workspace.xml
-*.xml
-.idea/workspace.xml
-.idea/workspace.xml
-.idea/workspace.xml
