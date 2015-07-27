@@ -12,6 +12,9 @@
 <div class="container content">
 	<div class="sub-header"><i class="doctor icon"></i> <?= lang($class . '_page_name') ?></div>
 	<div class="section">
+		<div class="field">
+			<a href="<?= base_url()?>history/<?= $patient['id'] ?>" class="ui green button small"><i class="doctor icon"></i> Ver Historia &raquo;</a>
+		</div>
 		<div class="ui segments">
 			<div class="ui segment">
 				<div class="ui small feed">
@@ -158,6 +161,9 @@
 		$index ++;
 	}
 ?>
+		</div>
+		<div class="field">
+			<a href="<?= base_url()?>history/<?= $patient['id'] ?>" class="ui green button small"><i class="doctor icon"></i> Ver Historia &raquo;</a>
 		</div>
 	</div>
 	<div class="clearfix"></div>
