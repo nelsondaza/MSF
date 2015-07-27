@@ -17,14 +17,18 @@
 					<select name="select-new-patient" id="select-new-patient"></select>
 				</div>
 				<div class="field">
-					<div class="two fields">
+					<div class="three fields">
 						<div class="field ">
 							<label class="control-label" for="consults">Consultas</label>
-							<div class="ui mini button blue disabled" id="consults">Ver Historial</div>
+							<div class="ui mini button blue disabled" id="consults">Historial</div>
 						</div>
 						<div class="field ">
-							<label class="control-label" for="new-patient">Crear Paciente</label>
-							<div class="ui mini button positive" id="new-patient">Nuevo Paciente</div>
+							<label class="control-label" for="consults"><br></label>
+							<div class="ui mini button blue disabled" id="resumes">Resumen</div>
+						</div>
+						<div class="field ">
+							<label class="control-label" for="new-patient">Paciente</label>
+							<div class="ui mini button positive" id="new-patient">Nuevo</div>
 						</div>
 					</div>
 				</div>

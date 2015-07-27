@@ -105,8 +105,8 @@
 			'attributes' => array(
 				'readonly' => $readOnly,
 				'type' => 'dropdown',
-				'name' => 'history_field_id_localization',
-				'id' => 'history_field_id_localization',
+				'name' => 'history_field_id_village',
+				'id' => 'history_field_id_village',
 				'value' => $optionId,
 				'placeholder' => ( $readOnly ? $optionName : lang('history_field_id_localization') )
 			)
@@ -134,7 +134,7 @@
 				'name' => 'history_field_id_localization',
 				'id' => 'history_field_id_localization',
 				'value' => (isset($patient['id_localization']) ? $patient['id_localization'] : ''),
-				'placeholder' => 'Barrio'
+				'placeholder' => ( $readOnly ? $optionName : 'Barrio' )
 			)
 		)
 	);
@@ -361,9 +361,37 @@
 					( text <= 5 ? '≤ 5' : ( text >= 19 ? '≥ 19' : '6-18' ) )
 				);
 			}).keyup();
+<?php
+	if( !$readOnly ) {
+?>
+			var villages = {};
+			function addV( idV, idL, nameL ){
+				villages[idV] = (villages[idV] || []);
+				villages[idV].push({
+					id:idL,
+					name:nameL
+				});
+			}
+<?php
+		foreach( $localizations as $localization ) {
+				echo "addV(" . $localization['id_village'] . "," . $localization['id'] . ",'" . htmlspecialchars( $localization['name'], ENT_QUOTES, 'UTF-8' ) . "');";
+		}
+?>
+			function selectV(idV) {
+				$('#history_field_id_localization').empty();
+				$.each(villages[idV],function(index,village){
+					$('#history_field_id_localization').append(
+						$('<option value="' + village.id + '">' + village.name + '</option>'));
+				});
+				$('#history_field_id_localization').trigger("chosen:updated");
+			}
 
-
-
+			$('#history_field_id_village').change(function(){
+				selectV( $(this).val() );
+			});
+<?php
+	}
+?>
 		});
 	</script>
 <?php

@@ -22,14 +22,22 @@
 	</div>
 <?php
 	}
+	if( $patient['closed'] ) {
+?>
+	<div class="ui red small floating message">
+		<i class="close icon"></i>
+		<div class="header">Este caso ha sido cerrado.</div>
+	</div>
+<?php
+	}
 ?>
 		<div class="ui styled fluid accordion">
 		<?= $this->load->view('history/first_visit') ?>
 <?php
 	$index = 0;
 	foreach( $consults as $key => $consult ) {
-		echo $this->load->view('history/consultation',
-			array('title'   => ( $index == 0 ? '1ra Consulta' : 'Seguimiento ' . $index ),
+		echo $this->load->view( ( $consult['id_closure'] ? 'history/closure' : 'history/consultation' ),
+			array('title'   => ( $consult['id_closure'] ? 'Cierre' : ( $index == 0 ? '1ra Consulta' : 'Seguimiento ' . $index ) ),
 				  'actual'  => false,
 				  'index'   => $index,
 				  'consult' => $consult
@@ -41,11 +49,21 @@
 	if( $patient['gender'] ) {
 		echo $this->load->view('history/consultation', array(
 				'title'   => ($index == 0 ? '1ra Consulta' : 'Seguimiento ' . $index),
-				'actual'  => TRUE,
+				'actual'  => false,
 				'index'   => $index,
 				'consult' => array()
 			));
 	}
+
+	if( !$patient['closed'] && $patient['gender'] ) {
+		echo $this->load->view('history/closure', array(
+				'title'   => 'Cierre',
+				'actual'  => false,
+				'index'   => ++$index,
+				'consult' => array()
+			));
+	}
+
 ?>
 		</div>
 	</div>

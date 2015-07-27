@@ -95,8 +95,9 @@
 			</div>
 <?php
 			}
-			else
-				echo form_textarea( $attributes['name'], $attributes['value'], ' id="' . $attributes['id'] . '"' );
+			else {
+				echo form_textarea($attributes);
+			}
 			break;
 		case 'multiselect':
 			echo form_multiselect( $attributes['name'], ( isset( $options ) ? $options : array() ),  ( isset( $selected ) ? $selected : array() ) );

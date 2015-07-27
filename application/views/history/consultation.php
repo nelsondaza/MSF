@@ -12,9 +12,9 @@
 	<div class="<?= ( $actual ? 'active' : '' ) ?> title">
 		<i class="dropdown icon"></i><?= $title ?>
 <?php
-	if( $actual && ( !isset($consult['creation']) || !$consult['creation'] ) ) {
+	if( $actual || ( !isset($consult['creation']) || !$consult['creation'] ) ) {
 ?>
-	<div class="ui tiny teal tag label">Actual</div>
+	<div class="ui tiny teal tag label">Nuevo</div>
 <?php
 	}
 	else {
@@ -30,6 +30,32 @@
 	echo form_open_multipart(uri_string(), 'id="consult_form_' . $index . '" data-index="' . $index . '" class="ui small fluid form consultation"');
 	echo form_hidden('history_field_id_patient_' . $index, $patient['id']);
 	echo form_hidden('history_field_id_consult_' . $index, ( isset($consult['id']) && $consult['id'] ? $consult['id'] : '' ));
+
+	$options = array();
+	$optionName = '';
+	foreach( $symptoms_categories as $symptoms_category ) {
+		$options[$symptoms_category['id']] = $symptoms_category['name'];
+		if( isset($consult['id_symptoms_category']) && $consult['id_symptoms_category'] == $symptoms_category['id'] )
+			$optionName = $symptoms_category['name'];
+	}
+
+	$this->load->view('common/form/input', array(
+			'error' => false,
+			'label' => lang('history_field_id_symptoms_category'),
+			'options' => $options,
+			'selected' => ( isset( $consult['id_symptoms_category'] ) && $consult['id_symptoms_category'] ? $consult['id_symptoms_category'] : null ),
+			'attributes' => array(
+				'readonly' => $readOnly,
+				'type' => 'dropdown',
+				'name' => 'history_field_id_symptoms_category',
+				'id' => 'history_field_id_symptoms_category_' . $index,
+				'value' => ( isset( $consult['id_symptoms_category'] ) && $consult['id_symptoms_category'] ? $consult['id_symptoms_category'] : null ),
+				'placeholder' => ( $readOnly ? $optionName : lang('history_field_id_symptoms_category') )
+			),
+			'divider' => false
+		)
+	);
+
 
 	$options = array();
 	foreach( $symptoms as $symptom ) {
@@ -109,6 +135,32 @@
 			),
 			'cols' => 0,
 			'actualCol' => 0
+		)
+	);
+
+	echo "<br>";
+
+	$options = array();
+	$optionName = '';
+	foreach( $risks_categories as $risks_category ) {
+		$options[$risks_category['id']] = $risks_category['name'];
+		if( isset($consult['id_risks_category']) && $consult['id_risks_category'] == $risks_category['id'] )
+			$optionName = $risks_category['name'];
+	}
+
+	$this->load->view('common/form/input', array(
+			'error' => false,
+			'label' => lang('history_field_id_risks_category'),
+			'options' => $options,
+			'selected' => ( isset( $consult['id_risks_category'] ) && $consult['id_risks_category'] ? $consult['id_risks_category'] : null ),
+			'attributes' => array(
+				'readonly' => $readOnly,
+				'type' => 'dropdown',
+				'name' => 'history_field_id_risks_category',
+				'id' => 'history_field_id_risks_category_' . $index,
+				'value' => ( isset( $consult['id_risks_category'] ) && $consult['id_risks_category'] ? $consult['id_risks_category'] : null ),
+				'placeholder' => ( $readOnly ? $optionName : lang('history_field_id_risks_category') )
+			)
 		)
 	);
 
@@ -373,7 +425,95 @@
 
 	$this->load->view('common/form/input', array(
 			'error' => false,
-			'label' => 'Comentarios',
+			'label' => 'Riesgo de Suicidio',
+			'attributes' => array(
+				'readonly' => $readOnly,
+				'type' => 'textarea',
+				'name' => 'history_field_suicide_risk',
+				'id' => 'history_field_suicide_risk_' . $index,
+				'value' => ( isset( $consult['suicide_risk'] ) && $consult['suicide_risk'] ? $consult['suicide_risk'] : '' ),
+				'placeholder' => ( isset( $consult['suicide_risk'] ) && $consult['suicide_risk'] ? $consult['suicide_risk'] : ' - Ninguno -' )
+			),
+			'cols' => 4,
+			'actualCol' => 0
+		)
+	);
+
+	$this->load->view('common/form/input', array(
+			'error' => false,
+			'label' => 'Riesgo de Violencia',
+			'attributes' => array(
+				'readonly' => $readOnly,
+				'type' => 'textarea',
+				'name' => 'history_field_violence_risk',
+				'id' => 'history_field_violence_risk_' . $index,
+				'value' => ( isset( $consult['violence_risk'] ) && $consult['violence_risk'] ? $consult['violence_risk'] : '' ),
+				'placeholder' => ( isset( $consult['violence_risk'] ) && $consult['violence_risk'] ? $consult['violence_risk'] : ' - Ninguno -' )
+			)
+		)
+	);
+
+	$this->load->view('common/form/input', array(
+			'error' => false,
+			'label' => 'Abuso de Sustancias',
+			'attributes' => array(
+				'readonly' => $readOnly,
+				'type' => 'textarea',
+				'name' => 'history_field_substance_abuse',
+				'id' => 'history_field_substance_abuse_' . $index,
+				'value' => ( isset( $consult['substance_abuse'] ) && $consult['substance_abuse'] ? $consult['substance_abuse'] : '' ),
+				'placeholder' => ( isset( $consult['substance_abuse'] ) && $consult['substance_abuse'] ? $consult['substance_abuse'] : ' - Ninguno -' )
+			)
+		)
+	);
+
+	$this->load->view('common/form/input', array(
+			'error' => false,
+			'label' => 'Condiciones médicas graves',
+			'attributes' => array(
+				'readonly' => $readOnly,
+				'type' => 'textarea',
+				'name' => 'history_field_serious_medical_conditions',
+				'id' => 'history_field_serious_medical_conditions_' . $index,
+				'value' => ( isset( $consult['serious_medical_conditions'] ) && $consult['serious_medical_conditions'] ? $consult['serious_medical_conditions'] : '' ),
+				'placeholder' => ( isset( $consult['serious_medical_conditions'] ) && $consult['serious_medical_conditions'] ? $consult['serious_medical_conditions'] : ' - Ninguno -' )
+			)
+		)
+	);
+
+	$this->load->view('common/form/input', array(
+			'error' => false,
+			'label' => 'Valoración cognitiva',
+			'attributes' => array(
+				'readonly' => $readOnly,
+				'type' => 'textarea',
+				'name' => 'history_field_cognitive_assessment',
+				'id' => 'history_field_cognitive_assessment_' . $index,
+				'value' => ( isset( $consult['cognitive_assessment'] ) && $consult['cognitive_assessment'] ? $consult['cognitive_assessment'] : '' ),
+				'placeholder' => ( isset( $consult['cognitive_assessment'] ) && $consult['cognitive_assessment'] ? $consult['cognitive_assessment'] : ' - Ninguno -' )
+			),
+			'cols' => 2,
+			'actualCol' => 0
+		)
+	);
+
+	$this->load->view('common/form/input', array(
+			'error' => false,
+			'label' => 'Medicación Psicotrópica',
+			'attributes' => array(
+				'readonly' => $readOnly,
+				'type' => 'textarea',
+				'name' => 'history_field_psychotropic_medication',
+				'id' => 'history_field_psychotropic_medication_' . $index,
+				'value' => ( isset( $consult['psychotropic_medication'] ) && $consult['psychotropic_medication'] ? $consult['psychotropic_medication'] : '' ),
+				'placeholder' => ( isset( $consult['psychotropic_medication'] ) && $consult['psychotropic_medication'] ? $consult['psychotropic_medication'] : ' - Ninguno -' )
+			)
+		)
+	);
+
+	$this->load->view('common/form/input', array(
+			'error' => false,
+			'label' => 'Observaciones',
 			'attributes' => array(
 				'readonly' => $readOnly,
 				'type' => 'textarea',
@@ -419,19 +559,6 @@
 	</div>
 	<script type="text/javascript">
 		$(function(){
-			$('#history_field_age').keyup(function() {
-				var text = $(this).val().replace(/([^0-9]+)/g,'');
-				if( text != $(this).val( ) )
-					$(this).val(parseInt( text, 10 ));
-
-				text = parseInt( text, 10 );
-				$('#history_field_age_group').val(
-					( text <= 5 ? '≤ 5' : ( text >= 19 ? '≥ 19' : '6-18' ) )
-				).parent().children('.read-only').text(
-					( text <= 5 ? '≤ 5' : ( text >= 19 ? '≥ 19' : '6-18' ) )
-				);
-			}).keyup();
-
 <?php
 	if( count( $consults ) > 0 && $index > 0 ) {
 ?>

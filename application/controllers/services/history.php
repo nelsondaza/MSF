@@ -123,13 +123,22 @@
 				'id_patient' => (int)trim( $this->input->post('id_patient',true)),
 				'id_consults_type' => (int)trim( $this->input->post('id_consults_type',true)),
 				'id_interventions_type' => (int)trim( $this->input->post('id_interventions_type',true)),
+				'id_symptoms_category' => (int)trim( $this->input->post('id_symptoms_category',true)),
+				'id_risks_category' => (int)trim( $this->input->post('id_risks_category',true)),
 				'operation_reduction' => (int)trim( $this->input->post('operation_reduction',true)),
 				'symptoms_severity' => (int)trim( $this->input->post('symptoms_severity',true)),
 				'id_referenced_to' => (int)trim( $this->input->post('id_referenced_to',true)),
 				'referenced_date' => trim( $this->input->post('referenced_date',true)),
+				'psychotropics' => (int)trim( $this->input->post('psychotropics',true)),
 				'psychotropics_date' => trim( $this->input->post('psychotropics_date',true)),
 				'comments' => trim( $this->input->post('comments',true)),
-				'psychotropics' => (int)trim( $this->input->post('psychotropics',true)),
+				'suicide_risk' => trim( $this->input->post('suicide_risk',true)),
+				'violence_risk' => trim( $this->input->post('violence_risk',true)),
+				'substance_abuse' => trim( $this->input->post('substance_abuse',true)),
+				'serious_medical_conditions' => trim( $this->input->post('serious_medical_conditions',true)),
+				'cognitive_assessment' => trim( $this->input->post('cognitive_assessment',true)),
+				'psychotropic_medication' => trim( $this->input->post('psychotropic_medication',true)),
+
 			);
 
 			$patient = $this->patients_model->get_one_by_id( $consultInfo['id_patient'] );
@@ -149,6 +158,10 @@
 				if( !$idConsult ) {
 					$this->patients_model->update_by_id($consultInfo['id_patient'], array('last_session' => date('Y-m-d H:i:s')));
 					$idConsult = $this->consults_model->insert($consultInfo);
+
+					if( $patient['closed'] )
+						$this->patients_model->update_by_id($consultInfo['id_patient'], array('closed' => '0','reopen_date' => date('Y-m-d H:i:s')));
+
 				}
 				else {
 					$this->consults_model->update_by_id($idConsult, $consultInfo);
@@ -193,6 +206,49 @@
 					if( !empty($risks) )
 						$this->consults_risks_model->insert_batch($risks);
 				}
+			}
+
+			$this->shapeResponse();
+		}
+
+		function closure( ) {
+
+			$consultInfo = array(
+				'id_patient' => (int)trim( $this->input->post('id_patient',true)),
+				'id_consults_type' => (int)trim( $this->input->post('id_consults_type',true)),
+				'id_closure' => (int)trim( $this->input->post('id_closure',true)),
+				'id_closure_condition' => (int)trim( $this->input->post('id_closure_condition',true)),
+
+				'total_sessions' => (int)trim( $this->input->post('total_sessions',true)),
+				'duration' => (int)trim( $this->input->post('duration',true)),
+				'symptoms_severity' => (int)trim( $this->input->post('symptoms_severity',true)),
+				'operation_reduction' => (int)trim( $this->input->post('operation_reduction',true)),
+
+				'comments' => trim( $this->input->post('comments',true)),
+			);
+
+			$patient = $this->patients_model->get_one_by_id( $consultInfo['id_patient'] );
+
+			if( !$patient ) {
+				$this->data['error'] = array(
+					'code' => 10,
+					'type' => 'CodeError',
+					'msg' => 'No se encontró el paciente.',
+					'scope' => 'id_patient'
+				);
+			}
+			else {
+
+				$idConsult = (int)trim( $this->input->post('id_consult',true));
+
+				if( !$idConsult ) {
+					$this->patients_model->update_by_id($consultInfo['id_patient'], array('closed' => '1'));
+					$idConsult = $this->consults_model->insert($consultInfo);
+				}
+				else {
+					$this->consults_model->update_by_id($idConsult, $consultInfo);
+				}
+
 			}
 
 			$this->shapeResponse();

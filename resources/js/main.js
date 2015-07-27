@@ -201,6 +201,7 @@ $(function(){
 		load: function(query, callback) {
 
 			$('#consults').addClass('disabled').prop('disabled');
+			$('#resumes').addClass('disabled').prop('disabled');
 
 			if (!query.length)
 				return callback();
@@ -246,11 +247,20 @@ $(function(){
 			});
 		},
 		onChange: function(value) {
-			$('#consults').removeClass('disabled').removeProp('disabled');
-			$('#consults').unbind('click');
-			$('#consults').click(function(){
-				document.location.href = base_url + 'history/' + value;
-			});
+			$('#consults')
+				.removeClass('disabled')
+				.removeProp('disabled')
+				.unbind('click')
+				.click(function(){
+					document.location.href = base_url + 'history/' + value;
+				});
+			$('#resumes')
+				.removeClass('disabled')
+				.removeProp('disabled')
+				.unbind('click')
+				.click(function(){
+					document.location.href = base_url + 'history/resume/' + value;
+				});
 
 		}
 	});
