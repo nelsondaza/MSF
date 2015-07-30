@@ -254,14 +254,12 @@
 <?php
 	}
 	else {
-		/*
 ?>
 		<br>
 		<div class="field">
-			<a href="<?= base_url()?>history/consult/<?= $consult['id'] ?>" class="ui orange button small"><i class="edit icon"></i> <?= lang('history_edit') ?></a>
+			<a href="<?= base_url()?>history/closure/<?= $consult['id'] ?>" class="ui orange button small"><i class="edit icon"></i> <?= lang('history_edit') ?></a>
 		</div>
 <?php
-		*/
 	}
 	if( isset( $back ) && $back ) {
 ?>

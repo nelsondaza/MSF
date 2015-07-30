@@ -100,6 +100,7 @@
 		$col++;
 	}
 
+	/*
 	$options = array();
 	foreach( $diagnostics as $diagnostic ) {
 		$options[] = array(
@@ -137,7 +138,7 @@
 			'actualCol' => 0
 		)
 	);
-
+	*/
 	echo "<br>";
 
 	$options = array();
@@ -160,7 +161,9 @@
 				'id' => 'history_field_id_risks_category_' . $index,
 				'value' => ( isset( $consult['id_risks_category'] ) && $consult['id_risks_category'] ? $consult['id_risks_category'] : null ),
 				'placeholder' => ( $readOnly ? $optionName : lang('history_field_id_risks_category') )
-			)
+			),
+			'cols' => 0,
+			'actualCol' => 0
 		)
 	);
 

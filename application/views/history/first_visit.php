@@ -320,6 +320,25 @@
 			'actualCol' => 0
 		)
 	);
+
+	echo "<br>";
+	$this->load->view('common/form/input', array(
+			'error' => false,
+			'label' => 'Diagnóstico',
+			'attributes' => array(
+				'readonly' => $readOnly,
+				'type' => 'textarea',
+				'name' => 'history_field_diagnostic',
+				'id' => 'history_field_diagnostic',
+				'value' => ( isset( $consult['diagnostic'] ) && $patient['diagnostic'] ? $patient['diagnostic'] : '' ),
+				'placeholder' => ( isset( $patient['diagnostic'] ) && $patient['diagnostic'] ? $patient['diagnostic'] : ' - Ninguno -' )
+			),
+			'cols' => 0,
+			'actualCol' => 0
+		)
+	);
+
+
 	if( !$readOnly ) {
 ?>
 		<br>
@@ -388,7 +407,7 @@
 
 			$('#history_field_id_village').change(function(){
 				selectV( $(this).val() );
-			});
+			}).change();
 <?php
 	}
 ?>

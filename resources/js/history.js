@@ -26,7 +26,8 @@ $(function(){
 			'gender',
 			'id_education',
 			'age',
-			'id_reference'
+			'id_reference',
+			'diagnostic'
 		];
 
 		var $newPatient = {};
