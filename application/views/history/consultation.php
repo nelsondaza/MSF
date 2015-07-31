@@ -32,32 +32,6 @@
 	echo form_hidden('history_field_id_consult_' . $index, ( isset($consult['id']) && $consult['id'] ? $consult['id'] : '' ));
 
 	$options = array();
-	$optionName = '';
-	foreach( $symptoms_categories as $symptoms_category ) {
-		$options[$symptoms_category['id']] = $symptoms_category['name'];
-		if( isset($consult['id_symptoms_category']) && $consult['id_symptoms_category'] == $symptoms_category['id'] )
-			$optionName = $symptoms_category['name'];
-	}
-
-	$this->load->view('common/form/input', array(
-			'error' => false,
-			'label' => lang('history_field_id_symptoms_category'),
-			'options' => $options,
-			'selected' => ( isset( $consult['id_symptoms_category'] ) && $consult['id_symptoms_category'] ? $consult['id_symptoms_category'] : null ),
-			'attributes' => array(
-				'readonly' => $readOnly,
-				'type' => 'dropdown',
-				'name' => 'history_field_id_symptoms_category',
-				'id' => 'history_field_id_symptoms_category_' . $index,
-				'value' => ( isset( $consult['id_symptoms_category'] ) && $consult['id_symptoms_category'] ? $consult['id_symptoms_category'] : null ),
-				'placeholder' => ( $readOnly ? $optionName : lang('history_field_id_symptoms_category') )
-			),
-			'divider' => false
-		)
-	);
-
-
-	$options = array();
 	foreach( $symptoms as $symptom ) {
 		if( !isset( $options[$symptom['category']] ) )
 			$options[$symptom['category']] = array();
@@ -143,24 +117,24 @@
 
 	$options = array();
 	$optionName = '';
-	foreach( $risks_categories as $risks_category ) {
-		$options[$risks_category['id']] = $risks_category['name'];
-		if( isset($consult['id_risks_category']) && $consult['id_risks_category'] == $risks_category['id'] )
-			$optionName = $risks_category['name'];
+	foreach( $symptoms_categories as $symptoms_category ) {
+		$options[$symptoms_category['id']] = $symptoms_category['name'];
+		if( isset($consult['id_symptoms_category']) && $consult['id_symptoms_category'] == $symptoms_category['id'] )
+			$optionName = $symptoms_category['name'];
 	}
 
 	$this->load->view('common/form/input', array(
 			'error' => false,
-			'label' => lang('history_field_id_risks_category'),
+			'label' => lang('history_field_id_symptoms_category'),
 			'options' => $options,
-			'selected' => ( isset( $consult['id_risks_category'] ) && $consult['id_risks_category'] ? $consult['id_risks_category'] : null ),
+			'selected' => ( isset( $consult['id_symptoms_category'] ) && $consult['id_symptoms_category'] ? $consult['id_symptoms_category'] : null ),
 			'attributes' => array(
 				'readonly' => $readOnly,
 				'type' => 'dropdown',
-				'name' => 'history_field_id_risks_category',
-				'id' => 'history_field_id_risks_category_' . $index,
-				'value' => ( isset( $consult['id_risks_category'] ) && $consult['id_risks_category'] ? $consult['id_risks_category'] : null ),
-				'placeholder' => ( $readOnly ? $optionName : lang('history_field_id_risks_category') )
+				'name' => 'history_field_id_symptoms_category',
+				'id' => 'history_field_id_symptoms_category_' . $index,
+				'value' => ( isset( $consult['id_symptoms_category'] ) && $consult['id_symptoms_category'] ? $consult['id_symptoms_category'] : null ),
+				'placeholder' => ( $readOnly ? $optionName : lang('history_field_id_symptoms_category') )
 			),
 			'cols' => 0,
 			'actualCol' => 0
@@ -210,6 +184,33 @@
 	}
 
 	echo "<br>";
+
+
+	$options = array();
+	$optionName = '';
+	foreach( $risks_categories as $risks_category ) {
+		$options[$risks_category['id']] = $risks_category['name'];
+		if( isset($consult['id_risks_category']) && $consult['id_risks_category'] == $risks_category['id'] )
+			$optionName = $risks_category['name'];
+	}
+
+	$this->load->view('common/form/input', array(
+			'error' => false,
+			'label' => lang('history_field_id_risks_category'),
+			'options' => $options,
+			'selected' => ( isset( $consult['id_risks_category'] ) && $consult['id_risks_category'] ? $consult['id_risks_category'] : null ),
+			'attributes' => array(
+				'readonly' => $readOnly,
+				'type' => 'dropdown',
+				'name' => 'history_field_id_risks_category',
+				'id' => 'history_field_id_risks_category_' . $index,
+				'value' => ( isset( $consult['id_risks_category'] ) && $consult['id_risks_category'] ? $consult['id_risks_category'] : null ),
+				'placeholder' => ( $readOnly ? $optionName : lang('history_field_id_risks_category') )
+			),
+			'cols' => 0,
+			'actualCol' => 0
+		)
+	);
 
 	$options = array();
 	$optionName = '';

@@ -142,7 +142,7 @@
 <?php
 	}
 
-	$optionName = ( isset( $consult['Observaciones'] ) && $consult['Observaciones'] ? $consult['Observaciones'] : '' );
+	$optionName = ( isset( $consult['comments'] ) && $consult['comments'] ? $consult['comments'] : '' );
 	if( $optionName ) {
 ?>
 					<div class="event">
