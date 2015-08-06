@@ -5,7 +5,7 @@
 	$lang['history_field_start_date']       = 'Fecha de 1ª sesion';
 	$lang['history_field_open_date']       = 'Fecha de Reapertura';
 	$lang['history_field_id_region'] = 'Region del Proyecto';
-	$lang['history_field_id_localization'] = 'Localización de la Intervención';
+	$lang['history_field_id_localization'] = 'Loc. de la Intervención';
 	$lang['history_field_id_expert'] = 'Nombre del especialista';
 	$lang['history_field_code_patient'] = 'Código del Paciente';
 	$lang['history_field_id_patient'] = 'Nombre del Paciente';

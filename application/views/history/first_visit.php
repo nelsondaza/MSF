@@ -42,7 +42,7 @@
 				'value' => ( $patient['first_session'] ? $patient['first_session'] : '- No iniciada -' ),
 				'placeholder' => ( $patient['first_session'] ? $patient['first_session'] : '- No iniciada -' )
 			),
-			'cols' => 5,
+			'cols' => 6,
 			'actualCol' => 0
 		)
 	);
@@ -82,33 +82,24 @@
 		)
 	);
 
-
-	$options = array();
-	$optionId = '';
-	$optionName = '';
-	foreach( $localizations as $localization ) {
-		$lgroup = $localization['city'];
-		if( !isset( $options[$lgroup] ) )
-			$options[$lgroup] = array();
-		$options[$lgroup][$localization['id_village']] = $localization['village'];
-		if( isset($patient['id_localization']) && $patient['id_localization'] == $localization['id'] ) {
-			$optionId = $localization['id_village'];
-			$optionName = $localization['village'];
-		}
-	}
+	$options = array(
+		array(
+			1 => 'BUENAVENTURA'
+		)
+	);
 
 	$this->load->view('common/form/input', array(
 			'error' => false,
 			'label' => lang('history_field_id_localization'),
 			'options' => $options,
-			'selected' => $optionId,
+			'selected' => 1,
 			'attributes' => array(
-				'readonly' => $readOnly,
+				'readonly' => true,
 				'type' => 'dropdown',
-				'name' => 'history_field_id_village',
-				'id' => 'history_field_id_village',
-				'value' => $optionId,
-				'placeholder' => ( $readOnly ? $optionName : lang('history_field_id_localization') )
+				'name' => 'history_field_id_regionx',
+				'id' => 'history_field_id_regionx',
+				'value' => 1,
+				'placeholder' => 'BUENAVENTURA'
 			)
 		)
 	);
@@ -116,16 +107,14 @@
 	$options = array();
 	$optionName = '';
 	foreach( $localizations as $localization ) {
-		if( $optionId == $localization['id_village'] ) {
-			$options[$localization['id']] = $localization['name'];
-			if( isset($patient['id_localization']) && $patient['id_localization'] == $localization['id'] )
-				$optionName = $localization['name'];
-		}
+		$options[$localization['id']] = $localization['name'];
+		if( isset($patient['id_localization']) && $patient['id_localization'] == $localization['id'] )
+			$optionName = $localization['name'];
 	}
 
 	$this->load->view('common/form/input', array(
 			'error' => false,
-			'label' => '(Barrio)',
+			'label' => lang('history_field_id_origin_place'),
 			'options' => $options,
 			'selected' => ( isset( $patient['id_localization'] ) && $patient['id_localization'] ? $patient['id_localization'] : null ),
 			'attributes' => array(
@@ -133,35 +122,13 @@
 				'type' => 'dropdown',
 				'name' => 'history_field_id_localization',
 				'id' => 'history_field_id_localization',
-				'value' => (isset($patient['id_localization']) ? $patient['id_localization'] : ''),
-				'placeholder' => ( $readOnly ? $optionName : 'Barrio' )
+				'value' => ( isset( $patient['id_localization'] ) && $patient['id_localization'] ? $patient['id_localization'] : null ),
+				'placeholder' => ( $readOnly ? $optionName : lang('history_field_id_localization') )
 			)
 		)
 	);
 
-	$options = array();
-	$optionName = '';
-	foreach( $origin_places as $origin_place ) {
-		$options[$origin_place['id']] = $origin_place['name'];
-		if( isset($patient['id_origin_place']) && $patient['id_origin_place'] == $origin_place['id'] )
-			$optionName = $origin_place['name'];
-	}
 
-	$this->load->view('common/form/input', array(
-			'error' => false,
-			'label' => lang('history_field_id_origin_place'),
-			'options' => $options,
-			'selected' => ( isset( $patient['id_origin_place'] ) && $patient['id_origin_place'] ? $patient['id_origin_place'] : null ),
-			'attributes' => array(
-				'readonly' => $readOnly,
-				'type' => 'dropdown',
-				'name' => 'history_field_id_origin_place',
-				'id' => 'history_field_id_origin_place',
-				'value' => ( isset( $patient['id_origin_place'] ) && $patient['id_origin_place'] ? $patient['id_origin_place'] : null ),
-				'placeholder' => ( $readOnly ? $optionName : lang('history_field_id_origin_place') )
-			)
-		)
-	);
 
 	$this->load->view('common/form/input', array(
 			'error' => false,
@@ -188,7 +155,7 @@
 				'value' => $patient['code'],
 				'placeholder' => $patient['code']
 			),
-			'cols' => 4,
+			'cols' => 6,
 			'actualCol' => 0
 		)
 	);
@@ -225,9 +192,7 @@
 				'id' => 'history_field_gender',
 				'value' => ( isset( $patient['gender'] ) && $patient['gender'] ? $patient['gender'] : null ),
 				'placeholder' => ( $readOnly ? ( isset( $patient['gender'] ) && $patient['gender'] ? $options[$patient['gender']] : null ) : lang('history_field_gender') )
-			),
-			'cols' => 4,
-			'actualCol' => 0
+			)
 		)
 	);
 
@@ -321,6 +286,7 @@
 		)
 	);
 
+	/*
 	echo "<br>";
 	$this->load->view('common/form/input', array(
 			'error' => false,
@@ -337,6 +303,7 @@
 			'actualCol' => 0
 		)
 	);
+	*/
 
 
 	if( !$readOnly ) {
@@ -381,7 +348,7 @@
 				);
 			}).keyup();
 <?php
-	if( !$readOnly ) {
+	if( false && !$readOnly ) {
 ?>
 			var villages = {};
 			function addV( idV, idL, nameL ){

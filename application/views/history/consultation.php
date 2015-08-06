@@ -74,45 +74,6 @@
 		$col++;
 	}
 
-	/*
-	$options = array();
-	foreach( $diagnostics as $diagnostic ) {
-		$options[] = array(
-			'name' => 'diagnostics[]',
-			'label' => $diagnostic['name'],
-			'value' => $diagnostic['id']
-		);
-	}
-
-	$selected = array();
-	if( isset( $consult['diagnostics'] ) && $consult['diagnostics'] ) {
-		foreach( $consult['diagnostics'] as $pr ) {
-			$selected[] = $pr['id_diagnostic'];
-		}
-	}
-
-
-	$this->load->view('common/form/input', array(
-			'error' => form_error('history_field_id_diagnostic') || isset($history_field_id_diagnostic_error),
-			'label' => lang('history_field_id_diagnostic'),
-			'options' => $options,
-			'selected' => $selected,
-			'attributes' => array(
-				'readonly' => $readOnly,
-				'type' => 'multicheckbox',
-				'name' => 'history_field_id_diagnostic',
-				'id' => 'history_field_id_diagnostic_' . $index,
-				'value' => null,
-				'placeholder' => lang('history_field_id_diagnostic'),
-				'cols' => 3,
-				'group' => 'Diagnóstico',
-				'group-end' => true
-			),
-			'cols' => 0,
-			'actualCol' => 0
-		)
-	);
-	*/
 	echo "<br>";
 
 	$options = array();
@@ -140,6 +101,48 @@
 			'actualCol' => 0
 		)
 	);
+
+
+	if( $index == 0 ) {
+		$options = array();
+		foreach( $diagnostics as $diagnostic ) {
+			$options[] = array(
+				'name' => 'diagnostics[]',
+				'label' => $diagnostic['name'],
+				'value' => $diagnostic['id']
+			);
+		}
+
+		$selected = array();
+		if( isset( $consult['diagnostics'] ) && $consult['diagnostics'] ) {
+			foreach( $consult['diagnostics'] as $pr ) {
+				$selected[] = $pr['id_diagnostic'];
+			}
+		}
+
+
+		$this->load->view('common/form/input', array(
+				'error' => form_error('history_field_id_diagnostic') || isset($history_field_id_diagnostic_error),
+				'label' => lang('history_field_id_diagnostic'),
+				'options' => $options,
+				'selected' => $selected,
+				'attributes' => array(
+					'readonly' => $readOnly,
+					'type' => 'multicheckbox',
+					'name' => 'history_field_id_diagnostic',
+					'id' => 'history_field_id_diagnostic_' . $index,
+					'value' => null,
+					'placeholder' => lang('history_field_id_diagnostic'),
+					'cols' => 3,
+					'group' => 'Diagnóstico',
+					'group-end' => true
+				),
+				'cols' => 0,
+				'actualCol' => 0
+			)
+		);
+	}
+
 
 	$options = array();
 	foreach( $risks as $risk ) {

@@ -20,14 +20,14 @@ $(function(){
 
 		var fields = [
 			'id_localization',
-			'id_origin_place',
+			//'id_origin_place',
 			'id_expert',
 			'id_patient',
 			'gender',
 			'id_education',
 			'age',
 			'id_reference',
-			'diagnostic'
+			//'diagnostic'
 		];
 
 		var $newPatient = {};
@@ -39,7 +39,6 @@ $(function(){
 		$form.find('#history_field_id_reference input:checked').each(function(index,elem){
 			$newPatient['id_reference'].push($(elem).val());
 		});
-
 
 		$.ajax({
 			type: "POST",

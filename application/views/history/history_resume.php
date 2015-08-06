@@ -34,6 +34,36 @@
 						<?= ( $consult['id_closure'] ? 'Cierre' : ( $index == 0 ? '1ra Consulta' : 'Seguimiento ' . $index ) ) ?>
 					</h4>
 <?php
+
+	if( $index == 0 ) {
+?>
+					<div class="event">
+						<div class="content">
+							<div class="summary"><?= lang('history_field_id_diagnostic') ?></div>
+							<div class="segment">
+<?php
+		$options = array();
+		foreach ($diagnostics as $diagnostic) {
+			$options[] = array(
+				'name'  => 'diagnostics[]',
+				'label' => $diagnostic['name'],
+				'value' => $diagnostic['id']
+			);
+		}
+
+		$selected = array();
+		if (isset($consult['diagnostics']) && $consult['diagnostics']) {
+			foreach ($consult['diagnostics'] as $pr) {
+				echo " - " . $pr['diagnostic'] . '<br>';
+			}
+		}
+?>
+							</div>
+						</div>
+					</div>
+<?php
+	}
+
 	$options = array();
 	$optionName = '';
 	foreach( $symptoms_categories as $symptoms_category ) {
@@ -87,7 +117,7 @@
 ?>
 					<div class="event">
 						<div class="content">
-							<div class="summary"><?= 'Riesgo de Suicidio' ?></div>
+							<div class="summary"><?= 'Riesgo de Violencia' ?></div>
 							<div class="segment"><?= $optionName ?></div>
 						</div>
 					</div>
