@@ -36,32 +36,23 @@
 <?php
 
 	if( $index == 0 ) {
+		$options = array();
+		$optionName = '';
+		foreach( $diagnostics as $diagnostic ) {
+			$options[$diagnostic['id']] = $diagnostic['name'];
+			if( isset($consult['id_diagnostic']) && $consult['id_diagnostic'] == $diagnostic['id'] )
+				$optionName = $diagnostic['name'];
+		}
+		if( $optionName ) {
 ?>
 					<div class="event">
 						<div class="content">
 							<div class="summary"><?= lang('history_field_id_diagnostic') ?></div>
-							<div class="segment">
-<?php
-		$options = array();
-		foreach ($diagnostics as $diagnostic) {
-			$options[] = array(
-				'name'  => 'diagnostics[]',
-				'label' => $diagnostic['name'],
-				'value' => $diagnostic['id']
-			);
-		}
-
-		$selected = array();
-		if (isset($consult['diagnostics']) && $consult['diagnostics']) {
-			foreach ($consult['diagnostics'] as $pr) {
-				echo " - " . $pr['diagnostic'] . '<br>';
-			}
-		}
-?>
-							</div>
+							<div class="segment"><?= $optionName ?></div>
 						</div>
 					</div>
 <?php
+		}
 	}
 
 	$options = array();
@@ -167,6 +158,38 @@
 						<div class="content">
 							<div class="summary"><?= 'Medicación Psicotrópica' ?></div>
 							<div class="segment"><?= $optionName ?></div>
+						</div>
+					</div>
+<?php
+	}
+
+	$optionName = ( isset( $consult['symptoms_severity'] ) && $consult['symptoms_severity'] ? $consult['symptoms_severity'] : '' );
+	$optionName2 = ( count( $consults ) > 0 && $index > 0 && isset( $consults[$index - 1]['symptoms_severity'] ) ? $consults[$index - 1]['symptoms_severity'] : '' );
+	if( $optionName2 !== '' )
+		$optionName2 = (int)$optionName2 - (int)$optionName;
+
+	if( $optionName ) {
+?>
+					<div class="event">
+						<div class="content">
+							<div class="summary"><?= 'Severidad de los Síntomas (Ratio / Diferencia)' ?></div>
+							<div class="segment"><?= $optionName . " / " . $optionName2 ?></div>
+						</div>
+					</div>
+<?php
+	}
+
+	$optionName = ( isset( $consult['operation_reduction'] ) && $consult['operation_reduction'] ? $consult['operation_reduction'] : '' );
+	$optionName2 = ( count( $consults ) > 0 && $index > 0 && isset( $consults[$index - 1]['operation_reduction'] ) ? $consults[$index - 1]['operation_reduction'] : '' );
+	if( $optionName2 !== '' )
+		$optionName2 = (int)$optionName2 - (int)$optionName;
+
+	if( $optionName ) {
+?>
+					<div class="event">
+						<div class="content">
+							<div class="summary"><?= 'Reducción de Funcionamiento (Ratio / Diferencia)' ?></div>
+							<div class="segment"><?= $optionName . " / " . $optionName2 ?></div>
 						</div>
 					</div>
 <?php

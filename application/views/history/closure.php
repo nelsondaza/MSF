@@ -31,6 +31,22 @@
 	echo form_hidden('history_field_id_patient_' . $index, $patient['id']);
 	echo form_hidden('history_field_id_consult_' . $index, ( isset($consult['id']) && $consult['id'] ? $consult['id'] : '' ));
 
+
+	echo $index . " " . count($consults);
+
+	$lastOpen = null;
+	$subindex = $index - 1;
+	while( !$lastOpen && $subindex >= 0 ) {
+		if( isset($consults[$subindex]) && $consults[$subindex]['id_closure'] ) {
+			if( isset( $consults[$subindex + 1] ) )
+				$lastOpen = $consults[$subindex + 1];
+		}
+		$subindex --;
+	}
+	if( !$lastOpen && count( $consults ) > 0 )
+		$lastOpen = $consults[0];
+
+
 	$this->load->view('common/form/input', array(
 			'error' => false,
 			'label' => 'Fecha de Cierre',
@@ -211,7 +227,8 @@
 		)
 	);
 
-	$time = (int)( ( time( ) - strtotime( $patient['first_session'] ) ) / ( 60 * 60 * 24 ) );
+
+	$time = (int)( ( time( ) - strtotime( ( $lastOpen ? $lastOpen['creation'] : date("Y-m-d H:i:s") ) ) ) / ( 60 * 60 * 24 ) );
 
 	$this->load->view('common/form/input', array(
 			'error' => false,

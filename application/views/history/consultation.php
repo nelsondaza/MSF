@@ -31,6 +31,14 @@
 	echo form_hidden('history_field_id_patient_' . $index, $patient['id']);
 	echo form_hidden('history_field_id_consult_' . $index, ( isset($consult['id']) && $consult['id'] ? $consult['id'] : '' ));
 
+	$lastConsult = null;
+	$subindex = $index - 1;
+	while( !$lastConsult && $subindex >= 0 && ( !isset($consult['id']) || !$consult['id'] ) ) {
+		if( !$consults[$subindex]['id_closure'] )
+			$lastConsult = $consults[$subindex];
+		$subindex --;
+	}
+
 	$options = array();
 	foreach( $symptoms as $symptom ) {
 		if( !isset( $options[$symptom['category']] ) )
@@ -40,6 +48,10 @@
 			'label' => $symptom['name'],
 			'value' => $symptom['id']
 		);
+	}
+
+	if( ( !isset($consult['symptoms']) || empty($consult['symptoms']) ) && $lastConsult ) {
+		$consult['symptoms'] = $lastConsult['symptoms'];
 	}
 
 	$selected = array();
@@ -74,6 +86,10 @@
 		$col++;
 	}
 
+	if( ( !isset($consult['id_symptoms_category']) || empty($consult['id_symptoms_category']) ) && $lastConsult ) {
+		$consult['id_symptoms_category'] = $lastConsult['id_symptoms_category'];
+	}
+
 	echo "<br>";
 
 	$options = array();
@@ -104,6 +120,8 @@
 
 
 	if( $index == 0 ) {
+
+		/*
 		$options = array();
 		foreach( $diagnostics as $diagnostic ) {
 			$options[] = array(
@@ -119,7 +137,6 @@
 				$selected[] = $pr['id_diagnostic'];
 			}
 		}
-
 
 		$this->load->view('common/form/input', array(
 				'error' => form_error('history_field_id_diagnostic') || isset($history_field_id_diagnostic_error),
@@ -141,6 +158,35 @@
 				'actualCol' => 0
 			)
 		);
+		*/
+
+		$options = array();
+		$optionName = '';
+		foreach( $diagnostics as $diagnostic ) {
+			$options[$diagnostic['id']] = $diagnostic['name'];
+			if( isset($consult['id_diagnostic']) && $consult['id_diagnostic'] == $diagnostic['id'] )
+				$optionName = $diagnostic['name'];
+		}
+
+		$this->load->view('common/form/input', array(
+				'error' => false,
+				'label' => lang('history_field_id_diagnostic'),
+				'options' => $options,
+				'selected' => ( isset( $consult['id_diagnostic'] ) && $consult['id_diagnostic'] ? $consult['id_diagnostic'] : null ),
+				'attributes' => array(
+					'readonly' => $readOnly,
+					'type' => 'dropdown',
+					'name' => 'history_field_id_diagnostic',
+					'id' => 'history_field_id_diagnostic_' . $index,
+					'value' => ( isset( $consult['id_diagnostic'] ) && $consult['id_diagnostic'] ? $consult['id_diagnostic'] : null ),
+					'placeholder' => ( $readOnly ? $optionName : lang('history_field_id_diagnostic') )
+				),
+				'cols' => 0,
+				'actualCol' => 0
+			)
+		);
+
+
 	}
 
 
@@ -154,6 +200,11 @@
 			'value' => $risk['id']
 		);
 	}
+
+	if( ( !isset($consult['risks']) || empty($consult['risks']) ) && $lastConsult ) {
+		$consult['risks'] = $lastConsult['risks'];
+	}
+
 	$selected = array();
 	if( isset( $consult['risks'] ) && $consult['risks'] ) {
 		foreach( $consult['risks'] as $pr ) {
@@ -186,8 +237,11 @@
 		$col ++;
 	}
 
-	echo "<br>";
+	if( ( !isset($consult['id_risks_category']) || empty($consult['id_risks_category']) ) && $lastConsult ) {
+		$consult['id_risks_category'] = $lastConsult['id_risks_category'];
+	}
 
+	echo "<br>";
 
 	$options = array();
 	$optionName = '';

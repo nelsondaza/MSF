@@ -125,6 +125,7 @@
 				'id_interventions_type' => (int)trim( $this->input->post('id_interventions_type',true)),
 				'id_symptoms_category' => (int)trim( $this->input->post('id_symptoms_category',true)),
 				'id_risks_category' => (int)trim( $this->input->post('id_risks_category',true)),
+				'id_diagnostic' => (int)trim( $this->input->post('id_diagnostic',true)),
 				'operation_reduction' => (int)trim( $this->input->post('operation_reduction',true)),
 				'symptoms_severity' => (int)trim( $this->input->post('symptoms_severity',true)),
 				'id_referenced_to' => (int)trim( $this->input->post('id_referenced_to',true)),
@@ -140,6 +141,11 @@
 				'psychotropic_medication' => trim( $this->input->post('psychotropic_medication',true)),
 
 			);
+
+			if( !$consultInfo['id_diagnostic'] )
+				unset( $consultInfo['id_diagnostic'] );
+			if( !$consultInfo['id_referenced_to'] )
+				unset( $consultInfo['id_referenced_to'] );
 
 			$patient = $this->patients_model->get_one_by_id( $consultInfo['id_patient'] );
 
@@ -180,6 +186,7 @@
 					if( !empty($symptoms) )
 						$this->consults_symptoms_model->insert_batch($symptoms);
 				}
+				/*
 				$this->consults_diagnostics_model->delete_by_id_consult( $idConsult );
 				$id_diagnostics = $this->input->post('id_diagnostic',true);
 				if( is_array( $id_diagnostics ) ) {
@@ -193,6 +200,8 @@
 					if( !empty($diagnostics) )
 						$this->consults_diagnostics_model->insert_batch($diagnostics);
 				}
+				*/
+
 				$this->consults_risks_model->delete_by_id_consult( $idConsult );
 				$id_risks = $this->input->post('id_risk',true);
 				if( is_array( $id_risks ) ) {

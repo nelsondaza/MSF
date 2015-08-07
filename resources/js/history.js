@@ -235,6 +235,7 @@ $(function(){
 			'id_interventions_type',
 			'id_symptoms_category',
 			'id_risks_category',
+			'id_diagnostic',
 			'date',
 			'symptoms_severity',
 			'operation_reduction',
@@ -257,7 +258,6 @@ $(function(){
 
 		var multiFields = [
 			'id_symptom',
-			'id_diagnostic',
 			'id_risk',
 		];
 
