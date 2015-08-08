@@ -1,17 +1,26 @@
-#!/usr/bin/env bash
+#!/bin/bash
 # Actualización de sistema
 
-echo -e "\e[94mDescargando actualización..."
+clear
+
+blue=`tput setaf 4`
+reset=`tput sgr0`
+
+echo
+echo "${blue}Descargando actualización...${reset}"
 git pull origin master
 
-echo -e "\e[36mActualización base de datos..."
+echo
+echo "${blue}Actualización base de datos...${reset}"
 mysql -u root -p gestor < ./db/changes.sql
 
-echo -e "\e[94mRestaurando configuración..."
+echo
+echo "${blue}Restaurando configuración...${reset}"
 cp ./config/index.php ./index.php
 cp ./config/database.php ./application/config/database.php
 
-echo -e "\e[36mRealizando limpieza..."
+echo
+echo "${blue}Realizando limpieza...${reset}"
 rm -rf ./.idea/
 rm -rf ./db/msf_2015*
 rm -rf ./resources/css/*.less
