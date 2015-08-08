@@ -40,7 +40,7 @@
 			$patientInfo = array(
 				'id_localization' => (int)trim( $this->input->post('id_localization',true)),
 				//'id_origin_place' => (int)trim( $this->input->post('id_origin_place',true)),
-				'id_expert' => (int)trim( $this->input->post('id_expert',true)),
+				//'id_expert' => (int)trim( $this->input->post('id_expert',true)),
 				'gender' => ucwords( strtolower( trim( $this->input->post('gender',true) ) ) ),
 				'id_education' => (int)trim( $this->input->post('id_education',true)),
 				'age' => (int)trim( $this->input->post('age',true)),
@@ -163,6 +163,8 @@
 
 				if( !$idConsult ) {
 					$this->patients_model->update_by_id($consultInfo['id_patient'], array('last_session' => date('Y-m-d H:i:s')));
+					$consultInfo['id_creator'] = $this->session->userdata( 'account_id' );
+
 					$idConsult = $this->consults_model->insert($consultInfo);
 
 					if( $patient['closed'] )
@@ -252,6 +254,7 @@
 
 				if( !$idConsult ) {
 					$this->patients_model->update_by_id($consultInfo['id_patient'], array('closed' => '1'));
+					$consultInfo['id_creator'] = $this->session->userdata( 'account_id' );
 					$idConsult = $this->consults_model->insert($consultInfo);
 				}
 				else {

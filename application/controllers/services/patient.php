@@ -63,6 +63,7 @@
 			else {
 
 				$patient['search_text'] = implode(' ', array_values( $patient ) );
+				$patient['id_expert'] = $this->session->userdata( 'account_id' );
 
 				$idPatient = $this->patients_model->insert($patient);
 				$patient['id'] = $idPatient;
