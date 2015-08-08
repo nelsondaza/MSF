@@ -37,11 +37,11 @@
 				$props['title'] .= ' - ' . $props['subtitle'];
 
 			PHPExcel_Shared_Font::setAutoSizeMethod(PHPExcel_Shared_Font::AUTOSIZE_METHOD_EXACT);
-			$logoPath = 'resources/img/cata.png';
+			$logoPath = 'resources/img/logo.png';
 
 			$props['doc'] = array_merge(
 				array(
-					'title' => 'CATA ARUBA',
+					'title' => 'MSF',
 					'subject' => 'Reporte',
 					'description' => 'Reporte de sistema',
 					'keywords' => 'Reporte',
@@ -55,8 +55,8 @@
 				$title = substr( $title, 0, strripos( $title, " ", 30 - strlen( $title ) ) );
 
 			$objPHPExcel = new PHPExcel();
-			$objPHPExcel->getProperties()->setCreator("Imagen Digital")
-			            ->setLastModifiedBy("Imagen Digital")
+			$objPHPExcel->getProperties()->setCreator("MSF System")
+			            ->setLastModifiedBy("MSF System")
 			            ->setTitle( $props['doc']['title'] )
 			            ->setSubject( $props['doc']['subject'] )
 			            ->setDescription( $props['doc']['description'] )
@@ -89,12 +89,12 @@
 			$objDrawing = new PHPExcel_Worksheet_Drawing();
 			$objDrawing->setWorksheet($sheet);
 			$objDrawing->setName("logo");
-			$objDrawing->setDescription("Cata Aruba");
+			$objDrawing->setDescription("MSF");
 			$objDrawing->setPath($logoPath);
 			$objDrawing->setCoordinates('A1');
-			$objDrawing->setWidth(216);
-			$objDrawing->setHeight(275);
-			$sheet->getRowDimension(1)->setRowHeight(150);
+			$objDrawing->setWidth(208);
+			$objDrawing->setHeight(89);
+			$sheet->getRowDimension(1)->setRowHeight(95);
 
 			$styleTitle = array(
 				'font'  => array(
@@ -105,12 +105,12 @@
 				),
 				'fill' 	=> array(
 					'type'		=> PHPExcel_Style_Fill::FILL_SOLID,
-					'color'		=> array( 'argb' => 'FF5BBCE8' )
+					'color'		=> array( 'argb' => 'FFE0011A' )
 				),
 				'borders' => array(
 					'allborders' => array(
 						'style' => PHPExcel_Style_Border::BORDER_THIN,
-						'color'		=> array( 'argb' => 'FF0B7C98' )
+						'color'		=> array( 'argb' => 'FFD0011A' )
 					)
 				),
 				'alignment' => array(
@@ -124,7 +124,7 @@
 				'borders' => array(
 					'allborders' => array(
 						'style' => PHPExcel_Style_Border::BORDER_THIN,
-						'color'		=> array( 'argb' => 'FF0B7C98' )
+						'color'		=> array( 'argb' => 'FFD0011A' )
 					)
 				),
 				'alignment' => array(
