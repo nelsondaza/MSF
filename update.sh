@@ -55,7 +55,7 @@ echo "${blue}BASE DE DATOS:${reset}"
 
 	ls -l -h ${FILE}.gz
 
-	if [[ -f ./db/changes.sql ]] ; then
+	if [ -f ./db/changes.sql ] ; then
 		echo
 		echo "${blue}    Actualización base de datos...${reset}"
 		mysql -h ${DBSERVER} -u${USER} -p${PASS} ${DATABASE} < ./db/changes.sql
