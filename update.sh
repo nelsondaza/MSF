@@ -62,8 +62,8 @@ echo "${blue}BASE DE DATOS:${reset}"
 
 		echo
 		read -r -p '    ¿Actualización correcta? [S/n]: ' OK
-		OK=${OK,,} # tolower
-		if [[ $OK =~ ^(si|s| ) ]]; then
+		OK=$OK:l # tolower
+		if [[ $OK == "S" || $OK == "s" || $OK = "" ]]; then
 			type > "./db/changes.sql"
 		fi
 	else
