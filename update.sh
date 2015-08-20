@@ -55,15 +55,21 @@ echo "${blue}BASE DE DATOS:${reset}"
 
 	ls -l -h ${FILE}.gz
 
-	echo
-	echo "${blue}    Actualización base de datos...${reset}"
-	mysql -h ${DBSERVER} -u${USER} -p${PASS} ${DATABASE} < ./db/changes.sql
+	if [[ -s "./db/changes.sql" ]] ; then
+		echo
+		echo "${blue}    Actualización base de datos...${reset}"
+		mysql -h ${DBSERVER} -u${USER} -p${PASS} ${DATABASE} < "./db/changes.sql"
 
-	read -r -p '    ¿Actualización correcta? [S/n]: ' OK
-	OK=${OK,,} # tolower
-	if [[ $OK =~ ^(si|s| ) ]]; then
-		type > ./db/changes.sql
-	fi
+		echo
+		read -r -p '    ¿Actualización correcta? [S/n]: ' OK
+		OK=${OK,,} # tolower
+		if [[ $OK =~ ^(si|s| ) ]]; then
+			type > "./db/changes.sql"
+		fi
+	else
+		echo
+		echo "${blue}    NO hay Actualización de base de datos.${reset}"
+	fi ;
 
 
 echo

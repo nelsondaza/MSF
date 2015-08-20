@@ -28,3 +28,8 @@ UPDATE  `msf_consults` SET id_creator = 1 WHERE id_creator IS NULL;
 
 ALTER TABLE  `msf_consults` CHANGE  `id_creator`  `id_creator` BIGINT( 20 ) UNSIGNED NOT NULL;
 
+
+INSERT INTO `msf_references` (`id`, `id_category`, `name`, `active`) VALUES (NULL, '2', '05 Psicólogo MSF', '1');
+INSERT INTO `msf_references` (`id`, `id_category`, `name`, `active`) VALUES (NULL, '2', '06 Trabajador Social MSF', '1');
+INSERT INTO `msf_risks_categories` (`id`, `name`, `active`) VALUES (NULL, 'Otros', '1');
+
