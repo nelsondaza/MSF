@@ -49,10 +49,10 @@
 			<div class="clearfix"></div>
 			<script type="text/javascript">
 				$(function(){ //DOM Ready
-					// x = 970 ==> ( 111 + 5 + 5 ) * 8 ==> ( width + margin-left + margin-right ) * columns = 968
+					// x = 1160 ==> ( 135 + 5 + 5 ) * 8 ==> ( width + margin-left + margin-right ) * columns = 968
 					// y = 653 ==> ( 100 + 4 + 4 ) * 6 ==> ( height + margin-top + margin-bottom ) * rows = 648
 					$(".flow .page .holder .widgets .gridster").gridster({
-						widget_base_dimensions: [111, 100],
+						widget_base_dimensions: [135, 100],
 						widget_margins: [5, 4],
 						widget_selector: 'div',
 						max_cols: 8,
