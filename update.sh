@@ -62,7 +62,7 @@ echo "${blue}BASE DE DATOS:${reset}"
 
 		echo
 		read -p '    ¿Actualización correcta? [S/n]: ' OK
-		if [[ $OK == "S" || $OK == "s" || $OK = "" ]]; then
+		if [ "$OK" = "S" -o "$OK" = "s" -o "$OK" = "" ]; then
 			rm -f ./db/changes.sql
 		fi
 	else
