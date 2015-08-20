@@ -61,8 +61,7 @@ echo "${blue}BASE DE DATOS:${reset}"
 		mysql -h ${DBSERVER} -u${USER} -p${PASS} ${DATABASE} < ./db/changes.sql
 
 		echo
-		read -r -p '    ¿Actualización correcta? [S/n]: ' OK
-		OK=$OK:l # tolower
+		read -p '    ¿Actualización correcta? [S/n]: ' OK
 		if [[ $OK == "S" || $OK == "s" || $OK = "" ]]; then
 			rm -f ./db/changes.sql
 		fi
