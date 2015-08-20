@@ -17,6 +17,7 @@ DBSERVER=127.0.0.1
 DATABASE=
 USER=
 PASS=
+OK=
 
 echo
 echo "${blue}BASE DE DATOS:${reset}"
@@ -42,15 +43,27 @@ echo "${blue}BASE DE DATOS:${reset}"
 	read -p '    Base de Datos   : ' DATABASE
 
 	echo
-	echo "${blue}    Backup de base de datos...${reset}"
-	mysqldump -h ${DBSERVER} -e -n --tables --triggers --add-drop-table=FALSE -u${USER} -p${PASS} ${DATABASE} > ${FILE}
-	gzip -f $FILE
-	rm -f $FILE
+	if [ -f "${FILE}.gz" ]
+	then
+		echo "${blue}    Backup de base de datos... ¡YA EXISTE!${reset}"
+	else
+		echo "${blue}    Backup de base de datos...${reset}"
+		mysqldump -h ${DBSERVER} -e -n --tables --triggers --add-drop-table=FALSE -u${USER} -p${PASS} ${DATABASE} > ${FILE}
+		gzip -f $FILE
+		rm -f $FILE
+	fi
+
 	ls -l -h ${FILE}.gz
 
 	echo
 	echo "${blue}    Actualización base de datos...${reset}"
 	mysql -h ${DBSERVER} -u${USER} -p${PASS} ${DATABASE} < ./db/changes.sql
+
+	read -r -p '    ¿Actualización correcta? [S/n]: ' OK
+	OK=${OK,,} # tolower
+	if [[ $OK =~ ^(si|s| ) ]]; then
+		type > ./db/changes.sql
+	fi
 
 
 echo

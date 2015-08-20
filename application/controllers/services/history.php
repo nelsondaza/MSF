@@ -41,6 +41,9 @@
 				'id_localization' => (int)trim( $this->input->post('id_localization',true)),
 				//'id_origin_place' => (int)trim( $this->input->post('id_origin_place',true)),
 				//'id_expert' => (int)trim( $this->input->post('id_expert',true)),
+				'first_name' => ucwords( strtolower( trim( $this->input->post('first_name',true) ) ) ),
+				'last_name' => ucwords( strtolower( trim( $this->input->post('last_name',true) ) ) ),
+
 				'gender' => ucwords( strtolower( trim( $this->input->post('gender',true) ) ) ),
 				'id_education' => (int)trim( $this->input->post('id_education',true)),
 				'age' => (int)trim( $this->input->post('age',true)),

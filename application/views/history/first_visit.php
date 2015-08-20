@@ -30,6 +30,7 @@
 <?php
 	echo form_open_multipart(uri_string(), 'id="first_visit_form" class="ui small fluid form ' . ( !empty($errors) ? 'error' : '' ) . '"');
 	echo form_hidden('history_field_id_expert', $patient['id_expert'] );
+	echo form_hidden('history_field_id_patient', $patient['id'] );
 
 	$this->load->view('common/form/input', array(
 			'error' => false,
@@ -155,21 +156,35 @@
 				'value' => $patient['code'],
 				'placeholder' => $patient['code']
 			),
-			'cols' => 6,
+			'cols' => 7,
 			'actualCol' => 0
 		)
 	);
 
 	$this->load->view('common/form/input', array(
 			'error' => false,
-			'label' => lang('history_field_id_patient'),
+			'label' => lang('history_field_first_name'),
 			'attributes' => array(
-				'readonly' => 'true',
+				'readonly' => $readOnly,
 				'type' => 'text',
-				'name' => 'history_field_id_patient',
-				'id' => 'history_field_id_patient',
-				'value' => $patient['id'],
-				'placeholder' => $patient['first_name'] . ' ' . $patient['last_name']
+				'name' => 'history_field_first_name',
+				'id' => 'history_field_first_name',
+				'value' => $patient['first_name'],
+				'placeholder' => $patient['first_name']
+			)
+		)
+	);
+
+	$this->load->view('common/form/input', array(
+			'error' => false,
+			'label' => lang('history_field_last_name'),
+			'attributes' => array(
+				'readonly' => $readOnly,
+				'type' => 'text',
+				'name' => 'history_field_last_name',
+				'id' => 'history_field_last_name',
+				'value' => $patient['last_name'],
+				'placeholder' => $patient['last_name']
 			)
 		)
 	);

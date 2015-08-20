@@ -8,7 +8,9 @@
 	$lang['history_field_id_localization'] = 'Loc. de la Intervención';
 	$lang['history_field_id_expert'] = 'Nombre del especialista';
 	$lang['history_field_code_patient'] = 'Código del Paciente';
-	$lang['history_field_id_patient'] = 'Nombre del Paciente';
+	$lang['history_field_id_patient'] = 'ID del Paciente';
+	$lang['history_field_first_name'] = 'Nombre(s) del Paciente';
+	$lang['history_field_last_name'] = 'Apellido(s) del Paciente';
 	$lang['history_field_gender'] = 'Género';
 	$lang['history_field_id_education'] = 'Educación';
 	$lang['history_field_age'] = 'Edad';

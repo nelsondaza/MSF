@@ -23,6 +23,8 @@ $(function(){
 			//'id_origin_place',
 			'id_expert',
 			'id_patient',
+			'first_name',
+			'last_name',
 			'gender',
 			'id_education',
 			'age',
