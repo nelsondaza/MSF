@@ -58,6 +58,23 @@
 <?php
 	}
 
+	if ( $this->authorization->is_permitted( array( 'view_reports', 'generate_reports', 'export_reports' ) ) ) {
+		$active = ( in_array( $current, array( 'generate_db' ) ) );
+?>
+		<div class="item <?= ( $active ? 'active' : '' ) ?>">
+			<a class="title <?= ( $active ? 'active' : '' ) ?>"><i class="lab icon"></i> Reportes</a>
+			<div class="menu content <?= ( $active ? 'active' : '' ) ?>">
+<?php
+
+		if ( $this->authorization->is_permitted( 'generate_reports' ) )
+			echo anchor( 'reports/generate_db', '<i class="database icon"></i> Base de datos', array( 'class' => 'item' . ( $current == 'generate_db' ? ' active' : '' ) ) );
+
+?>
+			</div>
+		</div>
+<?php
+	}
+
 	if ( false && $this->authorization->is_permitted( array( 'retrieve_users', 'retrieve_measures' ) ) ) {
 		$active = ( in_array( $current, array( 'manage_sources', 'manage_measures' ) ) );
 

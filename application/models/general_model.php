@@ -70,18 +70,18 @@
 		private function setCondition( $field, $value ) {
 			if ( preg_match( '/(\_not\_like)$/i', $field ) ) {
 				$field = preg_replace( '/(\_not\_like)$/i', '', $field );
-				$this->db->not_like( $this->tableName . '.' . $field, $value );
+				$this->db->not_like( $field, $value );
 			} else if ( preg_match( '/(\_like)$/i', $field ) ) {
 				$field = preg_replace( '/(\_like)$/i', '', $field );
-				$this->db->like( $this->tableName . '.' . $field, $value );
+				$this->db->like( $field, $value );
 			} else if ( preg_match( '/(\_not\_in)$/i', $field ) ) {
 				$field = preg_replace( '/(\_not\_in)$/i', '', $field );
-				$this->db->where_in( $this->tableName . '.' . $field, $value );
+				$this->db->where_in( $field, $value );
 			} else if ( preg_match( '/(\_in)$/i', $field ) ) {
 				$field = preg_replace( '/(\_in)$/i', '', $field );
-				$this->db->where_not_in( $this->tableName . '.' . $field, $value );
+				$this->db->where_not_in( $field, $value );
 			} else {
-				$this->db->where( $this->tableName . '.' . $field, $value );
+				$this->db->where( $field, $value );
 			}
 
 			return $field;

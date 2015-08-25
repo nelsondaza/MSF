@@ -16,7 +16,10 @@
 			    'PHPExcel'
 			) );
 			$this->load->model( array(
-			    'manage/patients_model'
+			    'manage/patients_model',
+			    'manage/patients_references_model',
+			    'manage/consults_model',
+			    'manage/consults_symptoms_model',
 			) );
 		}
 
@@ -24,13 +27,18 @@
 
 		function DB () {
 
+			$data = $this->auth( '', array(
+				'generate_reports' => 'account/account_profile'
+			) );
+
 			$props = array(
 				'title' => 'MSF - DB - CallCenter',
 				'headers' => array('Serial'),
 				'data' => array(array('Serial' => 10)),
-				'start' => '2015-01-01',
-				'end' => '2015-12-31'
+				'start' => $this->input->get_post('start',true),
+				'end' => $this->input->get_post('end',true)
 			);
+
 			$this->exportExcel( $props );
 
 		}
@@ -105,8 +113,8 @@
 			// LOGO
 			$objDrawing->setPath($logoPath);
 			$objDrawing->setCoordinates('A1');
-			$objDrawing->setWidth(208);
-			$objDrawing->setHeight(89);
+			$objDrawing->setWidth(104);
+			$objDrawing->setHeight(45);
 
 
 			$styleHeader = array(
@@ -145,18 +153,18 @@
 			$styleTitle = array(
 				'font'  => array(
 					'bold'  => true,
-					'color' => array('rgb' => 'FF222222'),
+					'color' => array('rgb' => 'FF333333'),
 					'size'  => 8,
 					'name'  => 'Verdana'
 				),
 				'fill' 	=> array(
 					'type'		=> PHPExcel_Style_Fill::FILL_SOLID,
-					'color'		=> array( 'argb' => 'FFDDDDDD' )
+					'color'		=> array( 'argb' => 'FFCCCCCC' )
 				),
 				'borders' => array(
 					'allborders' => array(
 						'style' => PHPExcel_Style_Border::BORDER_THIN,
-						'color'		=> array( 'argb' => 'FF333333' )
+						'color'		=> array( 'argb' => 'FF666666' )
 					)
 				),
 				'alignment' => array(
@@ -167,14 +175,8 @@
 			);
 
 			$styleText = array(
-				'borders' => array(
-					'allborders' => array(
-						'style' => PHPExcel_Style_Border::BORDER_THIN,
-						'color'		=> array( 'argb' => 'FFD0011A' )
-					)
-				),
 				'alignment' => array(
-					'vertical' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
+					'vertical' => PHPExcel_Style_Alignment::VERTICAL_TOP
 				),
 			);
 
@@ -183,40 +185,45 @@
 			$fil = 1;
 			$sheet->setCellValueByColumnAndRow($col, $fil, 'MSF OCBA Mental Health DATABASE' );
 			$sheet->getStyleByColumnAndRow($col, $fil )->applyFromArray($styleHeader);
-			$sheet->getColumnDimensionByColumn($col)->setAutoSize(true);
+			$sheet->mergeCellsByColumnAndRow( $col, $fil, $col + 3, $fil );
 
 			$styleHeader['font']['bold'] = false;
 
-			$col += 3;
+			$col += 4;
 			$sheet->setCellValueByColumnAndRow($col, $fil, 'Proyecto:' );
 			$sheet->getStyleByColumnAndRow($col, $fil )->applyFromArray($styleHeader);
+			$sheet->mergeCellsByColumnAndRow( $col, $fil, $col + 2, $fil );
 			$fil++;
 			$sheet->setCellValueByColumnAndRow($col, $fil, 'País:' );
 			$sheet->getStyleByColumnAndRow($col, $fil )->applyFromArray($styleHeader);
+			$sheet->mergeCellsByColumnAndRow( $col, $fil, $col + 2, $fil );
 			$fil++;
 			$sheet->setCellValueByColumnAndRow($col, $fil, 'Intervalo:' );
 			$sheet->getStyleByColumnAndRow($col, $fil )->applyFromArray($styleHeader);
-			$sheet->getColumnDimensionByColumn($col)->setAutoSize(true);
+			$sheet->mergeCellsByColumnAndRow( $col, $fil, $col + 2, $fil );
 
-			$col ++;
+			$col += 3;
 			$fil = 1;
 			$sheet->setCellValueByColumnAndRow($col, $fil, 'Cauca - Pacífico' );
 			$sheet->getStyleByColumnAndRow($col, $fil )->applyFromArray($styleHeaderTable);
+			$sheet->mergeCellsByColumnAndRow( $col, $fil, $col + 3, $fil );
 			$fil++;
 			$sheet->setCellValueByColumnAndRow($col, $fil, 'Colombia' );
 			$sheet->getStyleByColumnAndRow($col, $fil )->applyFromArray($styleHeaderTable);
+			$sheet->mergeCellsByColumnAndRow( $col, $fil, $col + 3, $fil );
 			$fil++;
 			$sheet->setCellValueByColumnAndRow($col, $fil, $props['start'] .  ' - ' . $props['end'] );
 			$sheet->getStyleByColumnAndRow($col, $fil )->applyFromArray($styleHeaderTable);
-			$sheet->getColumnDimensionByColumn($col)->setAutoSize(true);
+			$sheet->mergeCellsByColumnAndRow( $col, $fil, $col + 3, $fil );
 
 			$col = 0;
 			$fil = 5;
 			$colMax = 0;
 
-			$sheet->mergeCells("A$fil:V$fil");
 			$sheet->setCellValueByColumnAndRow( $col, $fil, '1ra Visita' );
+			$styleTitle['fill']['color'] = array( 'argb' => 'FFFDCB01' );
 			$sheet->getStyleByColumnAndRow($col, $fil )->applyFromArray($styleTitle);
+			$styleTitle['fill']['color'] = array( 'argb' => 'FFFFFFFF' );
 			$fil++;
 
 
@@ -251,14 +258,100 @@
 			$col = 0;
 			$sheet->setCellValueByColumnAndRow( $col, $fil, 'Serial No.' );
 			$sheet->getStyleByColumnAndRow( $col, $fil )->applyFromArray($styleTitle);
+			$sheet->mergeCellsByColumnAndRow( $col, $fil, $col, $fil + 2 );
 			$col ++;
 			foreach( $headers as $key => $value ) {
 				$sheet->setCellValueByColumnAndRow( $col, $fil, $value );
 				$sheet->getStyleByColumnAndRow( $col, $fil )->applyFromArray($styleTitle);
+				$sheet->mergeCellsByColumnAndRow( $col, $fil, $col, $fil + 2 );
 				$col ++;
 			}
+			// References
+			$totalReferences = $this->patients_model->getMaxReferences( $props['start'], $props['end'], 1 );
+			for( $c = 0; $c < $totalReferences; $c ++  ) {
+				$sheet->setCellValueByColumnAndRow( $col, $fil, 'Referido DESDE ' . ($c + 1 ) );
+				$sheet->getStyleByColumnAndRow( $col, $fil )->applyFromArray($styleTitle);
+				$sheet->mergeCellsByColumnAndRow( $col, $fil, $col, $fil + 2 );
+				$col ++;
+			}
+			$sheet->mergeCellsByColumnAndRow( 0, $fil - 1, $col - 1, $fil - 1 );
 
+			// Consults (Not closures)
+			$totalConsults = $this->patients_model->getMaxConsultsOpened( $props['start'], $props['end'] );
+			$totalConsultsSymptoms = $this->patients_model->getMaxConsultsSymptoms( $props['start'], $props['end'] ) + 8;
+
+			$fil --;
+			for( $c = 0; $c < $totalConsults; $c ++  ) {
+				if( $c == 0 ) {
+					$sheet->setCellValueByColumnAndRow( $col, $fil, '1ra. Consulta' );
+					$sheet->mergeCellsByColumnAndRow( $col, $fil, $col + $totalConsultsSymptoms - 1, $fil + 1 );
+					$styleTitle['fill']['color'] = array( 'argb' => 'FFFDCB01' );
+					$sheet->getStyleByColumnAndRow( $col, $fil )->applyFromArray($styleTitle);
+
+					$sheet->setCellValueByColumnAndRow( $col + $totalConsultsSymptoms, $fil, 'Seguimientos' );
+					$sheet->mergeCellsByColumnAndRow( $col + $totalConsultsSymptoms, $fil, $col + ( $totalConsults * $totalConsultsSymptoms ) - 1, $fil );
+					$styleTitle['fill']['color'] = array( 'argb' => 'FF3366FE' );
+					$sheet->getStyleByColumnAndRow( $col + $totalConsultsSymptoms, $fil )->applyFromArray($styleTitle);
+					$styleTitle['fill']['color'] = array( 'argb' => 'FFFFFFFF' );
+					$fil ++;
+				}
+				else {
+					$sheet->setCellValueByColumnAndRow( $col, $fil, 'Seguimiento ' . $c );
+					$sheet->mergeCellsByColumnAndRow( $col, $fil, $col + $totalConsultsSymptoms - 1, $fil );
+					$styleTitle['fill']['color'] = array( 'argb' => 'FF' . ( $c % 2 > 0 ? 'BFBFBF' : '98CBFE' ) );
+					$sheet->getStyleByColumnAndRow( $col, $fil )->applyFromArray($styleTitle);
+					$styleTitle['fill']['color'] = array( 'argb' => 'FFFFFFFF' );
+				}
+				$fil ++;
+				for( $d = 0; $d < $totalConsultsSymptoms - 7; $d ++  ) {
+					$sheet->setCellValueByColumnAndRow( $col, $fil, ( $d == 0 ? 'Categoría de los síntomas' : 'Síntoma ' . $d ) );
+					$sheet->getStyleByColumnAndRow( $col, $fil )->applyFromArray($styleTitle);
+					$sheet->mergeCellsByColumnAndRow( $col, $fil, $col, $fil + 1 );
+					$col ++;
+				}
+
+				$sheet->setCellValueByColumnAndRow( $col, $fil, 'Tipo de Consulta' );
+				$sheet->getStyleByColumnAndRow( $col, $fil )->applyFromArray($styleTitle);
+				$sheet->mergeCellsByColumnAndRow( $col, $fil, $col, $fil + 1 );
+				$col ++;
+				$sheet->setCellValueByColumnAndRow( $col, $fil, 'Tipo de Intervención' );
+				$sheet->getStyleByColumnAndRow( $col, $fil )->applyFromArray($styleTitle);
+				$sheet->mergeCellsByColumnAndRow( $col, $fil, $col, $fil + 1 );
+				$col ++;
+				$sheet->setCellValueByColumnAndRow( $col, $fil, 'Fecha' );
+				$sheet->getStyleByColumnAndRow( $col, $fil )->applyFromArray($styleTitle);
+				$sheet->mergeCellsByColumnAndRow( $col, $fil, $col, $fil + 1 );
+				$col ++;
+				$sheet->setCellValueByColumnAndRow( $col, $fil, 'Severidad de los Sintomas' );
+				$sheet->getStyleByColumnAndRow( $col, $fil )->applyFromArray($styleTitle);
+				$sheet->mergeCellsByColumnAndRow( $col, $fil, $col + 1, $fil );
+					$fil ++;
+					$sheet->setCellValueByColumnAndRow( $col, $fil, 'Ratio' );
+					$sheet->getStyleByColumnAndRow( $col, $fil )->applyFromArray($styleTitle);
+					$col ++;
+					$sheet->setCellValueByColumnAndRow( $col, $fil, 'Direfencia' );
+					$sheet->getStyleByColumnAndRow( $col, $fil )->applyFromArray($styleTitle);
+					$col ++;
+					$fil --;
+				$sheet->setCellValueByColumnAndRow( $col, $fil, 'Reducción de Funcionamiento' );
+				$sheet->getStyleByColumnAndRow( $col, $fil )->applyFromArray($styleTitle);
+				$sheet->mergeCellsByColumnAndRow( $col, $fil, $col + 1, $fil );
+					$fil ++;
+					$sheet->setCellValueByColumnAndRow( $col, $fil, 'Ratio' );
+					$sheet->getStyleByColumnAndRow( $col, $fil )->applyFromArray($styleTitle);
+					$col ++;
+					$sheet->setCellValueByColumnAndRow( $col, $fil, 'Direfencia' );
+					$sheet->getStyleByColumnAndRow( $col, $fil )->applyFromArray($styleTitle);
+					$col ++;
+					$fil --;
+
+				$fil --;
+			}
+
+			$fil += 2;
 			$colMax = max($colMax, $col);
+
+
 
 			$fil ++;
 			foreach( $patients as $pos => $row ) {
@@ -271,6 +364,63 @@
 					$sheet->getStyleByColumnAndRow( $col, $fil )->applyFromArray($styleText);
 					$col ++;
 				}
+				// References
+				$references = $this->patients_references_model->get_by_id_patient_and_id_category( $row['id'], 1 );
+				foreach( $references as $c => $reference ) {
+					$sheet->setCellValueByColumnAndRow( $col + $c, $fil, $reference['reference'] );
+					$sheet->getStyleByColumnAndRow( $col + $c, $fil )->applyFromArray($styleText);
+				}
+				$col += $totalReferences;
+
+				$consults = $this->consults_model->getOpenedFor( $row['id'] );
+
+				foreach( $consults as $consultIndex => $consult ) {
+
+					$colSymptoms = $col;
+					$sheet->setCellValueByColumnAndRow( $colSymptoms, $fil, $consult['symptoms_category'] );
+					$sheet->getStyleByColumnAndRow( $colSymptoms, $fil )->applyFromArray($styleText);
+					$colSymptoms ++;
+
+					$symptoms = $this->consults_symptoms_model->get_by_id_consult( $consult['id'] );
+					foreach( $symptoms as $symptom ) {
+						$sheet->setCellValueByColumnAndRow($colSymptoms, $fil, $symptom['symptom'] );
+						$sheet->getStyleByColumnAndRow($colSymptoms, $fil )->applyFromArray($styleText);
+						$colSymptoms ++;
+					}
+
+					$colSymptoms = $col + $totalConsultsSymptoms - 7;
+					$sheet->setCellValueByColumnAndRow( $colSymptoms, $fil, $consult['consults_type'] );
+					$sheet->getStyleByColumnAndRow( $colSymptoms, $fil )->applyFromArray($styleText);
+					$colSymptoms ++;
+
+					$sheet->setCellValueByColumnAndRow( $colSymptoms, $fil, $consult['interventions_type'] );
+					$sheet->getStyleByColumnAndRow( $colSymptoms, $fil )->applyFromArray($styleText);
+					$colSymptoms ++;
+
+					$sheet->setCellValueByColumnAndRow( $colSymptoms, $fil, $consult['creation'] );
+					$sheet->getStyleByColumnAndRow( $colSymptoms, $fil )->applyFromArray($styleText);
+					$colSymptoms ++;
+
+					$sheet->setCellValueByColumnAndRow( $colSymptoms, $fil, $consult['symptoms_severity'] );
+					$sheet->getStyleByColumnAndRow( $colSymptoms, $fil )->applyFromArray($styleText);
+					$colSymptoms ++;
+
+					$sheet->setCellValueByColumnAndRow( $colSymptoms, $fil, ( $consultIndex > 0 ? $consults[$consultIndex - 1]['symptoms_severity'] : '' ) );
+					$sheet->getStyleByColumnAndRow( $colSymptoms, $fil )->applyFromArray($styleText);
+					$colSymptoms ++;
+
+					$sheet->setCellValueByColumnAndRow( $colSymptoms, $fil, $consult['operation_reduction'] );
+					$sheet->getStyleByColumnAndRow( $colSymptoms, $fil )->applyFromArray($styleText);
+					$colSymptoms ++;
+
+					$sheet->setCellValueByColumnAndRow( $colSymptoms, $fil, ( $consultIndex > 0 ? $consults[$consultIndex - 1]['operation_reduction'] : '' ) );
+					$sheet->getStyleByColumnAndRow( $colSymptoms, $fil )->applyFromArray($styleText);
+					$colSymptoms ++;
+
+
+					$col += $totalConsultsSymptoms;
+				}
+
 				$fil ++;
 			}
 			$colMax = max($colMax, $col);
@@ -280,23 +430,20 @@
 			//$sheet->mergeCellsByColumnAndRow( 0, 3, $colMax - 1, 3 );
 
 			for( $c = 0; $c < $colMax; $c ++ ) {
-				$sheet->getColumnDimensionByColumn($c)->setAutoSize(true);
-				/*
+				//$sheet->getColumnDimensionByColumn($c)->setAutoSize(true);
+
 				$calculatedWidth = $sheet->getColumnDimensionByColumn($c)->getWidth();
 				$sheet->getColumnDimensionByColumn($c)->setAutoSize(false);
 				$sheet->getColumnDimensionByColumn($c)->setWidth( max( (int) $calculatedWidth * 1.05, 12 ) );
-				*/
 			}
 			$sheet->calculateColumnWidths();
 
-			/*
 			header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 			//header('Content-Type: application/vnd.ms-excel');
 			header('Content-Disposition: attachment;filename="' . $title . '.xlsx"');
 			header('Cache-Control: max-age=0');
 			// If you're serving to IE 9, then the following may be needed
 			//header('Cache-Control: max-age=1');
-			*/
 
 			// If you're serving to IE over SSL, then the following may be needed
 			header ('Expires: Mon, 26 Jul 1997 05:00:00 GMT'); // Date in the past
@@ -304,8 +451,8 @@
 			header ('Cache-Control: cache, must-revalidate'); // HTTP/1.1
 			header ('Pragma: public'); // HTTP/1.0
 
-			//$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-			$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'HTML');
+			$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+			//$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'HTML');
 			$objWriter->save('php://output');
 			
 			

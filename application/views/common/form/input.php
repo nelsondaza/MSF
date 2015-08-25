@@ -234,7 +234,7 @@
 				<script type="text/javascript">
 					$('#<?= $attributes['id'] ?>').datetimepicker({
 						lang:'es',
-						format:'Y-m-d H:i',
+						format:'Y-m-d H:i'
 					});
 				</script>
 <?php
@@ -257,7 +257,7 @@
 					$('#<?= $attributes['id'] ?>').datetimepicker({
 						lang:'es',
 						format:'Y-m-d',
-						allowTimes:[]
+						timepicker: false
 					});
 				</script>
 <?php

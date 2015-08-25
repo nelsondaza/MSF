@@ -87,6 +87,71 @@
 			return $this->db->get($this->tableName)->result_array( );
 		}
 
+		public function getMaxReferences( $start, $end, $category = null ) {
 
+			$start = ( is_integer( $start ) ? $start : strtotime( $start ) );
+			$end = ( is_integer( $end ) ? $end : strtotime( $end ) );
+
+			$this->db->select( '
+				COUNT(*) AS total
+			' );
+
+			$this->db->join( 'msf_patients_references', $this->tableName . '.id = msf_patients_references.id_patient', 'LEFT' );
+			if( (int)$category )
+				$this->db->join( 'msf_references', 'msf_patients_references.id_reference = msf_references.id AND msf_references.id_category = ' . (int)$category, 'LEFT' );
+
+			$this->db->where('first_session >= ', date("Y-m-d", $start) );
+			$this->db->where('first_session < ', date("Y-m-d", strtotime( "+1 DAY", $end ) ) );
+
+			$this->db->group_by( $this->tableName . '.id' );
+			$this->db->limit( 1 );
+			$this->db->order_by( 'total DESC' );
+
+			$result = $this->db->get($this->tableName)->row_array( );
+			return $result['total'];
+		}
+
+		public function getMaxConsultsOpened( $start, $end ) {
+
+			$start = ( is_integer( $start ) ? $start : strtotime( $start ) );
+			$end = ( is_integer( $end ) ? $end : strtotime( $end ) );
+
+			$this->db->select( '
+				COUNT(*) AS total
+			' );
+
+			$this->db->join( 'msf_consults', $this->tableName . '.id = msf_consults.id_patient AND msf_consults.id_closure IS NULL ', 'LEFT' );
+			$this->db->where('first_session >= ', date("Y-m-d", $start) );
+			$this->db->where('first_session < ', date("Y-m-d", strtotime( "+1 DAY", $end ) ) );
+
+			$this->db->group_by( $this->tableName . '.id' );
+			$this->db->limit( 1 );
+			$this->db->order_by( 'total DESC' );
+
+			$result = $this->db->get($this->tableName)->row_array( );
+			return $result['total'];
+		}
+
+		public function getMaxConsultsSymptoms( $start, $end ) {
+
+			$start = ( is_integer( $start ) ? $start : strtotime( $start ) );
+			$end = ( is_integer( $end ) ? $end : strtotime( $end ) );
+
+			$this->db->select( '
+				COUNT(*) AS total
+			' );
+
+			$this->db->join( 'msf_consults', $this->tableName . '.id = msf_consults.id_patient AND msf_consults.id_closure IS NULL ', 'LEFT' );
+			$this->db->join( 'msf_consults_symptoms', 'msf_consults.id = msf_consults_symptoms.id_consult', 'LEFT' );
+			$this->db->where('first_session >= ', date("Y-m-d", $start) );
+			$this->db->where('first_session < ', date("Y-m-d", strtotime( "+1 DAY", $end ) ) );
+
+			$this->db->group_by( $this->tableName . '.id' );
+			$this->db->limit( 1 );
+			$this->db->order_by( 'total DESC' );
+
+			$result = $this->db->get($this->tableName)->row_array( );
+			return $result['total'];
+		}
 
 	}
