@@ -57,4 +57,36 @@
 			return $this->db->get($this->tableName)->result_array( );
 		}
 
+
+		public function getAllBetween( $start, $end ) {
+
+			$start = ( is_integer( $start ) ? $start : strtotime( $start ) );
+			$end = ( is_integer( $end ) ? $end : strtotime( $end ) );
+
+			$this->db->select(
+				$this->tableName . ".*,
+				a3m_account_details.fullname AS expert,
+				( IF( " . $this->tableName . ".age IS NULL OR " . $this->tableName . ".age <= 5, '≤ 5', IF( " . $this->tableName . ".age >= 19, '≥ 19', '6-18' ) ) ) AS age_group,
+				msf_localizations.name AS localization,
+				msf_cities.name AS city,
+				msf_regions.name AS region,
+				msf_educations.name AS education,
+				msf_origin_places.name AS origin_place
+				"
+			, FALSE );
+
+			$this->db->join( 'a3m_account_details', $this->tableName . '.id_expert = a3m_account_details.account_id', 'LEFT' );
+			$this->db->join( 'msf_localizations', $this->tableName . '.id_localization = msf_localizations.id', 'LEFT' );
+			$this->db->join( 'msf_cities', 'msf_localizations.id_city = msf_cities.id', 'LEFT' );
+			$this->db->join( 'msf_regions', 'msf_cities.id_region = msf_regions.id', 'LEFT' );
+			$this->db->join( 'msf_educations', $this->tableName . '.id_education = msf_educations.id', 'LEFT' );
+			$this->db->join( 'msf_origin_places', $this->tableName . '.id_origin_place = msf_origin_places.id', 'LEFT' );
+			$this->db->where('first_session >= ', date("Y-m-d", $start) );
+			$this->db->where('first_session < ', date("Y-m-d", strtotime( "+1 DAY", $end ) ) );
+
+			return $this->db->get($this->tableName)->result_array( );
+		}
+
+
+
 	}
