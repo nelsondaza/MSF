@@ -124,9 +124,11 @@ if ( ! function_exists('form_open_multipart'))
  */
 if ( ! function_exists('form_hidden'))
 {
-	function form_hidden($name, $value = '', $recursing = FALSE)
+	function form_hidden($name, $value = '', $id = null, $recursing = FALSE)
 	{
 		static $form;
+		if( !$id )
+			$id = $name;
 
 		if ($recursing === FALSE)
 		{
@@ -144,7 +146,7 @@ if ( ! function_exists('form_hidden'))
 
 		if ( ! is_array($value))
 		{
-			$form .= '<input type="hidden" name="'.$name.'" id="'.$name.'" value="'.form_prep($value, $name).'" />'."\n";
+			$form .= '<input type="hidden" name="'.$name.'" id="'.$id.'" value="'.form_prep($value, $name).'" />'."\n";
 		}
 		else
 		{

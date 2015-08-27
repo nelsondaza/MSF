@@ -20,6 +20,7 @@
 			    'manage/patients_references_model',
 			    'manage/consults_model',
 			    'manage/consults_symptoms_model',
+			    'manage/consults_risks_model',
 			) );
 		}
 
@@ -279,25 +280,26 @@
 			// Consults (Not closures)
 			$totalConsults = $this->patients_model->getMaxConsultsOpened( $props['start'], $props['end'] );
 			$totalConsultsSymptoms = $this->patients_model->getMaxConsultsSymptoms( $props['start'], $props['end'] ) + 8;
+			$totalConsultsRisks = $this->patients_model->getMaxConsultsRisks( $props['start'], $props['end'] );
 
 			$fil --;
 			for( $c = 0; $c < $totalConsults; $c ++  ) {
 				if( $c == 0 ) {
-					$sheet->setCellValueByColumnAndRow( $col, $fil, '1ra. Consulta' );
-					$sheet->mergeCellsByColumnAndRow( $col, $fil, $col + $totalConsultsSymptoms - 1, $fil + 1 );
+					$sheet->setCellValueByColumnAndRow( $col, $fil, '1ra. Consulta ' . $totalConsultsSymptoms . '-' . $totalConsultsRisks );
+					$sheet->mergeCellsByColumnAndRow( $col, $fil, $col + $totalConsultsSymptoms + $totalConsultsRisks - 1, $fil + 1 );
 					$styleTitle['fill']['color'] = array( 'argb' => 'FFFDCB01' );
 					$sheet->getStyleByColumnAndRow( $col, $fil )->applyFromArray($styleTitle);
 
-					$sheet->setCellValueByColumnAndRow( $col + $totalConsultsSymptoms, $fil, 'Seguimientos' );
-					$sheet->mergeCellsByColumnAndRow( $col + $totalConsultsSymptoms, $fil, $col + ( $totalConsults * $totalConsultsSymptoms ) - 1, $fil );
+					$sheet->setCellValueByColumnAndRow( $col + $totalConsultsSymptoms + $totalConsultsRisks, $fil, 'Seguimientos' );
+					$sheet->mergeCellsByColumnAndRow( $col + $totalConsultsSymptoms + $totalConsultsRisks, $fil, $col + ( $totalConsults * ( $totalConsultsSymptoms + $totalConsultsRisks ) ) - 1, $fil );
 					$styleTitle['fill']['color'] = array( 'argb' => 'FF3366FE' );
-					$sheet->getStyleByColumnAndRow( $col + $totalConsultsSymptoms, $fil )->applyFromArray($styleTitle);
+					$sheet->getStyleByColumnAndRow( $col + $totalConsultsSymptoms + $totalConsultsRisks, $fil )->applyFromArray($styleTitle);
 					$styleTitle['fill']['color'] = array( 'argb' => 'FFFFFFFF' );
 					$fil ++;
 				}
 				else {
 					$sheet->setCellValueByColumnAndRow( $col, $fil, 'Seguimiento ' . $c );
-					$sheet->mergeCellsByColumnAndRow( $col, $fil, $col + $totalConsultsSymptoms - 1, $fil );
+					$sheet->mergeCellsByColumnAndRow( $col, $fil, $col + $totalConsultsSymptoms + $totalConsultsRisks - 1, $fil );
 					$styleTitle['fill']['color'] = array( 'argb' => 'FF' . ( $c % 2 > 0 ? 'BFBFBF' : '98CBFE' ) );
 					$sheet->getStyleByColumnAndRow( $col, $fil )->applyFromArray($styleTitle);
 					$styleTitle['fill']['color'] = array( 'argb' => 'FFFFFFFF' );
@@ -305,6 +307,12 @@
 				$fil ++;
 				for( $d = 0; $d < $totalConsultsSymptoms - 7; $d ++  ) {
 					$sheet->setCellValueByColumnAndRow( $col, $fil, ( $d == 0 ? 'Categoría de los síntomas' : 'Síntoma ' . $d ) );
+					$sheet->getStyleByColumnAndRow( $col, $fil )->applyFromArray($styleTitle);
+					$sheet->mergeCellsByColumnAndRow( $col, $fil, $col, $fil + 1 );
+					$col ++;
+				}
+				for( $d = 0; $d < $totalConsultsRisks; $d ++  ) {
+					$sheet->setCellValueByColumnAndRow( $col, $fil, ( $d == 0 ? 'Categoría de los Eventos' : 'Evento ' . $d ) );
 					$sheet->getStyleByColumnAndRow( $col, $fil )->applyFromArray($styleTitle);
 					$sheet->mergeCellsByColumnAndRow( $col, $fil, $col, $fil + 1 );
 					$col ++;
@@ -389,6 +397,17 @@
 					}
 
 					$colSymptoms = $col + $totalConsultsSymptoms - 7;
+
+					$risks = $this->consults_risks_model->get_by_id_consult( $consult['id'] );
+					foreach( $risks as $risk ) {
+						$sheet->setCellValueByColumnAndRow($colSymptoms, $fil, $risk['risk'] );
+						$sheet->getStyleByColumnAndRow($colSymptoms, $fil )->applyFromArray($styleText);
+						$colSymptoms ++;
+					}
+
+
+					$colSymptoms = $col + $totalConsultsSymptoms + $totalConsultsRisks - 7;
+
 					$sheet->setCellValueByColumnAndRow( $colSymptoms, $fil, $consult['consults_type'] );
 					$sheet->getStyleByColumnAndRow( $colSymptoms, $fil )->applyFromArray($styleText);
 					$colSymptoms ++;
@@ -418,7 +437,7 @@
 					$colSymptoms ++;
 
 
-					$col += $totalConsultsSymptoms;
+					$col += $totalConsultsSymptoms + $totalConsultsRisks;
 				}
 
 				$fil ++;

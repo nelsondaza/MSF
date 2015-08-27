@@ -65,37 +65,39 @@
 			case 7:
 				$size = 'seven';
 				break;
+			default:
+				$siZe = '';
 		}
 ?>
-<div class="<?= $size ?> fields">
+		<div class="<?= $size ?> fields">
 <?php
 	}
 	if( $attributes['type'] != 'hidden' || ( isset( $field ) && !$field ) ) {
 ?>
-<div class="field <?= ( isset( $error ) && $error ? 'error' : '' ) ?>">
+			<div class="field <?= ( isset( $error ) && $error ? 'error' : '' ) ?>">
 <?php
 	}
 
 	if(  isset( $label ) && $label ) {
+		$forAtt = ( $readonly || $attributes['type'] == 'multicheckbox' ? '' : 'for="' . ( isset( $attributes['id'] ) && $attributes['id'] ? $attributes['id'] : '' ) . '"' );
 ?>
-		<label class="control-label" for="<?= ( isset( $attributes['id'] ) && $attributes['id'] ? $attributes['id'] : '' ) ?>"><?= $label ?></label>
+				<label class="control-label" <?= $forAtt ?> ><?= $label ?></label>
 <?php
 	}
 
 	switch( $attributes['type'] ) {
 		case 'hidden':
-			echo form_hidden( $attributes['name'], $attributes['value'] );
+			echo form_hidden( $attributes['name'], $attributes['value'], $attributes['id'] );
 			break;
 		case 'textarea':
 			if( $readonly ) {
-				echo form_hidden( $attributes['name'], $attributes['value'] );
+				echo form_hidden( $attributes['name'], $attributes['value'], $attributes['id'] );
 ?>
-			<div class="ui small form segment read-only">
-				<?= ( $attributes['placeholder'] ? $attributes['placeholder'] : $attributes['value'] ) ?>
-			</div>
+				<div class="ui small form segment read-only"><?= htmlentities( $attributes['placeholder'] ? $attributes['placeholder'] : $attributes['value'] ) ?></div>
 <?php
 			}
 			else {
+				unset($attributes['type']);
 				echo form_textarea($attributes);
 			}
 			break;
@@ -122,40 +124,40 @@
 					break;
 			}
 ?>
-			<div class="<?= $type ?> fields" id="<?= $attributes['id'] ?>">
+				<div class="<?= $type ?> fields" id="<?= $attributes['id'] ?>">
 <?php
-				foreach( $options as $option ) {
+				foreach( $options as $co => $option ) {
 					if ( $readonly ) {
 						if ( in_array( $option['value'], $selected ) ) {
 ?>
-				<div class="field">
-					<span class="ui label"><?= $option['label'] ?></span>
-				</div>
+					<div class="field">
+						<span class="ui label"><?= $option['label'] ?></span>
+					</div>
 <?php
 						}
 					}
 					else {
 ?>
-				<div class="field">
-					<div class="ui toggle checkbox">
-						<input type="checkbox" name="<?= $attributes['name'] ?>[]" value="<?= $option['value'] ?>" <?= ( ( isset( $option['checked'] ) && $option['checked'] ) || in_array( $option['value'], $selected ) ? 'checked="checked"' : '' ) ?>>
-						<label><?= $option['label'] ?></label>
+					<div class="field">
+						<div class="ui toggle checkbox">
+							<input type="checkbox" name="<?= $attributes['name'] ?>[]" id="<?= $attributes['id'] . '_' . $co ?>" value="<?= $option['value'] ?>" <?= ( ( isset( $option['checked'] ) && $option['checked'] ) || in_array( $option['value'], $selected ) ? 'checked="checked"' : '' ) ?>>
+							<label for="<?= $attributes['id'] . '_' . $co ?>"><?= $option['label'] ?></label>
+						</div>
 					</div>
-				</div>
 <?php
 					}
 				}
 ?>
-			</div>
+				</div>
 <?php
 			break;
 		case 'dropdown':
 			if( $readonly ) {
-				echo form_hidden( $attributes['name'], $attributes['value'] );
 ?>
-			<div class="ui small form segment read-only">
-				<?= ( $attributes['placeholder'] ? $attributes['placeholder'] : $attributes['value'] ) ?>
-			</div>
+				echo form_hidden( $attributes['name'], $attributes['value'], $attributes['id'] );
+				<div class="ui small form segment read-only">
+					<?= htmlentities( $attributes['placeholder'] ? $attributes['placeholder'] : $attributes['value'] ) ?>
+				</div>
 <?php
 			}
 			else
@@ -165,7 +167,7 @@
 					if ( $readonly ) {
 ?>
 				<div class="field">
-					<span class="ui label"><?= ( $attributes['placeholder'] ? $attributes['placeholder'] : $attributes['value'] ) ?></span>
+					<span class="ui label"><?= htmlentities( $attributes['placeholder'] ? $attributes['placeholder'] : $attributes['value'] ) ?></span>
 				</div>
 <?php
 					}
@@ -174,7 +176,7 @@
 				<div class="field">
 					<div class="ui toggle checkbox">
 						<input type="checkbox" id="<?= $attributes['id'] ?>" name="<?= $attributes['name'] ?>" value="<?= $attributes['value'] ?>" <?= ( ( isset( $attributes['checked'] ) && $attributes['checked'] ) ? 'checked="checked"' : '' ) ?>>
-						<label><?= ( $attributes['placeholder'] ? $attributes['placeholder'] : $attributes['value'] ) ?></label>
+						<label for="<?= $attributes['id'] ?>"><?= ( $attributes['placeholder'] ? $attributes['placeholder'] : $attributes['value'] ) ?></label>
 					</div>
 				</div>
 <?php
@@ -194,37 +196,37 @@
 			break;
 		case 'item_image':
 ?>
-			<div class="ui items">
-				<div class="item">
-					<div class="ui tiny image"><?= $image ?></div>
-					<div class="content">
+				<div class="ui items">
+					<div class="item">
+						<div class="ui tiny image"><?= $image ?></div>
+						<div class="content">
 <?php
 			if ( isset( $header ) && $header ) {
 ?>
-						<div class="header"><?= $header ?></div>
+							<div class="header"><?= $header ?></div>
 <?php
 			}
 ?>
-						<div class="description field">
+							<div class="description field">
 <?php
 			if ( !isset( $image ) || !$image )
 				echo form_upload( $attributes );
 			else
 				echo( isset( $description ) && $description ? $description : '' );
 ?>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
 <?php
 			break;
 		case 'datetime':
 			if( $readonly ) {
-				echo form_hidden( $attributes['name'], $attributes['value'] );
+				echo form_hidden( $attributes['name'], $attributes['value'], $attributes['id'] );
 ?>
-			<div class="ui small form segment read-only">
-				<?= ( $attributes['placeholder'] ? $attributes['placeholder'] : $attributes['value'] ) ?>
-			</div>
+				<div class="ui small form segment read-only">
+					<?= htmlentities( $attributes['placeholder'] ? $attributes['placeholder'] : $attributes['value'] ) ?>
+				</div>
 <?php
 			}
 			else {
@@ -242,11 +244,11 @@
 			break;
 		case 'date':
 			if( $readonly ) {
-				echo form_hidden( $attributes['name'], $attributes['value'] );
+				echo form_hidden( $attributes['name'], $attributes['value'], $attributes['id'] );
 ?>
-			<div class="ui small form segment read-only">
-				<?= ( $attributes['placeholder'] ? $attributes['placeholder'] : $attributes['value'] ) ?>
-			</div>
+				<div class="ui small form segment read-only">
+					<?= htmlentities( $attributes['placeholder'] ? $attributes['placeholder'] : $attributes['value'] ) ?>
+				</div>
 <?php
 			}
 			else {
@@ -265,11 +267,11 @@
 			break;
 		default:
 			if( $readonly ) {
-				echo form_hidden( $attributes['name'], $attributes['value'] );
+				echo form_hidden( $attributes['name'], $attributes['value'], $attributes['id'] );
 ?>
-		<div class="ui small form segment read-only">
-			<?= ( $attributes['placeholder'] ? $attributes['placeholder'] : $attributes['value'] ) ?>
-		</div>
+				<div class="ui small form segment read-only">
+					<?= htmlentities( $attributes['placeholder'] ? $attributes['placeholder'] : $attributes['value'] ) ?>
+				</div>
 <?php
 			}
 			else
@@ -278,21 +280,21 @@
 
 	if( $attributes['type'] != 'hidden' || ( isset( $field ) && !$field ) ) {
 ?>
-</div>
+			</div><!-- 3 -->
 <?php
 	}
 	if( $GLOBALS['actualCol'] == 0 && isset( $cols ) && $cols > 0 ) {
 ?>
-</div>
+		</div><!-- 2 -->
 <?php
 	}
 	if( isset($attributes['group-end']) && $attributes['group-end'] ) {
 ?>
-</div>
+	</div><!-- 1 -->
 <?php
 	}
 	else if( !isset( $divider ) || $divider ) {
 ?>
-<div class="ui fitted divider"></div>
+	<div class="ui fitted divider"></div>
 <?php
 	}

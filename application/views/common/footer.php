@@ -10,7 +10,7 @@
 <div class="ui small modal new-patient">
     <div class="ui top attached header">Buscar Paciente / Iniciar</div>
     <div class="content">
-		<form action="" class="ui small fluid form " method="post" accept-charset="utf-8" id="new-patient-form">
+		<form action="<?= base_url() ?>" class="ui small fluid form " method="post" accept-charset="utf-8" id="new-patient-form">
 			<div class="two fields" id="search-patient">
 				<div class="field ">
 					<label class="control-label" for="select-new-patient">Buscar Paciente:</label>
@@ -19,15 +19,15 @@
 				<div class="field">
 					<div class="three fields">
 						<div class="field ">
-							<label class="control-label" for="consults">Consultas</label>
+							<label class="control-label">Consultas</label>
 							<div class="ui mini button blue disabled" id="consults">Historial</div>
 						</div>
 						<div class="field ">
-							<label class="control-label" for="consults"><br></label>
+							<label class="control-label"><br></label>
 							<div class="ui mini button blue disabled" id="resumes">Resumen</div>
 						</div>
 						<div class="field ">
-							<label class="control-label" for="new-patient">Paciente</label>
+							<label class="control-label">Paciente</label>
 							<div class="ui mini button positive" id="new-patient">Nuevo</div>
 						</div>
 					</div>

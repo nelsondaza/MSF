@@ -28,7 +28,7 @@
 	</div>
 	<div class="<?= ( $actual ? 'active' : '' )?> content">
 <?php
-	echo form_open_multipart(uri_string(), 'id="first_visit_form" class="ui small fluid form ' . ( !empty($errors) ? 'error' : '' ) . '"');
+	echo form_open_multipart(uri_string() . '/', 'id="first_visit_form" class="ui small fluid form ' . ( !empty($errors) ? 'error' : '' ) . '"');
 	echo form_hidden('history_field_id_expert', $patient['id_expert'] );
 	echo form_hidden('history_field_id_patient', $patient['id'] );
 
@@ -325,7 +325,7 @@
 ?>
 		<br>
 		<div class="field">
-			<?= form_button(array('type' => 'button', 'class' => 'ui submit primary button small', 'content' => '<i class="archive icon"></i> '.lang('history_save'))); ?>
+			<?= form_button(array('name' => 'save', 'type' => 'button', 'class' => 'ui submit primary button small', 'content' => '<i class="archive icon"></i> '.lang('history_save'))); ?>
 		</div>
 <?php
 	}

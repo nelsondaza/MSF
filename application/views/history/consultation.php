@@ -14,7 +14,7 @@
 <?php
 	if( $actual || ( !isset($consult['creation']) || !$consult['creation'] ) ) {
 ?>
-	<div class="ui tiny teal tag label">Nuevo</div>
+		<div class="ui tiny teal tag label">Nuevo</div>
 <?php
 	}
 	else {
@@ -27,7 +27,7 @@
 	</div>
 	<div class="<?= ( $actual ? 'active' : '' ) ?> content">
 <?php
-	echo form_open_multipart(uri_string(), 'id="consult_form_' . $index . '" data-index="' . $index . '" class="ui small fluid form consultation"');
+	echo form_open_multipart(uri_string() . '/', 'id="consult_form_' . $index . '" data-index="' . $index . '" class="ui small fluid form consultation"');
 	echo form_hidden('history_field_id_patient_' . $index, $patient['id']);
 	echo form_hidden('history_field_id_consult_' . $index, ( isset($consult['id']) && $consult['id'] ? $consult['id'] : '' ));
 
@@ -73,7 +73,7 @@
 					'readonly' => $readOnly,
 					'type' => 'multicheckbox',
 					'name' => 'history_field_id_symptom[]',
-					'id' => 'history_field_id_symptom_' . $index,
+					'id' => 'history_field_id_symptom_' . $index . '_' . $col,
 					'value' => null,
 					'placeholder' => lang('history_field_id_symptom'),
 					'group' => ( $col == 0 ? 'Síntomas' : null ),
@@ -154,7 +154,7 @@
 					'group' => 'Diagnóstico',
 					'group-end' => true
 				),
-				'cols' => 0,
+				'cols' => 1,
 				'actualCol' => 0
 			)
 		);
@@ -224,7 +224,7 @@
 					'readonly' => $readOnly,
 					'type' => 'multicheckbox',
 					'name' => 'history_field_id_risk[]',
-					'id' => 'history_field_id_risk_' . $index,
+					'id' => 'history_field_id_risk_' . $index . '_' . $col,
 					'value' => null,
 					'placeholder' => lang('history_field_id_risk'),
 					'group' => ( $col == 0 ? 'Factores de Evento / Riesgo' : null ),
@@ -264,7 +264,7 @@
 				'value' => ( isset( $consult['id_risks_category'] ) && $consult['id_risks_category'] ? $consult['id_risks_category'] : null ),
 				'placeholder' => ( $readOnly ? $optionName : lang('history_field_id_risks_category') )
 			),
-			'cols' => 0,
+			'cols' => 1,
 			'actualCol' => 0
 		)
 	);
@@ -594,7 +594,7 @@
 ?>
 		<br>
 		<div class="field">
-			<?= form_button(array('type' => 'button', 'class' => 'ui submit primary button small', 'content' => '<i class="archive icon"></i> '.lang('history_save'))); ?>
+			<?= form_button(array('name' => 'save', 'type' => 'button', 'class' => 'ui submit primary button small', 'content' => '<i class="archive icon"></i> '.lang('history_save'))); ?>
 		</div>
 <?php
 	}

@@ -27,7 +27,7 @@
 	</div>
 	<div class="<?= ( $actual ? 'active' : '' ) ?> content">
 <?php
-	echo form_open_multipart(uri_string(), 'id="consult_form_' . $index . '" data-index="' . $index . '" class="ui small fluid form closure"');
+	echo form_open_multipart(uri_string() . '/', 'id="consult_form_' . $index . '" data-index="' . $index . '" class="ui small fluid form closure"');
 	echo form_hidden('history_field_id_patient_' . $index, $patient['id']);
 	echo form_hidden('history_field_id_consult_' . $index, ( isset($consult['id']) && $consult['id'] ? $consult['id'] : '' ));
 
@@ -266,7 +266,7 @@
 ?>
 		<br>
 		<div class="field">
-			<?= form_button(array('type' => 'button', 'class' => 'ui submit red button small', 'content' => '<i class="archive icon"></i> '.lang('history_close'))); ?>
+			<?= form_button(array('name' => 'close', 'type' => 'button', 'class' => 'ui submit red button small', 'content' => '<i class="archive icon"></i> '.lang('history_close'))); ?>
 		</div>
 <?php
 	}
