@@ -146,7 +146,7 @@
 			$this->db->where('first_session >= ', date("Y-m-d", $start) );
 			$this->db->where('first_session < ', date("Y-m-d", strtotime( "+1 DAY", $end ) ) );
 
-			$this->db->group_by( $this->tableName . '.id' );
+			$this->db->group_by( 'msf_consults.id' );
 			$this->db->limit( 1 );
 			$this->db->order_by( 'total DESC' );
 
@@ -168,7 +168,7 @@
 			$this->db->where('first_session >= ', date("Y-m-d", $start) );
 			$this->db->where('first_session < ', date("Y-m-d", strtotime( "+1 DAY", $end ) ) );
 
-			$this->db->group_by( $this->tableName . '.id' );
+			$this->db->group_by( 'msf_consults.id' );
 			$this->db->limit( 1 );
 			$this->db->order_by( 'total DESC' );
 

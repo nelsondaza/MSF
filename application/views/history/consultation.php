@@ -72,8 +72,8 @@
 				'attributes' => array(
 					'readonly' => $readOnly,
 					'type' => 'multicheckbox',
-					'name' => 'history_field_id_symptom[]',
-					'id' => 'history_field_id_symptom_' . $index . '_' . $col,
+					'name' => 'history_field_id_symptom',
+					'id' => 'history_field_id_symptom_' . $index,
 					'value' => null,
 					'placeholder' => lang('history_field_id_symptom'),
 					'group' => ( $col == 0 ? 'Síntomas' : null ),
@@ -223,8 +223,8 @@
 				'attributes' => array(
 					'readonly' => $readOnly,
 					'type' => 'multicheckbox',
-					'name' => 'history_field_id_risk[]',
-					'id' => 'history_field_id_risk_' . $index . '_' . $col,
+					'name' => 'history_field_id_risk',
+					'id' => 'history_field_id_risk_' . $index,
 					'value' => null,
 					'placeholder' => lang('history_field_id_risk'),
 					'group' => ( $col == 0 ? 'Factores de Evento / Riesgo' : null ),

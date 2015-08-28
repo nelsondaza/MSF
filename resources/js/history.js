@@ -265,7 +265,7 @@ $(function(){
 
 		$.each( multiFields, function( index, key ){
 			$newPatient[key] = [];
-			$form.find('#history_field_' + key + '_' + id + ' input:checked').each(function(index,elem){
+			$form.find('#history_field_' + key + '_' + id + '_holder input:checked').each(function(index,elem){
 				$newPatient[key].push($(elem).val());
 			});
 		});

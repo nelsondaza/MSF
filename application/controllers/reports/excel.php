@@ -373,7 +373,8 @@
 					$col ++;
 				}
 				// References
-				$references = $this->patients_references_model->get_by_id_patient_and_id_category( $row['id'], 1 );
+				$this->patients_references_model->db->where('msf_references.id_category',1);
+				$references = $this->patients_references_model->get_by_id_patient( $row['id'] );
 				foreach( $references as $c => $reference ) {
 					$sheet->setCellValueByColumnAndRow( $col + $c, $fil, $reference['reference'] );
 					$sheet->getStyleByColumnAndRow( $col + $c, $fil )->applyFromArray($styleText);
@@ -397,6 +398,9 @@
 					}
 
 					$colSymptoms = $col + $totalConsultsSymptoms - 7;
+					$sheet->setCellValueByColumnAndRow( $colSymptoms, $fil, $consult['risks_category'] );
+					$sheet->getStyleByColumnAndRow( $colSymptoms, $fil )->applyFromArray($styleText);
+					$colSymptoms ++;
 
 					$risks = $this->consults_risks_model->get_by_id_consult( $consult['id'] );
 					foreach( $risks as $risk ) {

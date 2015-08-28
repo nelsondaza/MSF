@@ -39,7 +39,7 @@
 	if( isset($attributes['group']) && $attributes['group'] ) {
 ?>
 	<h4 class="ui top attached header"><?= $attributes['group'] ?></h4>
-	<div class="ui secondary attached segment">
+	<div class="ui secondary attached segment" id="<?= $attributes['id'] ?>_holder">
 <?php
 	}
 	if( $GLOBALS['actualCol'] == 1 ) {
@@ -124,7 +124,7 @@
 					break;
 			}
 ?>
-				<div class="<?= $type ?> fields" id="<?= $attributes['id'] ?>">
+				<div class="<?= $type ?> fields">
 <?php
 				foreach( $options as $co => $option ) {
 					if ( $readonly ) {
@@ -137,11 +137,12 @@
 						}
 					}
 					else {
+						$idTMP = $attributes['id'] . '_' . $co . '_' . rand(1000000,9999999);
 ?>
 					<div class="field">
 						<div class="ui toggle checkbox">
-							<input type="checkbox" name="<?= $attributes['name'] ?>[]" id="<?= $attributes['id'] . '_' . $co ?>" value="<?= $option['value'] ?>" <?= ( ( isset( $option['checked'] ) && $option['checked'] ) || in_array( $option['value'], $selected ) ? 'checked="checked"' : '' ) ?>>
-							<label for="<?= $attributes['id'] . '_' . $co ?>"><?= $option['label'] ?></label>
+							<input type="checkbox" name="<?= $attributes['name'] ?>[]" id="<?= $idTMP ?>" value="<?= $option['value'] ?>" <?= ( ( isset( $option['checked'] ) && $option['checked'] ) || in_array( $option['value'], $selected ) ? 'checked="checked"' : '' ) ?>>
+							<label for="<?= $idTMP ?>"><?= $option['label'] ?></label>
 						</div>
 					</div>
 <?php
@@ -153,8 +154,8 @@
 			break;
 		case 'dropdown':
 			if( $readonly ) {
+	echo form_hidden( $attributes['name'], $attributes['value'], $attributes['id'] );
 ?>
-				echo form_hidden( $attributes['name'], $attributes['value'], $attributes['id'] );
 				<div class="ui small form segment read-only">
 					<?= htmlentities( $attributes['placeholder'] ? $attributes['placeholder'] : $attributes['value'] ) ?>
 				</div>
@@ -278,7 +279,7 @@
 				echo form_input( $attributes );
 	}
 
-	if( $attributes['type'] != 'hidden' || ( isset( $field ) && !$field ) ) {
+	if( !isset( $attributes['type'] ) || $attributes['type'] != 'hidden' || ( isset( $field ) && !$field ) ) {
 ?>
 			</div><!-- 3 -->
 <?php

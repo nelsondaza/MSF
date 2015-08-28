@@ -70,7 +70,7 @@
 			$data['closures'] = $this->closures_model->getActiveList();
 			$data['closures_conditions'] = $this->closures_conditions_model->getActiveList();
 
-			$data['consults'] = $this->consults_model->get_by_id_patient( $id );
+			$data['consults'] = $this->consults_model->get_by_id_patient_order_by_creation( $id );
 
 			foreach( $data['consults'] as &$consult ) {
 				$consult['symptoms'] = $this->consults_symptoms_model->get_by_id_consult($consult['id']);
@@ -144,7 +144,7 @@
 			$data['closures'] = $this->closures_model->getActiveList();
 			$data['closures_conditions'] = $this->closures_conditions_model->getActiveList();
 
-			$data['consults'] = $this->consults_model->get_by_id_patient( $id );
+			$data['consults'] = $this->consults_model->get_by_id_patient_order_by_creation( $id );
 
 			foreach( $data['consults'] as &$consult ) {
 				$consult['symptoms'] = $this->consults_symptoms_model->get_by_id_consult($consult['id']);
@@ -206,7 +206,7 @@
 			$data['consults_types'] = $this->consults_types_model->getActiveList();
 			$data['interventions_types'] = $this->interventions_types_model->getActiveList();
 
-			$data['consults'] = $this->consults_model->get_by_id_patient( $id );
+			$data['consults'] = $this->consults_model->get_by_id_patient_order_by_creation( $id );
 
 			foreach( $data['consults'] as &$consult ) {
 				$consult['symptoms'] = $this->consults_symptoms_model->get_by_id_consult($consult['id']);
@@ -283,7 +283,7 @@
 			$data['closures'] = $this->closures_model->getActiveList();
 			$data['closures_conditions'] = $this->closures_conditions_model->getActiveList();
 
-			$data['consults'] = $this->consults_model->get_by_id_patient( $data['patient']['id'] );
+			$data['consults'] = $this->consults_model->get_by_id_patient_order_by_creation( $data['patient']['id'] );
 
 			foreach( $data['consults'] as &$consult ) {
 				$consult['symptoms'] = $this->consults_symptoms_model->get_by_id_consult($consult['id']);
@@ -359,7 +359,7 @@
 			$data['closures'] = $this->closures_model->getActiveList();
 			$data['closures_conditions'] = $this->closures_conditions_model->getActiveList();
 
-			$data['consults'] = $this->consults_model->get_by_id_patient( $data['patient']['id'] );
+			$data['consults'] = $this->consults_model->get_by_id_patient_order_by_creation( $data['patient']['id'] );
 
 			foreach( $data['consults'] as &$consult ) {
 				$consult['symptoms'] = $this->consults_symptoms_model->get_by_id_consult($consult['id']);
