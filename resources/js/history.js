@@ -270,7 +270,7 @@ $(function(){
 			});
 		});
 
-		$newPatient['psychotropics'] = $('#history_field_psychotropics_' + id + ':checked').length == 1;
+		$newPatient['psychotropics'] = ( $('#history_field_psychotropics_' + id + ':checked').length > 0 ? 1 : 0 );
 
 		$.ajax({
 			type: "POST",
