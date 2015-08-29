@@ -10,10 +10,10 @@
 		 */
 		public function onBeforeGet( $arguments ) {
 			$this->db->select( $this->tableName . '.*, msf_symptoms_categories.name AS symptoms_category, msf_risks_categories.name AS risks_category, msf_consults_types.name AS consults_type, msf_interventions_types.name AS interventions_type' );
-			$this->db->join( 'msf_symptoms_categories', $this->tableName . '.id_symptoms_category = msf_symptoms_categories.id' );
-			$this->db->join( 'msf_risks_categories', $this->tableName . '.id_risks_category = msf_risks_categories.id' );
-			$this->db->join( 'msf_consults_types', $this->tableName . '.id_consults_type = msf_consults_types.id' );
-			$this->db->join( 'msf_interventions_types', $this->tableName . '.id_interventions_type = msf_interventions_types.id' );
+			$this->db->join( 'msf_symptoms_categories', $this->tableName . '.id_symptoms_category = msf_symptoms_categories.id', 'LEFT' );
+			$this->db->join( 'msf_risks_categories', $this->tableName . '.id_risks_category = msf_risks_categories.id', 'LEFT' );
+			$this->db->join( 'msf_consults_types', $this->tableName . '.id_consults_type = msf_consults_types.id', 'LEFT' );
+			$this->db->join( 'msf_interventions_types', $this->tableName . '.id_interventions_type = msf_interventions_types.id', 'LEFT' );
 		}
 		/**
 		 * Returns a list with active elements

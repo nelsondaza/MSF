@@ -28,7 +28,7 @@ $(function(){
 			'gender',
 			'id_education',
 			'age',
-			'id_reference',
+			//'id_reference',
 			//'diagnostic'
 		];
 
@@ -38,7 +38,7 @@ $(function(){
 			$newPatient[key] = $form.form('get value','history_field_' + key);
 		});
 		$newPatient['id_reference'] = [];
-		$form.find('#history_field_id_reference input:checked').each(function(index,elem){
+		$form.find('#history_field_id_reference_holder input:checked').each(function(index,elem){
 			$newPatient['id_reference'].push($(elem).val());
 		});
 

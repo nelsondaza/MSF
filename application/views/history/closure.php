@@ -31,9 +31,6 @@
 	echo form_hidden('history_field_id_patient_' . $index, $patient['id']);
 	echo form_hidden('history_field_id_consult_' . $index, ( isset($consult['id']) && $consult['id'] ? $consult['id'] : '' ));
 
-
-	echo $index . " " . count($consults);
-
 	$lastOpen = null;
 	$subindex = $index - 1;
 	while( !$lastOpen && $subindex >= 0 ) {
