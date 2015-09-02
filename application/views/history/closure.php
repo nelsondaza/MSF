@@ -43,6 +43,16 @@
 	if( !$lastOpen && count( $consults ) > 0 )
 		$lastOpen = $consults[0];
 
+	$totalOpened = 0;
+	foreach ( $consults as $indexTmp => $consultTmp ) {
+		if( !$consultTmp['id_closure'] && $indexTmp < $index )
+			$totalOpened ++;
+	}
+	$duration = (int)( ( time( ) - strtotime( ( $lastOpen ? $lastOpen['creation'] : date("Y-m-d H:i:s") ) ) ) / ( 60 * 60 * 24 ) );
+
+	echo form_hidden('history_field_total_sessions_' . $index, $totalOpened);
+	echo form_hidden('history_field_duration_' . $index, $duration);
+
 
 	$this->load->view('common/form/input', array(
 			'error' => false,
@@ -216,16 +226,14 @@
 			'attributes' => array(
 				'readonly' => 'true',
 				'type' => 'text',
-				'name' => 'history_field_total_sessions',
-				'id' => 'history_field_total_sessions',
-				'value' => ( isset($consult['total_sessions']) && $consult['total_sessions'] ? $consult['total_sessions'] : count( $consults ) ),
-				'placeholder' => ( isset($consult['total_sessions']) && $consult['total_sessions'] ? $consult['total_sessions'] : count( $consults ) )
+				'name' => 'history_field_total_sessions_read_' . $index,
+				'id' => 'history_field_total_sessions_read_' . $index,
+				'value' => ( isset($consult['total_sessions']) && $consult['total_sessions'] ? $consult['total_sessions'] : $totalOpened ),
+				'placeholder' => ( isset($consult['total_sessions']) && $consult['total_sessions'] ? $consult['total_sessions'] : $totalOpened )
 			)
 		)
 	);
 
-
-	$time = (int)( ( time( ) - strtotime( ( $lastOpen ? $lastOpen['creation'] : date("Y-m-d H:i:s") ) ) ) / ( 60 * 60 * 24 ) );
 
 	$this->load->view('common/form/input', array(
 			'error' => false,
@@ -233,10 +241,10 @@
 			'attributes' => array(
 				'readonly' => 'true',
 				'type' => 'text',
-				'name' => 'history_field_duration',
-				'id' => 'history_field_duration',
-				'value' => ( isset($consult['duration']) && $consult['duration'] ? $consult['duration'] : $time ),
-				'placeholder' => ( isset($consult['duration']) && $consult['duration'] ? $consult['duration'] : $time )
+				'name' => 'history_field_duration_read_' . $index,
+				'id' => 'history_field_duration_read_' . $index,
+				'value' => ( isset($consult['duration']) && $consult['duration'] ? $consult['duration'] : $duration ),
+				'placeholder' => ( isset($consult['duration']) && $consult['duration'] ? $consult['duration'] : $duration )
 			)
 		)
 	);

@@ -28,7 +28,7 @@
 			<i class="right chevron icon divider"></i>
 			<a href="<?= base_url() ?>history/<?= $patient['id'] ?>" class="section"><?= $patient['code'] . ' (' . $patient['first_name'] . ' ' . $patient['last_name'] . ')' ?></a>
 			<i class="right arrow icon divider"></i>
-			<div class="active section"><?= ($found == 0 ? '1ra Consulta' : 'Seguimiento ' . $found) ?></div>
+			<div class="active section">Cierre</div>
 		</div>
 		<div class="ui styled fluid accordion">
 <?php
