@@ -271,4 +271,13 @@
 		public function onBeforeGet( $arguments ) {
 
 		}
+
+		/**
+		 * Returns actual table name
+		 * @return string
+		 */
+		public function getTableName() {
+			return $this->tableName;
+		}
+
 	}

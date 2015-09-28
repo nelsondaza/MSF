@@ -36,7 +36,7 @@
 
 <link rel="stylesheet" href="<?= base_url() ?>resources/css/vendor/jquery.gridster.css">
 <script src="<?= base_url() ?>resources/js/vendor/jquery.gridster.with-extras.min.js"></script>
-<script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="<?= base_url() ?>resources/js/vendor/highcharts/highcharts.js"></script>
 
 <script src="<?= base_url() ?>resources/js/plugins.js"></script>
 <script src="<?= base_url() ?>resources/js/main.js"></script>

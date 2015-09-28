@@ -7,7 +7,7 @@
 	<?= $this->load->view('common/head', array('title' => lang( $class . '_page_name')) ) ?>
 </head>
 <body>
-<?= $this->load->view('common/header', array('current' => 'manage_' . $class )) ?>
+<?= $this->load->view('common/header', array('current' => 'generate_db' )) ?>
 <div class="container content">
 	<div class="sub-header"><i class="database icon"></i> <?= lang($class . '_page_name') ?></div>
 	<div class="section">

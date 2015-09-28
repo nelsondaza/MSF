@@ -154,7 +154,7 @@
 			break;
 		case 'dropdown':
 			if( $readonly ) {
-	echo form_hidden( $attributes['name'], $attributes['value'], $attributes['id'] );
+				echo form_hidden( $attributes['name'], $attributes['value'], $attributes['id'] );
 ?>
 				<div class="ui small form segment read-only">
 					<?= htmlentities( $attributes['placeholder'] ? $attributes['placeholder'] : $attributes['value'] ) ?>
