@@ -62,6 +62,7 @@
 	}
 ?>
 <a class="ui black button mini" style="float: right" href="<?= base_url() ?>services/export/excel"><i class="file excel outline icon"></i> Excel</a>
+<div class="table-scroll">
 <table class="ui celled striped table small sortable ">
 <?php
 	if( !empty( $headers ) ) {
@@ -106,8 +107,10 @@
 ?>
 	</tbody>
 </table>
+</div>
 <a class="ui black button mini" style="float: right" href="<?= base_url() ?>services/export/excel"><i class="file excel outline icon"></i> Excel</a>
 <?php
 	if( isset( $options ) )
 		echo $options;
 ?>
+<div class="clearfix"></div>
