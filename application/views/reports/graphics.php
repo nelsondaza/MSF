@@ -115,10 +115,21 @@
 		});
 
 <?php
-	if( $chart ) {
+	if( isset($chart) && $chart ) {
 ?>
 		// Build chart
-		$('.graph-container .segment').highcharts(<?= json_encode($chart)?>);
+		var chart = {};
+		chart = <?= json_encode($chart)?>;
+		chart.tooltip.formatter = function () {
+			return [
+				'<b>' + this.x + '</b>',
+				'<br/>',
+				this.series.name + ': <b>' + this.y + '</b>',
+				'<br/>',
+				'Total: <b>' + this.point.stackTotal + '</b>'
+			].join('');
+		};
+		$('.graph-container .segment').highcharts(chart);
 <?php
 	}
 ?>

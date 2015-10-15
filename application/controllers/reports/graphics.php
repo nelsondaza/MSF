@@ -52,7 +52,7 @@
 				'interventions_types.name.id_interventions_type' => 'Tipo de Intervención',
 				'references.name.id_patient' => 'Referido Desde',
 				'symptoms_categories.name.id_symptoms_category' => 'Categoría de Síntomas',
-				'diagnostics.name.id_diagnostic' => 'Diagnostics',
+				'diagnostics.name.id_diagnostic' => 'Diagnósticos',
 				'references.name.id_referenced_to' => 'Referido Hacia',
 				'consults.psychotropics._boolean' => 'Psycotrópicos',
 				'closures.name.id_closure' => 'Tipo de Cierre',
@@ -98,34 +98,40 @@
 						"text": "Source: WorldClimate.com"
 					},
 					"tooltip": {
-						"pointFormat": "<b>{point.y}</b>"
+						"formatter": "function(){}"
 					},
 					"xAxis": {
 						"categories": [
-							"Total"
+							"Total 1", "Total 2"
 						],
-						"crosshair": true
+						"crosshair": true,
+						"labels": {
+                            "rotation": -45
+			            }
 					},
 					"yAxis": {
 						"min": 0,
 						"title": {
-							"text": "Numero de casos"
+							"text": "Número de casos"
 						}
 					},
 					"plotOptions": {
 						"column": {
 							"pointPadding": 0.2,
-							"borderWidth": 0
+							"borderWidth": 0,
+							"stacking": "normal"
 						}
 					},
 					"series": [
 						{
 							"name": "Serie 1",
-							"data": [49.9]
+							"data": [49.9],
+							"stack": "male"
 						},
 						{
 							"name": "Serie 2",
-							"data": [83.6]
+							"data": [83.6],
+							"stack": "female"
 						}
 					]
 				}', true);
@@ -277,7 +283,7 @@
 				foreach( $dbSeries as $rname => $rgroups ) {
 					$serie = array(
 						'name' => $rname,
-						'data' => array(),
+						'data' => array()
 					);
 					$row = array($rname);
 
@@ -290,6 +296,7 @@
 					$table['rows'][] = $row;
 				}
 
+				$chart['xAxis']['labels']['rotation'] = ( count( $chart["xAxis"]["categories"] ) < 10 ? 0 : ( count( $chart["xAxis"]["categories"] ) < 30 ? -45 : -90 ) );
 				$chart['series'] = array_values( $series );
 				$data['chart'] = $chart;
 				$data['table'] = $table;
