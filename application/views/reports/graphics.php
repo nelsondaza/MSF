@@ -120,10 +120,15 @@
 		// Build chart
 		var chart = {};
 		chart = <?= json_encode($chart)?>;
+		console.debug(chart);
 		chart.tooltip.formatter = function () {
 			return [
 				'<b>' + this.x + '</b>',
 				'<br/>',
+				( this.series.options.stack
+					? '<b>' + this.series.options.stack + '</b><br/>'
+					: ''
+				),
 				this.series.name + ': <b>' + this.y + '</b>',
 				'<br/>',
 				'Total: <b>' + this.point.stackTotal + '</b>'

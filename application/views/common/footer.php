@@ -35,27 +35,35 @@
 			</div>
 			<div class="two fields hidden" id="create-patient">
 				<div class="field ">
-					<label class="control-label" for="patient_first_name">Nombres:</label>
-					<input type="text" name="patient_first_name" id="patient_first_name">
-				</div>
-				<div class="field ">
-					<label class="control-label" for="patient_last_name">Apellidos:</label>
-					<input type="text" name="patient_last_name" id="patient_last_name">
-				</div>
-				<div class="field ">
-					<label class="control-label" for="patient_code">* Consecutivo:</label>
-					<div class="ui icon input">
-						<input type="text" name="patient_code" id="patient_code">
-						<i class="inverted circular search link icon" id="new-patient-code"></i>
+					<div class="three fields">
+						<div class="field ">
+							<label class="control-label" for="patient_first_name">Nombres:</label>
+							<input type="text" name="patient_first_name" id="patient_first_name">
+						</div>
+						<div class="field ">
+							<label class="control-label" for="patient_last_name">Apellidos:</label>
+							<input type="text" name="patient_last_name" id="patient_last_name">
+						</div>
+						<div class="field ">
+							<label class="control-label" for="patient_code">* Consecutivo:</label>
+							<div class="ui icon input">
+								<input type="text" name="patient_code" id="patient_code">
+								<i class="inverted circular search link icon" id="new-patient-code"></i>
+							</div>
+						</div>
 					</div>
 				</div>
 				<div class="field ">
-					<label class="control-label" for="patient_PID">Identificación:</label>
-					<input type="text" name="patient_PID" id="patient_PID">
-				</div>
-				<div class="two fields">
-					<div class="ui mini button negative" id="new-patient-cancel">Cancelar</div>
-					<div class="ui mini button positive" id="new-patient-create">Crear e Iniciar Consulta</div>
+					<div class="two fields">
+						<div class="field ">
+							<label class="control-label" for="patient_PID">Identificación:</label>
+							<input type="text" name="patient_PID" id="patient_PID">
+						</div>
+						<div class="two fields">
+							<div class="ui mini button negative" id="new-patient-cancel">Cancelar</div>
+							<div class="ui mini button positive" id="new-patient-create">Crear e Iniciar Consulta</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</form>

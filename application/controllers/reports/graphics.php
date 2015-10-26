@@ -47,7 +47,7 @@
 				'patients.age_group.id_patient' => 'Grupo de Edad',
 				'patients.gender.id_patient' => 'Género',
 				'account_details.fullname.id_creator' => 'Consejero',
-				'origin_places.name.id_patient' => 'Lugar de Origen',
+				'localizations.name.id_patient' => 'Lugar de Origen',
 				'consults_types.name.id_consults_type' => 'Tipo de Consulta',
 				'interventions_types.name.id_interventions_type' => 'Tipo de Intervención',
 				'references.name.id_patient' => 'Referido Desde',
@@ -60,6 +60,17 @@
 				'consults.id' => 'Total Sesiones',
 				'patients.last_session.id_patient' => 'Duración de la Intervención',
 				'consults.id_closure' => 'Seguimientos',
+				'patients.id_education.id_patient' => 'Educación Vs. Diagnóstico',
+				'consults_types.name.operation_reduction' => 'Tipo de Consulta Vs. Reducción en la Funcionalidad',
+				'risks.name.id_patient' => 'Frecuencia de Factores de Riesgo por Paciente',
+				'patients.age_group.diagnostics' => 'Edades, Diagnósticos',
+				'patients.gender.diagnostics' => 'Géneros, Diagnósticos',
+				'patients.age_group.risks_categories' => 'Edades, Categoría de Factores de Riesgo',
+				'patients.gender.risks_categories' => 'Géneros, Categoría de Factores de Riesgo',
+				'diagnostics.name.risks_categories' => 'Diagnóstico Vs. Categoría de Factor de Riesgo',
+				'localizations.name.gender' => 'Lugar de Origen Vs. Género',
+				'localizations.name.symptoms' => 'Lugar de Origen Vs. Sintomas',
+				'localizations.name.risks_categories' => 'Lugar de Origen Vs. Categoría de Factor de Riesgo',
 			);
 
 			$groupby = $this->input->post('groupby');
@@ -91,6 +102,9 @@
 						"plotBorderWidth": null,
 						"plotShadow": false
 					},
+					"credits": {
+                        "enabled": false
+                    },
 					"title": {
 						"text": "Monthly Average Rainfall"
 					},
@@ -100,6 +114,9 @@
 					"tooltip": {
 						"formatter": "function(){}"
 					},
+					"legend": {
+						"enabled": true
+			        },
 					"xAxis": {
 						"categories": [
 							"Total 1", "Total 2"
@@ -112,8 +129,15 @@
 					"yAxis": {
 						"min": 0,
 						"title": {
-							"text": "Número de casos"
-						}
+							"text": "Número de consultas"
+						},
+						"stackLabels": {
+			                "enabled": true,
+			                "style": {
+			                    "fontWeight": "bold",
+			                    "color": "(Highcharts.theme && Highcharts.theme.textColor) || \'gray\'"
+			                }
+			            }
 					},
 					"plotOptions": {
 						"column": {
@@ -183,11 +207,12 @@
 						$model->db->join( 'a3m_account_details', $model->getTableName() . '.' . $modelField . ' = ' . 'a3m_account_details.account_id' );
 						$model->db->group_by( 'name' );
 						break;
-					case 'origin_places.name.id_patient';
+					case 'localizations.name.id_patient';
 						$select[] = $filterModel->getTableName() . '.' . $filterField . ' AS name';
 						$model->db->join( 'msf_patients', $model->getTableName() . '.' . $modelField . ' = msf_patients.id' );
-						$model->db->join( $filterModel->getTableName(), 'msf_patients.id_origin_place = ' . $filterModel->getTableName() . '.id' );
+						$model->db->join( $filterModel->getTableName(), 'msf_patients.id_localization = ' . $filterModel->getTableName() . '.id' );
 						$model->db->group_by( 'name' );
+						$chart["legend"]["enabled"] = false;
 						break;
 					case 'references.name.id_patient';
 						$select[] = $filterModel->getTableName() . '.' . $filterField . ' AS name';
@@ -207,6 +232,101 @@
 						$select[] = "'Seguimientos' AS name";
 						$model->db->where('id_closure IS NULL');
 						$model->db->having('name >= 0');
+						break;
+					case 'patients.id_education.id_patient';
+						$select[] = 'msf_educations.name AS name';
+						$select[] = 'msf_diagnostics.name AS subname';
+						//$select[] = $filterModel->getTableName() . '.' . $filterField . ' AS name';
+						$model->db->join( $filterModel->getTableName(), $model->getTableName() . '.' . $modelField . ' = ' . $filterModel->getTableName() . '.id' );
+						$model->db->join( 'msf_diagnostics', $model->getTableName() . '.id_diagnostic = msf_diagnostics.id' );
+						$model->db->join( 'msf_educations', $filterModel->getTableName() . '.' . $filterField . ' = ' . 'msf_educations.id' );
+						$model->db->group_by( 'name,subname' );
+						$chart["legend"]["enabled"] = false;
+						break;
+					case 'consults_types.name.operation_reduction';
+						$select[] = $filterModel->getTableName() . '.' . $filterField . ' AS name';
+						$select[] = "CONCAT('Reducción '," . $model->getTableName() . '.' . $modelField . ') AS subname';
+
+						$model->db->join( $filterModel->getTableName(), $model->getTableName() . '.id_consults_type = ' . $filterModel->getTableName() . '.id' );
+						$model->db->group_by( 'name,subname' );
+						$chart["legend"]["enabled"] = false;
+						break;
+					case 'risks.name.id_patient';
+						$select[] = $model->getTableName() . '.' . $modelField . ' AS name';
+						$select[] = 'msf_risks.name AS subname';
+						$model->db->join( 'msf_consults_risks', 'msf_consults_risks.id_consult = ' . $model->getTableName() . '.id' );
+						$model->db->join( $filterModel->getTableName(), 'msf_consults_risks.id_risk = ' . $filterModel->getTableName() . '.id' );
+						$model->db->group_by( 'name,subname' );
+						$model->db->having( 'value <= 3' );
+						$chart["legend"]["enabled"] = false;
+						break;
+					case 'patients.age_group.diagnostics';
+						$select[] = "( IF( msf_patients.age IS NULL OR msf_patients.age <= 5, '≤ 5', IF( msf_patients.age >= 19, '≥ 19', '6-18' ) ) ) AS name";
+						$select[] = 'msf_diagnostics.name AS subname';
+						$model->db->join( $filterModel->getTableName(), $model->getTableName() . '.id_patient = ' . $filterModel->getTableName() . '.id' );
+						$model->db->join( 'msf_diagnostics', $model->getTableName() . '.id_diagnostic = msf_diagnostics.id' );
+						$model->db->group_by( 'name,subname' );
+						//$chart["legend"]["enabled"] = false;
+						break;
+					case 'patients.gender.diagnostics';
+						$select[] = "msf_patients.gender AS name";
+						$select[] = 'msf_diagnostics.name AS subname';
+						$model->db->join( $filterModel->getTableName(), $model->getTableName() . '.id_patient = ' . $filterModel->getTableName() . '.id' );
+						$model->db->join( 'msf_diagnostics', $model->getTableName() . '.id_diagnostic = msf_diagnostics.id' );
+						$model->db->group_by( 'name,subname' );
+						//$chart["legend"]["enabled"] = false;
+						break;
+					case 'patients.age_group.risks_categories';
+						$select[] = "( IF( msf_patients.age IS NULL OR msf_patients.age <= 5, '≤ 5', IF( msf_patients.age >= 19, '≥ 19', '6-18' ) ) ) AS name";
+						$select[] = 'msf_risks_categories.name AS subname';
+						$model->db->join( $filterModel->getTableName(), $model->getTableName() . '.id_patient = ' . $filterModel->getTableName() . '.id' );
+						$model->db->join( 'msf_risks_categories', $model->getTableName() . '.id_risks_category = msf_risks_categories.id' );
+						$model->db->group_by( 'name,subname' );
+						//$chart["legend"]["enabled"] = false;
+						break;
+					case 'patients.gender.risks_categories';
+						$select[] = "msf_patients.gender AS name";
+						$select[] = 'msf_risks_categories.name AS subname';
+						$model->db->join( $filterModel->getTableName(), $model->getTableName() . '.id_patient = ' . $filterModel->getTableName() . '.id' );
+						$model->db->join( 'msf_risks_categories', $model->getTableName() . '.id_risks_category = msf_risks_categories.id' );
+						$model->db->group_by( 'name,subname' );
+						//$chart["legend"]["enabled"] = false;
+						break;
+					case 'diagnostics.name.risks_categories';
+						$select[] = $filterModel->getTableName() . '.' . $filterField . ' AS name';
+						$select[] = 'msf_risks_categories.name AS subname';
+						$model->db->join( $filterModel->getTableName(), $model->getTableName() . '.id_diagnostic = ' . $filterModel->getTableName() . '.id' );
+
+						$model->db->join( 'msf_risks_categories', 'msf_risks_categories.id = ' . $model->getTableName() . '.id_risks_category' );
+						$model->db->group_by( 'name,subname' );
+						$chart["legend"]["enabled"] = false;
+						break;
+					case 'localizations.name.gender';
+						$select[] = $filterModel->getTableName() . '.' . $filterField . ' AS name';
+						$select[] = "msf_patients.gender AS subname";
+						$model->db->join( 'msf_patients', $model->getTableName() . '.id_patient = msf_patients.id' );
+						$model->db->join( $filterModel->getTableName(), 'msf_patients.id_localization = ' . $filterModel->getTableName() . '.id' );
+						$model->db->group_by( 'name,subname' );
+						$chart["legend"]["enabled"] = false;
+						break;
+					case 'localizations.name.symptoms';
+						$select[] = $filterModel->getTableName() . '.' . $filterField . ' AS name';
+						$select[] = "msf_symptoms.name AS subname";
+						$model->db->join( 'msf_patients', $model->getTableName() . '.id_patient = msf_patients.id' );
+						$model->db->join( $filterModel->getTableName(), 'msf_patients.id_localization = ' . $filterModel->getTableName() . '.id' );
+						$model->db->join( 'msf_consults_symptoms', $model->getTableName() . '.id = msf_consults_symptoms.id_consult' );
+						$model->db->join( 'msf_symptoms', 'msf_consults_symptoms.id_symptom = msf_symptoms.id' );
+						$model->db->group_by( 'name,subname' );
+						$chart["legend"]["enabled"] = false;
+						break;
+					case 'localizations.name.risks_categories';
+						$select[] = $filterModel->getTableName() . '.' . $filterField . ' AS name';
+						$select[] = 'msf_risks_categories.name AS subname';
+						$model->db->join( 'msf_patients', $model->getTableName() . '.id_patient = msf_patients.id' );
+						$model->db->join( $filterModel->getTableName(), 'msf_patients.id_localization = ' . $filterModel->getTableName() . '.id' );
+						$model->db->join( 'msf_risks_categories', $model->getTableName() . '.id_risks_category = msf_risks_categories.id' );
+						$model->db->group_by( 'name,subname' );
+						$chart["legend"]["enabled"] = false;
 						break;
 					default:
 						if( $modelField == '_boolean' )
@@ -268,38 +388,75 @@
 
 				$model->db->select(implode(',', $select), FALSE);
 				$results = $model->db->get($model->getTableName())->result_array( );
+				//var_dump( $model->db->last_query() );
+				//exit();
 				$dbSeries = array();
 				$series = array();
 
 				foreach( $results as $result ) {
 					if( !isset($dbSeries[$result['name']]) )
 						$dbSeries[$result['name']] = array();
-					if( !isset($dbSeries[$result['name']][$result['grouping']]) )
-						$dbSeries[$result['name']][$result['grouping']] = array();
+					$serie = &$dbSeries[$result['name']];
 
-					$dbSeries[$result['name']][$result['grouping']] = (float)$result['value'];
-				}
-
-				foreach( $dbSeries as $rname => $rgroups ) {
-					$serie = array(
-						'name' => $rname,
-						'data' => array()
-					);
-					$row = array($rname);
-
-					foreach( $chart["xAxis"]["categories"] as $category ) {
-						$serie['data'][] = ( isset( $rgroups[$category] ) ? $rgroups[$category] : 0.0 );
-						$row[] = ( isset( $rgroups[$category] ) ? $rgroups[$category] : 0.0 );
+					if( isset($result['subname']) ) {
+						if( !isset($serie[$result['subname']]) )
+							$serie[$result['subname']] = array();
+						$serie = &$serie[$result['subname']];
 					}
 
-					$series[$rname] = $serie;
-					$table['rows'][] = $row;
+					$serie[$result['grouping']] = (float)$result['value'];
 				}
+
+				foreach( $dbSeries as $rname => $rsubname ) {
+
+					$temp = array_values( $rsubname );
+
+					if( is_array( $temp[0] ) ) {
+						foreach ($rsubname as $rstack => $rgroups) {
+							$serie = array(
+									'name' => $rstack,
+									'data' => array(),
+									'stack' => $rname
+							);
+							$row = array($rname . ' - ' . $rstack );
+
+							foreach( $chart["xAxis"]["categories"] as $category ) {
+								$serie['data'][] = ( isset( $rgroups[$category] ) ? $rgroups[$category] : 0.0 );
+								$row[] = ( isset( $rgroups[$category] ) ? $rgroups[$category] : 0.0 );
+							}
+
+							$series[] = $serie;
+							$table['rows'][] = $row;
+						}
+
+					}
+					else {
+						$rgroups = $rsubname;
+						$serie = array(
+								'name' => $rname,
+								'data' => array()
+						);
+						$row = array($rname);
+
+						foreach( $chart["xAxis"]["categories"] as $category ) {
+							$serie['data'][] = ( isset( $rgroups[$category] ) ? $rgroups[$category] : 0.0 );
+							$row[] = ( isset( $rgroups[$category] ) ? $rgroups[$category] : 0.0 );
+						}
+
+						$series[] = $serie;
+						$table['rows'][] = $row;
+					}
+
+				}
+
 
 				$chart['xAxis']['labels']['rotation'] = ( count( $chart["xAxis"]["categories"] ) < 10 ? 0 : ( count( $chart["xAxis"]["categories"] ) < 30 ? -45 : -90 ) );
 				$chart['series'] = array_values( $series );
 				$data['chart'] = $chart;
 				$data['table'] = $table;
+
+				//var_dump( $chart['series'] );
+				//exit();
 			}
 
 			$this->view( $data );
