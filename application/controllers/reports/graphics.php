@@ -157,7 +157,10 @@
 							"data": [83.6],
 							"stack": "female"
 						}
-					]
+					],
+					"exporting": {
+                        "enabled": true
+                    }
 				}', true);
 
 				$chart['title']['text'] = $data['title'];
