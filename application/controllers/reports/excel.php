@@ -437,7 +437,31 @@
 
 				$fil --;
 			}
+
+			$fil ++;
+			$sheet->setCellValueByColumnAndRow( $col, $fil, 'Referido' );
+			$sheet->mergeCellsByColumnAndRow( $col, $fil, $col + 1, $fil );
+			$sheet->getStyleByColumnAndRow( $col, $fil )->applyFromArray($styleTitle);
+			$fil ++;
+			$sheet->setCellValueByColumnAndRow( $col, $fil, 'Hacia' );
+			$sheet->getStyleByColumnAndRow( $col, $fil )->applyFromArray($styleTitle);
+			$col ++;
+			$sheet->setCellValueByColumnAndRow( $col, $fil, 'Fecha' );
+			$sheet->getStyleByColumnAndRow( $col, $fil )->applyFromArray($styleTitle);
+			$col ++;
+
 			$fil --;
+			$sheet->setCellValueByColumnAndRow( $col, $fil, 'Psicotrópicos' );
+			$sheet->mergeCellsByColumnAndRow( $col, $fil, $col + 1, $fil );
+			$sheet->getStyleByColumnAndRow( $col, $fil )->applyFromArray($styleTitle);
+			$fil ++;
+			$sheet->setCellValueByColumnAndRow( $col, $fil, 'Uso' );
+			$sheet->getStyleByColumnAndRow( $col, $fil )->applyFromArray($styleTitle);
+			$col ++;
+			$sheet->setCellValueByColumnAndRow( $col, $fil, 'Fecha' );
+			$sheet->getStyleByColumnAndRow( $col, $fil )->applyFromArray($styleTitle);
+			$col ++;
+			$fil -= 3;
 
 			$sheet->setCellValueByColumnAndRow( $col, $fil, "Cierre" );
 			$sheet->mergeCellsByColumnAndRow( $col, $fil, $col + 11 - 1, $fil + 1 );
@@ -517,6 +541,14 @@
 			//$sheet->mergeCellsByColumnAndRow( $col, $fil, $col, $fil + 1 );
 			$sheet->getStyleByColumnAndRow( $col, $fil + 1 )->applyFromArray($styleTitle);
 			$col ++;
+
+			$sheet->setCellValueByColumnAndRow( $col, $fil, '' );
+			$sheet->getStyleByColumnAndRow( $col, $fil )->applyFromArray($styleTitle);
+			$sheet->setCellValueByColumnAndRow( $col, $fil + 1, 'Observaciones' );
+			//$sheet->mergeCellsByColumnAndRow( $col, $fil, $col, $fil + 1 );
+			$sheet->getStyleByColumnAndRow( $col, $fil + 1 )->applyFromArray($styleTitle);
+			$col ++;
+
 
 			$fil ++;
 			$colMax = max($colMax, $col);
@@ -646,8 +678,30 @@
 					$col += $totalConsultsSymptoms + $totalConsultsRisks + $totalCamposExtra;
 				}
 
+				$colSymptoms = $colTmp + ( $totalConsults * ( $totalConsultsSymptoms + $totalConsultsRisks + $totalCamposExtra ) );
+
+				if( count( $consults ) > 0 ) {
+					$sheet->setCellValueByColumnAndRow( $colSymptoms, $fil, $consults[0]['referenced_to'] );
+					$sheet->getStyleByColumnAndRow( $colSymptoms, $fil )->applyFromArray($styleText);
+					$colSymptoms ++;
+
+					$sheet->setCellValueByColumnAndRow( $colSymptoms, $fil, str_replace( '0000-00-00', '', $consults[0]['referenced_date'] ) );
+					$sheet->getStyleByColumnAndRow( $colSymptoms, $fil )->applyFromArray($styleText);
+					$colSymptoms ++;
+
+					$sheet->setCellValueByColumnAndRow( $colSymptoms, $fil, ( (int)$consults[0]['psychotropics'] == 0 ? 'NO' : 'SÍ' ) );
+					$sheet->getStyleByColumnAndRow( $colSymptoms, $fil )->applyFromArray($styleText);
+					$colSymptoms ++;
+
+					$sheet->setCellValueByColumnAndRow( $colSymptoms, $fil, str_replace( '0000-00-00', '', $consults[0]['psychotropics_date'] ) );
+					$sheet->getStyleByColumnAndRow( $colSymptoms, $fil )->applyFromArray($styleText);
+					$colSymptoms ++;
+				}
+				else {
+					$colSymptoms += 4;
+				}
+
 				if( $row['closed'] ) {
-					$colSymptoms = $colTmp + ( $totalConsults * ( $totalConsultsSymptoms + $totalConsultsRisks + $totalCamposExtra ) );
 
 					$closure = $this->consults_model->getLastClosedFor( $row['id'] );
 
@@ -695,14 +749,20 @@
 					$sheet->getStyleByColumnAndRow( $colSymptoms, $fil )->applyFromArray($styleText);
 					$colSymptoms ++;
 
-					$colMax = max($colMax, $colSymptoms);
 				}
+				else {
+					$colSymptoms += 11;
+				}
+
+				if( count( $consults ) > 0 ) {
+					$sheet->setCellValueByColumnAndRow($colSymptoms, $fil, $consults[0]['comments']);
+					$sheet->getStyleByColumnAndRow($colSymptoms, $fil)->applyFromArray($styleText);
+				}
+				$colSymptoms ++;
+				$colMax = max($colMax, $colSymptoms);
 
 				$fil ++;
 			}
-
-
-
 
 			$colMax = max($colMax, $col);
 
@@ -733,7 +793,6 @@
 			header ('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT'); // always modified
 			header ('Cache-Control: cache, must-revalidate'); // HTTP/1.1
 			header ('Pragma: public'); // HTTP/1.0
-
 
 			$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 			//$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'HTML');

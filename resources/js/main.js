@@ -1,20 +1,16 @@
 $(function () {
 
-	var $menuVisible = false;
-
 	var $menu = $('#toc');
 	$menu.sidebar({
 		transition       : 'uncover',
 		mobileTransition : 'uncover'
 	});
 	$('.launch.button, .view-ui, .launch.item').on('click', function(event) {
-		if( $menuVisible ) {
-			$menu.sidebar('toggle');
-		}
+		$menu.sidebar('toggle');
 		event.preventDefault();
 	});
 
-	$sidebarButton = $('.fixed.launch.button');
+	var $sidebarButton = $('.fixed.launch.button');
 
 
 	$('.ui.dropdown[data-content]').popup({
@@ -182,9 +178,6 @@ $(function(){
 		searchField: ['first_name','last_name','PID','code'],
 		render: {
 			option: function(item, escape) {
-
-				console.debug(item);
-
 				return '' +
 					'<div class="new-patient-option">' +
 						'<div class="title">' +
