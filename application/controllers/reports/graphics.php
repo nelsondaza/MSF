@@ -201,7 +201,15 @@
 
 				switch( $measure ) {
 					case 'patients.age_group.id_patient';
-						$select[] = "( IF( msf_patients.age IS NULL OR msf_patients.age <= 5, '≤ 5', IF( msf_patients.age >= 19, '≥ 19', '6-18' ) ) ) AS name";
+						$select[] = "(
+							IF( msf_patients.age IS NULL OR msf_patients.age < 5, '<5',
+								IF( msf_patients.age <= 14, '5-14',
+									IF( msf_patients.age <= 18, '5-18',
+										'≥19'
+									)
+								)
+							)
+						) AS name";
 						$model->db->join( $filterModel->getTableName(), $model->getTableName() . '.' . $modelField . ' = ' . $filterModel->getTableName() . '.id' );
 						$model->db->group_by( 'name' );
 						$model->db->order_by( 'name' );
@@ -272,7 +280,15 @@
 						//$chart["legend"]["enabled"] = false;
 						break;
 					case 'patients.age_group.diagnostics';
-						$select[] = "( IF( msf_patients.age IS NULL OR msf_patients.age <= 5, '≤ 5', IF( msf_patients.age >= 19, '≥ 19', '6-18' ) ) ) AS name";
+						$select[] = "(
+ 							IF( msf_patients.age IS NULL OR msf_patients.age < 5, '<5',
+								IF( msf_patients.age <= 14, '5-14',
+									IF( msf_patients.age <= 18, '5-18',
+										'≥19'
+									)
+								)
+							)
+						 ) AS name";
 						$select[] = 'msf_diagnostics.name AS subname';
 						$model->db->join( $filterModel->getTableName(), $model->getTableName() . '.id_patient = ' . $filterModel->getTableName() . '.id' );
 						$model->db->join( 'msf_diagnostics', $model->getTableName() . '.id_diagnostic = msf_diagnostics.id' );
@@ -290,7 +306,15 @@
 						////$chart["legend"]["enabled"] = false;
 						break;
 					case 'patients.age_group.risks_categories';
-						$select[] = "( IF( msf_patients.age IS NULL OR msf_patients.age <= 5, '≤ 5', IF( msf_patients.age >= 19, '≥ 19', '6-18' ) ) ) AS name";
+						$select[] = "(
+ 							IF( msf_patients.age IS NULL OR msf_patients.age < 5, '<5',
+								IF( msf_patients.age <= 14, '5-14',
+									IF( msf_patients.age <= 18, '5-18',
+										'≥19'
+									)
+								)
+							)
+						 ) AS name";
 						$select[] = 'msf_risks_categories.name AS subname';
 						$model->db->join( $filterModel->getTableName(), $model->getTableName() . '.id_patient = ' . $filterModel->getTableName() . '.id' );
 						$model->db->join( 'msf_risks_categories', $model->getTableName() . '.id_risks_category = msf_risks_categories.id' );
@@ -419,21 +443,19 @@
 				foreach( $results as $result ) {
 					if( !isset($dbSeries[$result['name']]) )
 						$dbSeries[$result['name']] = array();
-					$serie = &$dbSeries[$result['name']];
+					$tserie = &$dbSeries[$result['name']];
 
 					if( isset($result['subname']) ) {
-						if( !isset($serie[$result['subname']]) )
-							$serie[$result['subname']] = array();
-						$serie = &$serie[$result['subname']];
+						if( !isset($tserie[$result['subname']]) )
+							$tserie[$result['subname']] = array();
+						$tserie = &$tserie[$result['subname']];
 					}
 
-					$serie[$result['grouping']] = (float)$result['value'];
+					$tserie[$result['grouping']] = (float)$result['value'];
 				}
 
 				foreach( $dbSeries as $rname => $rsubname ) {
-
 					$temp = array_values( $rsubname );
-
 					if( is_array( $temp[0] ) ) {
 						foreach ($rsubname as $rstack => $rgroups) {
 							$serie = array(
@@ -456,8 +478,8 @@
 					else {
 						$rgroups = $rsubname;
 						$serie = array(
-								'name' => $rname,
-								'data' => array()
+							'name' => $rname,
+							'data' => array()
 						);
 						$row = array($rname);
 
@@ -469,9 +491,7 @@
 						$series[] = $serie;
 						$table['rows'][] = $row;
 					}
-
 				}
-
 
 				$chart['xAxis']['labels']['rotation'] = ( count( $chart["xAxis"]["categories"] ) < 10 ? 0 : ( count( $chart["xAxis"]["categories"] ) < 30 ? -45 : -90 ) );
 				$chart['series'] = array_values( $series );

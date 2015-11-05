@@ -134,7 +134,15 @@
 <?php
 	// Users type
 	$this->db->select("
-		( IF( msf_patients.age IS NULL OR msf_patients.age <= 5, '≤ 5', IF( msf_patients.age >= 19, '≥ 19', '6-18' ) ) ) AS age_group, COUNT(*) AS total
+		(
+			IF( " . $this->tableName . ".age IS NULL OR " . $this->tableName . ".age < 5, '<5',
+				IF( " . $this->tableName . ".age <= 14, '5-14',
+					IF( " . $this->tableName . ".age <= 18, '5-18',
+						'≥19'
+					)
+				)
+			)
+		) AS age_group, COUNT(*) AS total
 		", false
 	);
 	$this->db->where('msf_patients.gender IS NOT NULL');

@@ -12,18 +12,19 @@
 		 * 6-18
 		 * ≥ 19
 		 * -	<5
-		-	5 – 14 años
-		-	15 – 18 años
-		-	≥ 19 años
-
+		 * -	5 – 14 años
+		 * -	15 – 18 años
+		 * -	≥ 19 años
 		 */
 		public function onBeforeGet( $arguments ) {
 			$this->db->select(
 				$this->tableName . ".*, a3m_account_details.fullname AS expert,
 				(
-					IF( " . $this->tableName . ".age IS NULL OR " . $this->tableName . ".age <= 5, '<=5',
-						IF( " . $this->tableName . ".age >= 19, '≥ 19',
-							'6-18'
+					IF( " . $this->tableName . ".age IS NULL OR " . $this->tableName . ".age < 5, '<5',
+						IF( " . $this->tableName . ".age <= 14, '5-14',
+							IF( " . $this->tableName . ".age <= 18, '5-18',
+								'≥19'
+							)
 						)
 					)
 				) AS age_group
@@ -77,7 +78,15 @@
 			$this->db->select(
 				$this->tableName . ".*,
 				a3m_account_details.fullname AS expert,
-				( IF( " . $this->tableName . ".age IS NULL OR " . $this->tableName . ".age <= 5, '≤ 5', IF( " . $this->tableName . ".age >= 19, '≥ 19', '6-18' ) ) ) AS age_group,
+				(
+					IF( " . $this->tableName . ".age IS NULL OR " . $this->tableName . ".age < 5, '<5',
+						IF( " . $this->tableName . ".age <= 14, '5-14',
+							IF( " . $this->tableName . ".age <= 18, '5-18',
+								'≥19'
+							)
+						)
+					)
+				) AS age_group,
 				msf_localizations.name AS localization,
 				msf_cities.name AS city,
 				msf_regions.name AS region,

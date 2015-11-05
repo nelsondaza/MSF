@@ -357,9 +357,9 @@
 
 				text = parseInt( text, 10 );
 				$('#history_field_age_group').val(
-					( text <= 5 ? '≤ 5' : ( text >= 19 ? '≥ 19' : '6-18' ) )
+					( text < 5 ? '< 5' : ( text <= 14 ? '5-14' : ( text <= 18 ? '15-18' : '≥19' ) ) )
 				).parent().children('.read-only').text(
-					( text <= 5 ? '≤ 5' : ( text >= 19 ? '≥ 19' : '6-18' ) )
+					( text < 5 ? '< 5' : ( text <= 14 ? '5-14' : ( text <= 18 ? '15-18' : '≥19' ) ) )
 				);
 			}).keyup();
 <?php
