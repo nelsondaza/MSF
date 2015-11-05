@@ -195,7 +195,7 @@
 	$rows = array();
 
 	// Users type
-	$query = $this->db->query ( "
+	$query = $this->db->query ( "" . "
 		SELECT
 		LEFT(creation, 10) AS fecha, COUNT(*) AS total
 		FROM msf_patients

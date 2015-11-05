@@ -11,11 +11,22 @@
 		 * ≤ 5
 		 * 6-18
 		 * ≥ 19
+		 * -	<5
+		-	5 – 14 años
+		-	15 – 18 años
+		-	≥ 19 años
+
 		 */
 		public function onBeforeGet( $arguments ) {
 			$this->db->select(
 				$this->tableName . ".*, a3m_account_details.fullname AS expert,
-				( IF( " . $this->tableName . ".age IS NULL OR " . $this->tableName . ".age <= 5, '≤ 5', IF( " . $this->tableName . ".age >= 19, '≥ 19', '6-18' ) ) ) AS age_group
+				(
+					IF( " . $this->tableName . ".age IS NULL OR " . $this->tableName . ".age <= 5, '<=5',
+						IF( " . $this->tableName . ".age >= 19, '≥ 19',
+							'6-18'
+						)
+					)
+				) AS age_group
 				", FALSE );
 			$this->db->join( 'a3m_account_details', $this->tableName . '.id_expert = a3m_account_details.account_id', 'LEFT' );
 		}

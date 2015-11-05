@@ -120,6 +120,7 @@
 		// Build chart
 		var chart = {};
 		chart = <?= json_encode($chart)?>;
+		console.debug(chart);
 		chart.tooltip.formatter = function () {
 			return [
 				'<b>' + this.x + '</b>',

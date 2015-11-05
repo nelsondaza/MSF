@@ -193,7 +193,7 @@
 				$filterModel = $this->$filterName;
 
 				$model->db->where( $model->getTableName() . '.creation >= ', date("Y-m-d", $start) );
-				$model->db->where( $model->getTableName() . '.creation < ', date("Y-m-d", $end) );
+				$model->db->where( $model->getTableName() . '.creation < ', date("Y-m-d", strtotime( "+1 DAY", $end )) );
 
 				$select = array(
 					'COUNT(*) AS value',
@@ -204,24 +204,28 @@
 						$select[] = "( IF( msf_patients.age IS NULL OR msf_patients.age <= 5, '≤ 5', IF( msf_patients.age >= 19, '≥ 19', '6-18' ) ) ) AS name";
 						$model->db->join( $filterModel->getTableName(), $model->getTableName() . '.' . $modelField . ' = ' . $filterModel->getTableName() . '.id' );
 						$model->db->group_by( 'name' );
+						$model->db->order_by( 'name' );
 						break;
 					case 'account_details.fullname.id_creator';
 						$select[] = 'a3m_account_details.' . $filterField . ' AS name';
 						$model->db->join( 'a3m_account_details', $model->getTableName() . '.' . $modelField . ' = ' . 'a3m_account_details.account_id' );
 						$model->db->group_by( 'name' );
+						$model->db->order_by( 'name' );
 						break;
 					case 'localizations.name.id_patient';
 						$select[] = $filterModel->getTableName() . '.' . $filterField . ' AS name';
 						$model->db->join( 'msf_patients', $model->getTableName() . '.' . $modelField . ' = msf_patients.id' );
 						$model->db->join( $filterModel->getTableName(), 'msf_patients.id_localization = ' . $filterModel->getTableName() . '.id' );
 						$model->db->group_by( 'name' );
-						$chart["legend"]["enabled"] = false;
+						$model->db->order_by( 'name' );
+						//$chart["legend"]["enabled"] = false;
 						break;
 					case 'references.name.id_patient';
 						$select[] = $filterModel->getTableName() . '.' . $filterField . ' AS name';
 						$model->db->join( 'msf_patients_references', $model->getTableName() . '.' . $modelField . ' = msf_patients_references.id_patient' );
 						$model->db->join( $filterModel->getTableName(), 'msf_patients_references.id_reference = ' . $filterModel->getTableName() . '.id' );
 						$model->db->group_by( 'name' );
+						$model->db->order_by( 'name' );
 						break;
 					case 'consults.id';
 						$select[] = "'Sesiones' AS name";
@@ -230,6 +234,7 @@
 						$select[] = "DATEDIFF(" . $filterModel->getTableName() . ".last_session," . $filterModel->getTableName() . ".first_session) AS name";
 						$model->db->join( $filterModel->getTableName(), $model->getTableName() . '.' . $modelField . ' = ' . $filterModel->getTableName() . '.id' );
 						$model->db->group_by( 'name' );
+						$model->db->order_by( 'name' );
 						break;
 					case 'consults.id_closure';
 						$select[] = "'Seguimientos' AS name";
@@ -244,7 +249,8 @@
 						$model->db->join( 'msf_diagnostics', $model->getTableName() . '.id_diagnostic = msf_diagnostics.id' );
 						$model->db->join( 'msf_educations', $filterModel->getTableName() . '.' . $filterField . ' = ' . 'msf_educations.id' );
 						$model->db->group_by( 'name,subname' );
-						$chart["legend"]["enabled"] = false;
+						$model->db->order_by( 'name,subname' );
+						//$chart["legend"]["enabled"] = false;
 						break;
 					case 'consults_types.name.operation_reduction';
 						$select[] = $filterModel->getTableName() . '.' . $filterField . ' AS name';
@@ -252,7 +258,8 @@
 
 						$model->db->join( $filterModel->getTableName(), $model->getTableName() . '.id_consults_type = ' . $filterModel->getTableName() . '.id' );
 						$model->db->group_by( 'name,subname' );
-						$chart["legend"]["enabled"] = false;
+						$model->db->order_by( 'name,subname' );
+						//$chart["legend"]["enabled"] = false;
 						break;
 					case 'risks.name.id_patient';
 						$select[] = $model->getTableName() . '.' . $modelField . ' AS name';
@@ -260,8 +267,9 @@
 						$model->db->join( 'msf_consults_risks', 'msf_consults_risks.id_consult = ' . $model->getTableName() . '.id' );
 						$model->db->join( $filterModel->getTableName(), 'msf_consults_risks.id_risk = ' . $filterModel->getTableName() . '.id' );
 						$model->db->group_by( 'name,subname' );
+						$model->db->order_by( 'name,subname' );
 						$model->db->having( 'value <= 3' );
-						$chart["legend"]["enabled"] = false;
+						//$chart["legend"]["enabled"] = false;
 						break;
 					case 'patients.age_group.diagnostics';
 						$select[] = "( IF( msf_patients.age IS NULL OR msf_patients.age <= 5, '≤ 5', IF( msf_patients.age >= 19, '≥ 19', '6-18' ) ) ) AS name";
@@ -269,7 +277,8 @@
 						$model->db->join( $filterModel->getTableName(), $model->getTableName() . '.id_patient = ' . $filterModel->getTableName() . '.id' );
 						$model->db->join( 'msf_diagnostics', $model->getTableName() . '.id_diagnostic = msf_diagnostics.id' );
 						$model->db->group_by( 'name,subname' );
-						//$chart["legend"]["enabled"] = false;
+						$model->db->order_by( 'name,subname' );
+						////$chart["legend"]["enabled"] = false;
 						break;
 					case 'patients.gender.diagnostics';
 						$select[] = "msf_patients.gender AS name";
@@ -277,7 +286,8 @@
 						$model->db->join( $filterModel->getTableName(), $model->getTableName() . '.id_patient = ' . $filterModel->getTableName() . '.id' );
 						$model->db->join( 'msf_diagnostics', $model->getTableName() . '.id_diagnostic = msf_diagnostics.id' );
 						$model->db->group_by( 'name,subname' );
-						//$chart["legend"]["enabled"] = false;
+						$model->db->order_by( 'name,subname' );
+						////$chart["legend"]["enabled"] = false;
 						break;
 					case 'patients.age_group.risks_categories';
 						$select[] = "( IF( msf_patients.age IS NULL OR msf_patients.age <= 5, '≤ 5', IF( msf_patients.age >= 19, '≥ 19', '6-18' ) ) ) AS name";
@@ -285,7 +295,8 @@
 						$model->db->join( $filterModel->getTableName(), $model->getTableName() . '.id_patient = ' . $filterModel->getTableName() . '.id' );
 						$model->db->join( 'msf_risks_categories', $model->getTableName() . '.id_risks_category = msf_risks_categories.id' );
 						$model->db->group_by( 'name,subname' );
-						//$chart["legend"]["enabled"] = false;
+						$model->db->order_by( 'name,subname' );
+						////$chart["legend"]["enabled"] = false;
 						break;
 					case 'patients.gender.risks_categories';
 						$select[] = "msf_patients.gender AS name";
@@ -293,7 +304,8 @@
 						$model->db->join( $filterModel->getTableName(), $model->getTableName() . '.id_patient = ' . $filterModel->getTableName() . '.id' );
 						$model->db->join( 'msf_risks_categories', $model->getTableName() . '.id_risks_category = msf_risks_categories.id' );
 						$model->db->group_by( 'name,subname' );
-						//$chart["legend"]["enabled"] = false;
+						$model->db->order_by( 'name,subname' );
+						////$chart["legend"]["enabled"] = false;
 						break;
 					case 'diagnostics.name.risks_categories';
 						$select[] = $filterModel->getTableName() . '.' . $filterField . ' AS name';
@@ -302,7 +314,8 @@
 
 						$model->db->join( 'msf_risks_categories', 'msf_risks_categories.id = ' . $model->getTableName() . '.id_risks_category' );
 						$model->db->group_by( 'name,subname' );
-						$chart["legend"]["enabled"] = false;
+						$model->db->order_by( 'name,subname' );
+						//$chart["legend"]["enabled"] = false;
 						break;
 					case 'localizations.name.gender';
 						$select[] = $filterModel->getTableName() . '.' . $filterField . ' AS name';
@@ -310,7 +323,8 @@
 						$model->db->join( 'msf_patients', $model->getTableName() . '.id_patient = msf_patients.id' );
 						$model->db->join( $filterModel->getTableName(), 'msf_patients.id_localization = ' . $filterModel->getTableName() . '.id' );
 						$model->db->group_by( 'name,subname' );
-						$chart["legend"]["enabled"] = false;
+						$model->db->order_by( 'name,subname' );
+						//$chart["legend"]["enabled"] = false;
 						break;
 					case 'localizations.name.symptoms';
 						$select[] = $filterModel->getTableName() . '.' . $filterField . ' AS name';
@@ -320,7 +334,8 @@
 						$model->db->join( 'msf_consults_symptoms', $model->getTableName() . '.id = msf_consults_symptoms.id_consult' );
 						$model->db->join( 'msf_symptoms', 'msf_consults_symptoms.id_symptom = msf_symptoms.id' );
 						$model->db->group_by( 'name,subname' );
-						$chart["legend"]["enabled"] = false;
+						$model->db->order_by( 'name,subname' );
+						//$chart["legend"]["enabled"] = false;
 						break;
 					case 'localizations.name.risks_categories';
 						$select[] = $filterModel->getTableName() . '.' . $filterField . ' AS name';
@@ -329,7 +344,8 @@
 						$model->db->join( $filterModel->getTableName(), 'msf_patients.id_localization = ' . $filterModel->getTableName() . '.id' );
 						$model->db->join( 'msf_risks_categories', $model->getTableName() . '.id_risks_category = msf_risks_categories.id' );
 						$model->db->group_by( 'name,subname' );
-						$chart["legend"]["enabled"] = false;
+						$model->db->order_by( 'name,subname' );
+						//$chart["legend"]["enabled"] = false;
 						break;
 					default:
 						if( $modelField == '_boolean' )
@@ -339,6 +355,7 @@
 						if( $filterModel != $model )
 							$model->db->join( $filterModel->getTableName(), $model->getTableName() . '.' . $modelField . ' = ' . $filterModel->getTableName() . '.id' );
 						$model->db->group_by( 'name' );
+						$model->db->order_by( 'name' );
 
 				}
 
@@ -362,6 +379,7 @@
 						$select[] = 'LEFT(' . $model->getTableName() . '.creation, 7) AS grouping';
 
 						$model->db->group_by('grouping');
+						$model->db->order_by('grouping');
 						break;
 					case 'weekly':
 						$table['headers'][] = $measures[$measure];
@@ -374,6 +392,7 @@
 						$select[] = 'LEFT(DATE_ADD(' . $model->getTableName() . '.creation, INTERVAL (MOD(DAYOFWEEK(' . $model->getTableName() . '.creation)-1, 7)*-1) DAY), 10 ) AS grouping';
 
 						$model->db->group_by('grouping');
+						$model->db->order_by('grouping');
 						break;
 					case 'daily':
 						$table['headers'][] = $measures[$measure];
@@ -386,6 +405,7 @@
 						$select[] = 'LEFT(' . $model->getTableName() . '.creation, 10) AS grouping';
 
 						$model->db->group_by('grouping');
+						$model->db->order_by('grouping');
 						break;
 				}
 
