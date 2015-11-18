@@ -1,3 +1,24 @@
+function checks( $holder, limit ) {
+	var $checkedList = $holder.find('input[type="checkbox"]:checked');
+	if( $checkedList.length > limit ) {
+		$.each( $checkedList, function( index, elem ){
+			if( index > limit - 1 )
+				$(elem).closest('.checkbox').checkbox('uncheck');
+		});
+	}
+	$checkedList = $holder.find('input[type="checkbox"]:checked');
+	var $checks = $holder.find('input[type="checkbox"]');
+	if( $checkedList.length >= limit ) {
+		$.each( $checks, function( index, elem ){
+			if( !$(elem).closest('.checkbox').checkbox('is checked') ) {
+				$(elem).closest('.checkbox').checkbox('set disabled');
+			}
+		});
+	}
+	else {
+		$checks.closest('.checkbox').checkbox('set enabled');
+	}
+}
 
 $(function(){
 
@@ -5,6 +26,11 @@ $(function(){
 
 	if( $form.length == 0 )
 		return;
+
+	checks( $('#history_field_id_reference_holder'), 1 );
+	$('#history_field_id_reference_holder').find('input[type="checkbox"]').change(function(){
+		checks( $('#history_field_id_reference_holder'), 1 );
+	});
 
 	$form.unbind('submit');
 	$form.submit(function(){
@@ -215,6 +241,15 @@ $(function(){
 
 	if( $forms.length == 0 )
 		return;
+
+	if($('input[name="history_field_id_risk[]"]:first').length > 0 ) {
+		var $holder = $('input[name="history_field_id_risk[]"]:first').closest('.secondary.segment');
+		checks( $holder, 3 );
+		$holder.find('input[type="checkbox"]').change(function(){
+			checks( $holder, 3 );
+		});
+	}
+
 
 	$forms.unbind('submit');
 	$forms.submit(function(){

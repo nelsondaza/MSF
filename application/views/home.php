@@ -135,9 +135,9 @@
 	// Users type
 	$this->db->select("
 		(
-			IF( " . $this->tableName . ".age IS NULL OR " . $this->tableName . ".age < 5, '<5',
-				IF( " . $this->tableName . ".age <= 14, '5-14',
-					IF( " . $this->tableName . ".age <= 18, '5-18',
+			IF( msf_patients.age IS NULL OR msf_patients.age < 5, '<5',
+				IF( msf_patients.age <= 14, '5-14',
+					IF( msf_patients.age <= 18, '5-18',
 						'≥19'
 					)
 				)

@@ -128,7 +128,7 @@
 			$this->db->order_by( 'total DESC' );
 
 			$result = $this->db->get($this->tableName)->row_array( );
-			return $result['total'];
+			return ( isset( $result['total'] ) ? $result['total'] : 0 );
 		}
 
 		public function getMaxConsultsOpened( $start, $end ) {
@@ -149,7 +149,7 @@
 			$this->db->order_by( 'total DESC' );
 
 			$result = $this->db->get($this->tableName)->row_array( );
-			return $result['total'];
+			return ( isset( $result['total'] ) ? $result['total'] : 0 );
 		}
 
 		public function getMaxConsultsSymptoms( $start, $end ) {
