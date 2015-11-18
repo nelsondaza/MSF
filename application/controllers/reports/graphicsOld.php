@@ -10,6 +10,17 @@
 
 			$this->load->model( array(
 					'manage/consults_model',
+				/*
+				'manage/patients_model',
+				'manage/patients_references_model',
+				'manage/consults_symptoms_model',
+				'manage/consults_risks_model',
+				'manage/consults_types_model',
+				'manage/origin_places_model',
+				'manage/interventions_types_model',
+				'manage/references_model',
+				'manage/symptoms_categories_model',
+				*/
 			) );
 		}
 
@@ -33,469 +44,33 @@
 			$measure = $this->input->post('measure');
 
 			$measures = array(
-				'consultas_vs_psicologo' => 'Consultas Vs. Psicólogo',
-				'educacion_vs_diagnostico' => 'Educación Vs. Diagnóstico',
-			);
-
-			$groupby = $this->input->post('groupby');
-			$groupingby = array(
-				'total' => 'Total',
-				'monthly' => 'Mensual',
-				'weekly' => 'Semanal',
-				'daily' => 'Diario',
-			);
-
-			$data['start'] = date("Y-m-d", $start);
-			$data['end'] = date("Y-m-d", $end);
-			$data['measure'] = $measure;
-			$data['measures'] = $measures;
-			$data['groupby'] = $groupby;
-			$data['groupingby'] = $groupingby;
-			$data['title'] = ( $measure ? $measures[$measure] : '' );
-			$data['subtitle'] = $data['start'] . ' a ' . $data['end'];
-			$data['chart'] = null;
-			$data['table'] = null;
-
-			if( $measure ) {
-				if (isset($measures[$measure]) && method_exists($this, 'reporte_' . $measure)) {
-
-					$chart = json_decode("" . '{
-						"chart": {
-							"type": "column",
-							"plotBackgroundColor": null,
-							"plotBorderWidth": null,
-							"plotShadow": false
-						},
-						"credits": {
-	                        "enabled": false
-	                    },
-						"title": null,
-						"subtitle": null,
-						"tooltip": {
-							"formatter": "function"
-						},
-						"tooltipTable": {
-				            "headerFormat": "<span style=\"font-size:11px;font-weight:bold\">{point.key}</span><table>",
-				            "pointFormat": "<tr><td style=\"font-size:10px;color:{series.color};padding:0\">{series.name}: </td><td style=\"font-size:10px;padding:0\"><b>{point.y:.0f}</b></td></tr>",
-				            "footerFormat": "</table>",
-				            "shared": true,
-				            "useHTML": true
-				        },
-						"legend": {
-							"enabled": true
-				        },
-						"xAxis": {
-							"categories": [
-								"Total 1", "Total 2"
-							],
-							"crosshair": true,
-							"labels": {
-	                            "rotation": -45
-				            }
-						},
-						"yAxis": {
-							"min": 0,
-							"title": {
-								"text": "Número de consultas"
-							},
-							"stackLabels": {
-				                "enabled": true,
-				                "style": {
-				                    "fontWeight": "bold",
-				                    "color": "(Highcharts.theme && Highcharts.theme.textColor) || \'gray\'"
-				                }
-				            }
-						},
-						"plotOptions": {
-							"column": {
-								"pointPadding": 0.2,
-								"borderWidth": 0,
-								"stacking": "normal"
-							}
-						},
-						"series": [
-							{
-								"name": "Serie 1",
-								"data": [49.9,40],
-								"stack": "male"
-							},
-							{
-								"name": "Serie 2",
-								"data": [83.6,80],
-								"stack": "female"
-							}
-						],
-						"exporting": {
-	                        "enabled": true
-	                    }
-					}', TRUE);
-
-					$chart['title']['text']    = $data['title'];
-					$chart['subtitle']['text'] = $data['subtitle'];
-
-					$table                        = array();
-					$table['headers']             = array();
-					$table['rows']                = array();
-					$table['rows_options']        = array();
-					$table['options']             = '';
-					$chart["xAxis"]["categories"] = array();
-
-					switch ($groupby) {
-						case 'total':
-							$table['headers'][] = $measures[$measure];
-							$table['headers'][] = $groupingby[$groupby];
-
-							$chart["xAxis"]["categories"][] = $groupingby[$groupby];
-
-							break;
-						case 'monthly':
-							$table['headers'][] = $measures[$measure];
-
-							for ($c = strtotime(date("Y-m", $start)); $c <= strtotime(date("Y-m", $end)); $c = strtotime("+1 MONTH", $c)) {
-								$table['headers'][]             = date("Y-m", $c);
-								$chart["xAxis"]["categories"][] = date("Y-m", $c);
-							}
-
-							break;
-						case 'weekly':
-							$table['headers'][] = $measures[$measure];
-
-							for ($c = strtotime(date("Y-m-d", strtotime('-' . date('w', $start) . ' DAY', $start))); $c <= strtotime(date("Y-m-d", $end)); $c = strtotime("+1 WEEK", $c)) {
-								$table['headers'][]             = date("Y-m-d", $c);
-								$chart["xAxis"]["categories"][] = date("Y-m-d", $c);
-							}
-
-							break;
-						case 'daily':
-							$table['headers'][] = $measures[$measure];
-
-							for ($c = strtotime(date("Y-m-d", $start)); $c <= strtotime(date("Y-m-d", $end)); $c = strtotime("+1 DAY", $c)) {
-								$table['headers'][]             = date("Y-m-d", $c);
-								$chart["xAxis"]["categories"][] = date("Y-m-d", $c);
-							}
-
-							break;
-					}
-
-					call_user_func_array(array($this, 'reporte_' . $measure),array(&$chart, &$table, $groupby, $start, strtotime("+1 DAY", $end)));
-
-					$chart['xAxis']['labels']['rotation'] = (count($chart["xAxis"]["categories"]) < 10 ? 0 : (count($chart["xAxis"]["categories"]) < 30 ? -45 : -90));
-					$data['chart']                        = $chart;
-					$data['table']                        = $table;
-
-				}
-				else {
-					user_error("NOT FOUND: reporte_" . $measure, E_USER_ERROR);
-				}
-			}
-
-			$this->view( $data );
-		}
-
-		private function reporte_consultas_vs_psicologo (&$chart, &$table, $groupby, $start, $end) {
-
-			$chart['series'] = array();
-
-			$query = $this->db->query("
-				SELECT a3m_account_details.fullname AS name, a3m_account_details.account_id As id
-				FROM a3m_account_details, msf_consults
-				WHERE a3m_account_details.account_id = msf_consults.id_creator
-				AND msf_consults.creation >= ?
-				AND msf_consults.creation < ?
-				GROUP BY a3m_account_details.account_id
-				ORDER BY a3m_account_details.fullname ASC
-			", array( date('Y-m-d', $start ), date('Y-m-d', $end ) ) );
-
-			$bars = $query->result_array();
-
-			switch( $groupby ) {
-				case 'total':
-					$chart['plotOptions']['column']['stacking'] = null;
-					foreach( $bars as $bar ) {
-						$query = $this->db->query("
-							SELECT COUNT(*) AS total
-							FROM msf_consults
-							WHERE msf_consults.id_creator = ?
-							AND msf_consults.creation >= ?
-							AND msf_consults.creation < ?
-							", array( $bar['id'], date('Y-m-d', $start ), date('Y-m-d', $end ) )
-						);
-
-						$values = $query->row_array();
-						$chart['series'][] = array(
-							'name' => $bar['name'],
-							'data' => array( (int)$values['total'] )
-						);
-						$table['rows'][] = array( $bar['name'], (int)$values['total'] );
-					}
-					break;
-				case 'monthly':
-					$chart['plotOptions']['column']['stacking'] = null;
-					foreach( $bars as $bar ) {
-						$data = array( );
-						foreach( $chart["xAxis"]["categories"] as $category ) {
-							$query = $this->db->query("
-								SELECT COUNT(*) AS total
-								FROM msf_consults
-								WHERE msf_consults.id_creator = ?
-								AND msf_consults.creation >= ?
-								AND msf_consults.creation < ?
-								AND LEFT(msf_consults.creation, 7) = ?
-								", array( $bar['id'], date('Y-m-d', $start ), date('Y-m-d', $end ), $category )
-							);
-
-							$values = $query->row_array();
-							$data[] = (int)$values['total'];
-						}
-
-						$chart['series'][] = array(
-							'name' => $bar['name'],
-							'data' => $data
-						);
-
-						$table['rows'][] = array_merge( array( $bar['name'] ), $data );
-					}
-					break;
-				case 'weekly':
-					$chart['tooltip'] = $chart['tooltipTable'];
-					foreach( $bars as $bar ) {
-						$data = array( );
-						foreach( $chart["xAxis"]["categories"] as $category ) {
-							$query = $this->db->query("
-								SELECT COUNT(*) AS total
-								FROM msf_consults
-								WHERE msf_consults.id_creator = ?
-								AND msf_consults.creation >= ?
-								AND msf_consults.creation < ?
-								AND LEFT(DATE_ADD(msf_consults.creation, INTERVAL (MOD(DAYOFWEEK(msf_consults.creation)-1, 7)*-1) DAY), 10 ) = ?
-								", array( $bar['id'], date('Y-m-d', $start ), date('Y-m-d', $end ), $category )
-							);
-
-							$values = $query->row_array();
-							$data[] = (int)$values['total'];
-						}
-
-						$chart['series'][] = array(
-							'name' => $bar['name'],
-							'data' => $data
-						);
-
-						$table['rows'][] = array_merge( array( $bar['name'] ), $data );
-					}
-					break;
-				case 'daily':
-					$chart['tooltip'] = $chart['tooltipTable'];
-					foreach( $bars as $bar ) {
-						$data = array( );
-						foreach( $chart["xAxis"]["categories"] as $category ) {
-							$query = $this->db->query("
-								SELECT COUNT(*) AS total
-								FROM msf_consults
-								WHERE msf_consults.id_creator = ?
-								AND LEFT(msf_consults.creation, 10) = ?
-								", array( $bar['id'], $category )
-							);
-
-							$values = $query->row_array();
-							$data[] = (int)$values['total'];
-						}
-
-						$chart['series'][] = array(
-							'name' => $bar['name'],
-							'data' => $data
-						);
-
-						$table['rows'][] = array_merge( array( $bar['name'] ), $data );
-					}
-
-					break;
-			}
-
-		}
-
-		private function reporte_educacion_vs_diagnostico (&$chart, &$table, $groupby, $start, $end) {
-
-			$chart['series'] = array();
-			$newCategories = array();
-
-			$query = $this->db->query("
-				SELECT msf_educations.name AS name, msf_educations.id As id
-				FROM msf_educations, msf_patients, msf_consults
-				WHERE msf_patients.id_education = msf_educations.id
-				AND msf_patients.id = msf_consults.id_patient
-				AND msf_consults.creation >= ?
-				AND msf_consults.creation < ?
-				GROUP BY msf_educations.id
-				ORDER BY msf_educations.name ASC
-			", array( date('Y-m-d', $start ), date('Y-m-d', $end ) ) );
-			$bars = $query->result_array();
-
-			$table['headers'] = array( $table['headers'][0] );
-			foreach( $chart["xAxis"]["categories"] as $category ) {
-				foreach( $bars as $bar ) {
-					$newCategories[] = $bar['name'] . ' - ' . $category;
-					$table['headers'][] = $bar['name'] . ' - ' . $category;
-				}
-			}
-
-			$query = $this->db->query("
-				SELECT msf_diagnostics.name AS name, msf_diagnostics.id As id
-				FROM msf_diagnostics, msf_consults
-				WHERE msf_diagnostics.id = msf_consults.id_diagnostic
-				AND msf_consults.creation >= ?
-				AND msf_consults.creation < ?
-				GROUP BY msf_diagnostics.id
-				ORDER BY msf_diagnostics.name ASC
-			", array( date('Y-m-d', $start ), date('Y-m-d', $end ) ) );
-			$stacks = $query->result_array();
-
-			switch( $groupby ) {
-				case 'total':
-					$chart['plotOptions']['column']['stacking'] = null;
-					foreach( $stacks as $stack ) {
-						$data = array( );
-						foreach( $bars as $bar ) {
-							$query = $this->db->query("
-								SELECT COUNT(*) AS total
-								FROM msf_patients, msf_consults
-								WHERE msf_patients.id = msf_consults.id_patient
-								AND msf_patients.id_education = ?
-								AND msf_consults.id_diagnostic = ?
-								AND msf_consults.creation >= ?
-								AND msf_consults.creation < ?
-								", array( $bar['id'], $stack['id'], date('Y-m-d', $start ), date('Y-m-d', $end ) )
-							);
-
-							$values = $query->row_array();
-							$data[] = (int)$values['total'];
-						}
-
-						$chart['series'][] = array(
-							'name' => $stack['name'],
-							'data' => $data
-						);
-
-						$table['rows'][] = array_merge( array( $stack['name'] ), $data );
-					}
-					break;
-				case 'monthly':
-					$chart['plotOptions']['column']['stacking'] = null;
-					foreach( $stacks as $stack ) {
-						$data = array( );
-						foreach( $chart["xAxis"]["categories"] as $category ) {
-							foreach( $bars as $bar ) {
-								$query = $this->db->query("
-									SELECT COUNT(*) AS total
-									FROM msf_patients, msf_consults
-									WHERE msf_patients.id = msf_consults.id_patient
-									AND msf_patients.id_education = ?
-									AND msf_consults.id_diagnostic = ?
-									AND msf_consults.creation >= ?
-									AND msf_consults.creation < ?
-									AND LEFT(msf_consults.creation, 7) = ?
-									", array( $bar['id'], $stack['id'], date('Y-m-d', $start ), date('Y-m-d', $end ), $category )
-								);
-
-								$values = $query->row_array();
-								$data[] = (int)$values['total'];
-							}
-						}
-
-						$chart['series'][] = array(
-							'name' => $stack['name'],
-							'data' => $data
-						);
-
-						$table['rows'][] = array_merge( array( $stack['name'] ), $data );
-					}
-					break;
-				case 'weekly':
-					$chart['tooltip'] = $chart['tooltipTable'];
-					foreach( $stacks as $stack ) {
-						$data = array( );
-						foreach( $chart["xAxis"]["categories"] as $category ) {
-							foreach( $bars as $bar ) {
-								$query = $this->db->query("
-									SELECT COUNT(*) AS total
-									FROM msf_patients, msf_consults
-									WHERE msf_patients.id = msf_consults.id_patient
-									AND msf_patients.id_education = ?
-									AND msf_consults.id_diagnostic = ?
-									AND msf_consults.creation >= ?
-									AND msf_consults.creation < ?
-									AND LEFT(DATE_ADD(msf_consults.creation, INTERVAL (MOD(DAYOFWEEK(msf_consults.creation)-1, 7)*-1) DAY), 10 ) = ?
-									", array( $bar['id'], $stack['id'], date('Y-m-d', $start ), date('Y-m-d', $end ), $category )
-								);
-
-								$values = $query->row_array();
-								$data[] = (int)$values['total'];
-							}
-						}
-
-						$chart['series'][] = array(
-							'name' => $stack['name'],
-							'data' => $data
-						);
-
-						$table['rows'][] = array_merge( array( $stack['name'] ), $data );
-					}
-					break;
-				case 'daily':
-					$chart['tooltip'] = $chart['tooltipTable'];
-					foreach( $stacks as $stack ) {
-						$data = array( );
-						foreach( $chart["xAxis"]["categories"] as $category ) {
-							foreach( $bars as $bar ) {
-								$query = $this->db->query("
-									SELECT COUNT(*) AS total
-									FROM msf_patients, msf_consults
-									WHERE msf_patients.id = msf_consults.id_patient
-									AND msf_patients.id_education = ?
-									AND msf_consults.id_diagnostic = ?
-									AND LEFT(msf_consults.creation, 10) = ?
-									", array( $bar['id'], $stack['id'], $category )
-								);
-
-								$values = $query->row_array();
-								$data[] = (int)$values['total'];
-							}
-						}
-
-						$chart['series'][] = array(
-							'name' => $stack['name'],
-							'data' => $data
-						);
-
-						$table['rows'][] = array_merge( array( $stack['name'] ), $data );
-					}
-					break;
-			}
-
-			$chart["xAxis"]["categories"] = $newCategories;
-
-		}
-
-		function index2() {
-
-			$data = $this->auth( '', array(
-				'generate_reports' => 'account/account_profile',
-				'view_reports' => 'account/account_profile'
-			) );
-
-			$start = $this->input->post('start');
-			if( !$start )
-				$start = date('Y-m-d', strtotime( "-1 MONTH" ) );
-			$start = strtotime( $start );
-
-			$end = $this->input->post('end');
-			if( !$end )
-				$end = date('Y-m-d' );
-			$end = strtotime( $end );
-
-			$measure = $this->input->post('measure');
-
-			$measures = array(
 				'patients.age_group.id_patient' => 'Grupo de Edad',
+				'patients.gender.id_patient' => 'Género',
+				'account_details.fullname.id_creator' => 'Consejero',
+				'localizations.name.id_patient' => 'Lugar de Origen',
+				'consults_types.name.id_consults_type' => 'Tipo de Consulta',
+				'interventions_types.name.id_interventions_type' => 'Tipo de Intervención',
+				'references.name.id_patient' => 'Referido Desde',
+				'symptoms_categories.name.id_symptoms_category' => 'Categoría de Síntomas',
+				'diagnostics.name.id_diagnostic' => 'Diagnósticos',
+				'references.name.id_referenced_to' => 'Referido Hacia',
+				'consults.psychotropics._boolean' => 'Psycotrópicos',
+				'closures.name.id_closure' => 'Tipo de Cierre',
+				'closures_conditions.name.id_closure_condition' => 'Condición Paciente a la Salida',
+				'consults.id' => 'Total Sesiones',
+				'patients.last_session.id_patient' => 'Duración de la Intervención',
+				'consults.id_closure' => 'Seguimientos',
+				'patients.id_education.id_patient' => 'Educación Vs. Diagnóstico',
+				'consults_types.name.operation_reduction' => 'Tipo de Consulta Vs. Reducción en la Funcionalidad',
+				'risks.name.id_patient' => 'Frecuencia de Factores de Riesgo por Paciente',
+				'patients.age_group.diagnostics' => 'Edades, Diagnósticos',
+				'patients.gender.diagnostics' => 'Géneros, Diagnósticos',
+				'patients.age_group.risks_categories' => 'Edades, Categoría de Factores de Riesgo',
+				'patients.gender.risks_categories' => 'Géneros, Categoría de Factores de Riesgo',
+				'diagnostics.name.risks_categories' => 'Diagnóstico Vs. Categoría de Factor de Riesgo',
+				'localizations.name.gender' => 'Lugar de Origen Vs. Género',
+				'localizations.name.symptoms' => 'Lugar de Origen Vs. Sintomas',
+				'localizations.name.risks_categories' => 'Lugar de Origen Vs. Categoría de Factor de Riesgo',
 			);
 
 			$groupby = $this->input->post('groupby');

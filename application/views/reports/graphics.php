@@ -121,19 +121,23 @@
 		var chart = {};
 		chart = <?= json_encode($chart)?>;
 		console.debug(chart);
-		chart.tooltip.formatter = function () {
-			return [
-				'<b>' + this.x + '</b>',
-				'<br/>',
-				( this.series.options.stack
-					? '<b>' + this.series.options.stack + '</b><br/>'
-					: ''
-				),
-				this.series.name + ': <b>' + this.y + '</b>',
-				'<br/>',
-				'Total: <b>' + this.point.stackTotal + '</b>'
-			].join('');
-		};
+
+		if( chart.tooltip.formatter == 'function') {
+			chart.tooltip.formatter = function () {
+				return [
+					'<b>' + this.x + '</b>',
+					'<br/>',
+					( this.series.options.stack
+							? '<b>' + this.series.options.stack + '</b><br/>'
+							: ''
+					),
+					this.series.name + ': <b>' + this.y + '</b>',
+					'<br/>',
+					( this.point.stackTotal ? 'Total: <b>' + this.point.stackTotal + '</b>' : '' )
+				].join('');
+			};
+		}
+
 		$('.graph-container .segment').highcharts(chart);
 <?php
 	}
